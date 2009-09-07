@@ -1,0 +1,311 @@
+aranym (0.9.9-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Mon, 07 Sep 2009 05:59:52 +0000
+
+aranym (0.9.8beta-1) unstable; urgency=low
+
+  * New upstream release
+  * removed ipmasq from recommended packages
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Sat, 25 Apr 2009 13:46:20 +0000
+
+aranym (0.9.7beta-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Fri, 14 Nov 2008 11:03:02 +0000
+
+aranym (0.9.6beta2-1) unstable; urgency=low
+
+  * New upstream release to address bug in XHDI code which could affect data
+    integrity of PARTITIONs
+  * fixed .desktop in upstream
+  * 32x32 automatic conversion from png to xpm (ImageMagick)
+  * 48x48 icon in png
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 29 Jan 2008 20:44:01 +0000
+
+aranym (0.9.6beta-1) unstable; urgency=low
+
+  * New upstream release, Closes: #455413, #459364, #428355
+  * No strip during 'make install', agreed with upstream, Closes: #436479
+  * added icon /usr/share/pixmaps/aranym.png
+  * added icon /usr/share/icons/hicolor/48x48/apps/aranym.png
+  * added desktop file aranym.desktop
+  * icons added to menu file
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 29 Jan 2008 02:06:15 +0100
+
+aranym (0.9.5beta-1) unstable; urgency=low
+
+  * New upstream release
+  * Large clean up of the debian diff, it contains just debian/ from now
+  * debian/rules invokes make with -f only, -e removed
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 10 Jul 2007 19:09:04 +0000
+
+aranym (0.9.4beta2-1) unstable; urgency=low
+
+  * New upstream release
+  * Added --enable-addressing=direct to MMU build to enable unlimited FastRAM
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 28 Nov 2006 19:08:09 +0100
+
+aranym (0.9.4beta-4) unstable; urgency=low
+
+  * pass build and host to configure from dpkg-architecture, Closes: #394204
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Fri, 27 Oct 2006 15:29:08 +0200
+
+aranym (0.9.4beta-3) unstable; urgency=low
+
+  * applied tweaks from Petr, Closes: #388995
+    (upstream notified)
+  * changed HOSTTYPE detection
+  * added link to AFROS
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Mon, 25 Sep 2006 08:56:31 +0200
+
+aranym (0.9.4beta-2) unstable; urgency=low
+
+  * make package compatible with debhelper 5
+  * clean ups in debian/rules
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Sat, 23 Sep 2006 00:45:46 +0200
+
+aranym (0.9.4beta-1) unstable; urgency=low
+
+  * New upstream release
+  * README.Debian changed
+  * man pages moved to upstream
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Fri, 22 Sep 2006 22:06:19 +0200
+
+aranym (0.9.3beta-1) unstable; urgency=low
+
+  * New upstream release, Closes: #353112 , Closes: #317305
+  * emutos has been removed by upstream, Closes: #343058
+  * added note about FastRAM to doc, Closes: #334750
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed,  1 Mar 2006 08:40:10 +0100
+
+aranym (0.9.0final-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * src/Unix/Makefile.in: Fix build failure with make 3.81+.
+    Thanks to Matt Kraai for the patch.  Closes: #353112.
+  * Automatically update config.{sub,guess} from autotools-dev.
+    Closes: #317305.
+  * debian/aranym-jit.1, debian/aranym-mmu.1, debian/aratapif.1:
+    Fix groff warnings by using named characters.
+  * debian/aranym-jit.substvars: Remove cruft.
+
+ -- Matej Vela <vela@debian.org>  Mon, 27 Feb 2006 11:12:55 +0100
+
+aranym (0.9.0final-1) unstable; urgency=low
+
+  * New upstream release
+  * removed references to fvdi.prg.bz2 which has been removed by 
+    upstream
+  * added --enable-nfjpeg to all targets
+  * added build-dep: libsdl-image1.2-dev
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Sat, 16 Apr 2005 12:45:26 +0200
+
+aranym (0.9.0beta2-3) unstable; urgency=low
+
+  * removed aranym-lilo, take a look to doc/documentations.txt
+  * removed old aranymrc, see doc/config
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Sat, 26 Feb 2005 23:38:42 +0100
+
+aranym (0.9.0beta2-2) unstable; urgency=low
+
+  * added --enable-lilo to mmu version
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 23 Feb 2005 22:40:06 +0100
+
+aranym (0.9.0beta2-1) unstable; urgency=low
+
+  * New upstream release
+  * added --enable-lilo to mmu version
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 23 Feb 2005 20:22:20 +0100
+
+aranym (0.8.11beta-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 17 Nov 2004 23:58:10 +0100
+
+aranym (0.8.10beta-4) unstable; urgency=low
+
+  * fake version, I need to close bugs, but email system doesn't
+    communicate with me
+  * version 0.8.10beta-3 solves, Closes: #264838
+  * version 0.8.10beta-3 solves, Closes: #264921
+  * documentation is in file aranym-lilo.txt, as mentioned with
+    version 0.8.8beta-2, Closes: #255231
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 11 Aug 2004 16:33:14 +0200
+
+aranym (0.8.10beta-3) unstable; urgency=low
+
+  * really removed, ups
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 10 Aug 2004 16:01:48 +0200
+
+aranym (0.8.10beta-2) unstable; urgency=low
+
+  * --enable-lilo removed due portability problems, discussed and
+    forwarded to upstream
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 10 Aug 2004 10:07:12 +0200
+
+aranym (0.8.10beta-1) unstable; urgency=low
+
+  * New upstream release, Closes: #258720
+  * Added --enable-lilo to aranym-mmu target
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Mon,  9 Aug 2004 18:35:13 +0200
+
+aranym (0.8.8beta-2) unstable; urgency=low
+
+  * diskimage is gone, functionality was moved to GUI, Closes: #255234
+  * lilo usage is described in aranym-lilo.txt, Closes: #255231
+    (it is experimental, check aranym mailing list)
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue,  6 Jul 2004 10:21:55 +0200
+
+aranym (0.8.8beta-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue,  6 Jul 2004 09:05:39 +0200
+
+aranym (0.8.7beta-2) unstable; urgency=low
+
+  * changes in man pages of aranym and diskimage, Closes: #255233
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Sun, 20 Jun 2004 21:35:42 +0200
+
+aranym (0.8.7beta-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Thu, 11 Mar 2004 20:01:31 +0100
+
+aranym (0.8.5beta-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed,  7 Jan 2004 19:34:39 +0000
+
+aranym (0.8.2beta-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Sun,  5 Oct 2003 13:56:13 +0200
+
+aranym (0.8.0beta3-2) unstable; urgency=low
+
+  * Changed configure to support sparc architecture
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 22 Apr 2003 13:42:57 -0400
+
+aranym (0.8.0beta3-1) unstable; urgency=low
+
+  * New upstream release
+  * All binaries merget into single package
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 11 Apr 2003 20:09:15 +0100
+
+aranym (0.7.0-2) unstable; urgency=low
+
+  * Building disabled on arm (problem on debian machines, maybe kernel
+    problems) and sparc (gcc 3.2 internal error)
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 11 Mar 2003 08:31:45 +0100
+
+aranym (0.7.0-1) unstable; urgency=low
+
+  * New upstream release
+  * Recompilation under gcc 3.2
+  * Package follows Debian Policy 3.5.8 
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 29 Jan 2003 18:16:01 +0100
+
+aranym (0.6.8-1) unstable; urgency=low
+
+  * New upstream release
+  * etos512k removed, not longer needed
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Mon, 21 Oct 2002 17:59:11 +0200
+
+aranym (0.6.6-3) unstable; urgency=low
+
+  * Final correction of arch probles, Closes: #164862
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 15 Oct 2002 13:23:58 +0200
+
+aranym (0.6.6-2) unstable; urgency=low
+
+  * aranym-jit is only for i386, rules changed, Closes: #164762
+  * corrected grammar in description of aranym-jit, Closes: #164805
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 15 Oct 2002 08:15:07 +0200
+
+aranym (0.6.6-1) unstable; urgency=low
+
+  * New upstream release
+  * Added menu entry, Closes: #161263
+  * Package follows Debian Policy 3.5.7
+  * Package aranym-jit with JIT Compiler enabled is generated
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Sat, 12 Oct 2002 21:30:57 +0200
+
+aranym (0.2.0-1) unstable; urgency=low
+
+  * New upstream release
+  * Included EmuTOS ROM image
+  * Chaged notes in README.Debian and control
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 24 Jul 2002 14:23:49 +0200
+
+aranym (0.1.7-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 19 Jun 2002 07:37:17 +0200
+
+aranym (0.0.21-2) unstable; urgency=low
+
+  * Modification agains include linux/fs.h problem, Closes: #135327
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Mon, 25 Feb 2002 18:12:44 +0100
+
+aranym (0.0.21-1) unstable; urgency=low
+
+  * New upstream release
+  * Some modifications to mainstream Makefile: documentation.txt,
+    aranym.xfs.bz2 (both installations)
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 20 Feb 2002 22:08:53 +0100
+
+aranym (0.0.20-1) unstable; urgency=low
+
+  * New Upstream Release
+  * Shorter lines in desctiption field, Closes: #130993
+  * Corrected misspelled word in the description, Closes: #131149
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 29 Jan 2002 01:28:44 +0100
+
+aranym (0.0.16-1) unstable; urgency=low
+
+  * Initial Debian Release
+    Closes: #129789
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 29 Jan 2002 01:27:20 +0100
+

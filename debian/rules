@@ -1,0 +1,101 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
+DEB_HOST_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE) 
+
+HOSTTYPE = $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+ifeq ($(HOSTTYPE),i586)
+	HOSTTYPE = i386
+endif
+ifeq ($(HOSTTYPE),i686)
+	HOSTTYPE = i386
+endif
+		
+build: build-stamp
+build-stamp:
+	dh_testdir
+
+	([ ! -f Makefile ] || $(MAKE) distclean)
+	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --mandir=/usr/share/man --enable-addressing=direct --enable-nfjpeg && $(MAKE))
+	($(MAKE) install DESTDIR=`pwd`/debian/tmp )
+
+	([ ! -f Makefile ] || $(MAKE) distclean)
+	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --mandir=/usr/share/man --enable-addressing=direct --enable-fullmmu --enable-lilo --enable-nfjpeg && $(MAKE))
+	($(MAKE) install DESTDIR=`pwd`/debian/aranym-mmu )
+	cp `pwd`/debian/aranym-mmu/usr/bin/aranym `pwd`/debian/tmp/usr/bin/aranym-mmu
+
+
+ifeq ($(HOSTTYPE),i386)
+	([ ! -f Makefile ] || $(MAKE) distclean)
+	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --mandir=/usr/share/man --enable-jit-compiler --enable-nfjpeg && $(MAKE))
+	($(MAKE) install DESTDIR=`pwd`/debian/aranym-jit )
+
+	cp `pwd`/debian/aranym-jit/usr/bin/aranym `pwd`/debian/tmp/usr/bin/aranym-jit
+endif
+
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+	rm -rf debian/tmp
+	rm -rf debian/aranym
+	rm -rf debian/aranym-jit
+	rm -rf debian/aranym-mmu
+
+	([ ! -f Makefile ] || $(MAKE) distclean)
+
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_installdirs
+
+	rm -f debian/tmp/usr/share/doc/aranym/COPYING
+	rm -f debian/tmp/usr/share/doc/aranym/INSTALL
+	rm -rf debian/tmp/usr/share/aranym/atari/nfcdrom
+	rm -rf debian/tmp/usr/share/aranym/atari/nfosmesa
+	rm -rf debian/tmp/usr/share/aranym/atari/nfjpeg
+
+	install -m 644 -D `pwd`/contrib/aranym.desktop `pwd`/debian/tmp/usr/share/applications/aranym.desktop
+	mkdir -p `pwd`/debian/tmp/usr/share/pixmaps/
+	convert `pwd`/contrib/icon-32.png `pwd`/debian/tmp/usr/share/pixmaps/aranym.xpm
+	install -m 644 -D `pwd`/contrib/icon-48.png `pwd`/debian/tmp/usr/share/icons/hicolor/48x48/apps/aranym.png
+
+	dh_install
+
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build install binary-common
+
+binary-common:
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installmenu
+	dh_installcron
+	dh_installinfo
+	dh_installchangelogs
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install

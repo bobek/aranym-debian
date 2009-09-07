@@ -1,0 +1,15 @@
+Source: aranym
+Section: otherosfs
+Priority: extra
+Maintainer: Antonin Kral <A.Kral@sh.cvut.cz>
+Homepage: http://www.aranym.org
+Standards-Version: 3.8.3
+Build-Depends: debhelper (>= 5), autotools-dev, bzip2, libsdl1.2-dev, libsdl-image1.2-dev, imagemagick
+
+Package: aranym
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: uml-utilities, bridge-utils
+Conflicts: aranym-jit, aranym-mmu
+Description: Atari Running on Any Machine
+ Virtual Machine for running Atari 32-bit operating systems and applications

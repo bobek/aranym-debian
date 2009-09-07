@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+# Code for meeting decision of technical committee for doc symlink transition from FSSTND to FHS
+
+if [ \( "$1" = "upgrade" -o "$1" = "remove" \) -a -L /usr/doc/aranym ]; then
+  rm -f /usr/doc/aranym
+fi
+
+#DEBHELPER#
+

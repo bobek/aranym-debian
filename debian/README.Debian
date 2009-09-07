@@ -1,0 +1,36 @@
+ARAnyM for Debian
+-------------------------
+
+Project's home page: http://aranym.org
+
+For more information please read README and other files in
+/usr/share/doc/aranym and visit project's web pages at http://aranym.org
+
+Further customization in ~/.aranym/config is still needed (e.g. defining
+path to ROM image, HDD images etc). Template of the configuration file is
+in config file template is in /usr/share/doc/aranym/config
+
+When booting Linux, be sure, that you don't have 
+
+FastRAM=0 
+
+(which is default). System will hang during while decompressing ramdisk.
+
+Bootimage
+---------
+
+  You will need operating system to make ARAnyM useful. We suggest use of
+  AFROS, which could be downloaded from http://aranym.org/afros.html
+
+   NOTE:
+
+	EmuTOS ROM image has been removed, due to conflict with other packages.
+	EmuTOS homepage is http://emutos.sourceforge.net/ . If you decide to
+	recompile it, make sure that you have ARAnyM options enabled. If in doubt
+	please contact <pstehlik@sophics.cz>.
+
+Networking
+----------
+  Check excellent description at http://wiki.debian.org/Aranym/Networking
+
+-- Antonin Kral <A.Kral@sh.cvut.cz>, Wed, 22 Sep 2006

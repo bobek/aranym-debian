@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+# Code for meeting decision of technical committee for doc symlink transition from FSSTND to FHS
+# No longer required
+
+#if [ "$1" = "configure" ]; then
+#  if [ -d /usr/doc -a ! -e /usr/doc/aranym -a -d /usr/share/doc/aranym ]; then
+#    ln -sf ../share/doc/aranym /usr/doc/aranym
+#  fi
+#fi
+
+#DEBHELPER#
+
