@@ -75,20 +75,37 @@ HostSurface *VidelZoom::getSurface(void)
 
 	int hostWidth = host->video->getWidth();
 	int hostHeight = host->video->getHeight();
+	int autozoom_enabled = bx_options.autozoom.enabled;
 
 	zoomWidth = hostWidth;
 	zoomHeight = hostHeight;
 	if ((hostWidth>=videlWidth) && (hostHeight>=videlHeight)) {
-		if (bx_options.autozoom.integercoefs) {
-			int coefx = hostWidth / videlWidth;
-			int coefy = hostHeight / videlHeight;
-			zoomWidth = videlWidth * coefx;
-			zoomHeight = videlHeight * coefy;
+		if (autozoom_enabled) {
+			float coefx, coefy;
+			coefx = (float) hostWidth / (videlWidth * aspect_x);
+			coefy = (float) hostHeight / (videlHeight * aspect_y);
+			if (bx_options.autozoom.integercoefs) {
+				/* Integer coefs */
+				coefx = (float) ((int) coefx);
+				coefy = (float) ((int) coefy);
+			}
+			/* Keep aspect ratio by using smallest coef */
+			if (coefx < coefy) {
+				coefy = coefx;					
+			} else {
+				coefx = coefy;
+			}
+			zoomWidth = videlWidth * aspect_x * coefx;
+			zoomHeight = videlHeight * aspect_y * coefy;
+		} else if ((aspect_x>1) || (aspect_y>1)) {
+			zoomWidth = videlWidth * aspect_x;
+			zoomHeight = videlHeight * aspect_y;
+			autozoom_enabled = 1;
 		}
 	}
 
 	/* Return non zoomed surface if correct size, or zoom not suitable */
-	if (bx_options.opengl.enabled || !bx_options.autozoom.enabled ||
+	if (bx_options.opengl.enabled || !autozoom_enabled ||
 		((zoomWidth==videlWidth) && (zoomHeight==videlHeight))) {
 		return videl_hsurf;
 	}

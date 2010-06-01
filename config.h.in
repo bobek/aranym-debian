@@ -444,7 +444,7 @@
 /* Define if you want to use host CD-ROM driver */
 #undef NFCDROM_SUPPORT
 
-/* Define if you want to use MS-Windows Clipboard */
+/* Define if you want to use X11 clipboard */
 #undef NFCLIPBRD_SUPPORT
 
 /* Define if you want to use host JPEG decoder */
@@ -485,6 +485,9 @@
 
 /* Define to the one symbol short name of this package. */
 #undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
 
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
