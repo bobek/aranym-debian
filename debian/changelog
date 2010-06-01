@@ -1,3 +1,9 @@
+aranym (0.9.10-1) unstable; urgency=low
+
+  * [4fc092f] Imported Upstream version 0.9.10
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 01 Jun 2010 16:52:06 +0200
+
 aranym (0.9.9-1) unstable; urgency=low
 
   * New upstream release
