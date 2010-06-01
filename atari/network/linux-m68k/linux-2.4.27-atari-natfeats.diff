@@ -1,0 +1,173 @@
+--- /tmp/kernel-source-2.4.27-atari/arch/m68k/atari/config.c	2002-11-29 00:53:09.000000000 +0100
++++ kernel-source-2.4.27-atari/arch/m68k/atari/config.c	2005-08-24 23:28:27.000000000 +0200
+@@ -32,6 +32,9 @@
+ #include <linux/delay.h>
+ #include <linux/ioport.h>
+ #include <linux/vt_kern.h>
++#ifdef CONFIG_NATFEAT
++#include "natfeat.h"
++#endif
+ 
+ #include <asm/bootinfo.h>
+ #include <asm/setup.h>
+@@ -237,6 +240,12 @@
+     }
+ }
+ 
++void atari_poweroff(void)
++{
++#ifdef CONFIG_NATFEAT
++    nf_shutdown();
++#endif
++}
+ 
+     /*
+      *  Setup the Atari configuration info
+@@ -248,6 +257,10 @@
+ 
+     memset(&atari_hw_present, 0, sizeof(atari_hw_present));
+ 
++#ifdef CONFIG_NATFEAT
++    nf_init();
++#endif
++
+     atari_debug_init();
+ 
+     ioport_resource.end  = 0xFFFFFFFF;  /* Change size of I/O space from 64KB
+@@ -271,6 +284,8 @@
+     mach_get_irq_list	 = atari_get_irq_list;
+     mach_gettimeoffset   = atari_gettimeoffset;
+     mach_reset           = atari_reset;
++    mach_halt            = atari_poweroff;
++    mach_power_off       = atari_poweroff;
+ #ifdef CONFIG_ATARI_FLOPPY
+     mach_floppy_setup	 = atari_floppy_setup;
+ #endif
+@@ -669,6 +684,11 @@
+ 
+ static void atari_get_model(char *model)
+ {
++#ifdef CONFIG_NATFEAT
++    if (nf_name1(model, 80)) {	// char model[80] defined in kernel/setup.c
++	return;
++    }
++#endif
+     strcpy(model, "Atari ");
+     switch (atari_mch_cookie >> 16) {
+ 	case ATARI_MCH_ST:
+--- /tmp/kernel-source-2.4.27-atari/arch/m68k/atari/Makefile	2002-11-29 00:53:09.000000000 +0100
++++ kernel-source-2.4.27-atari/arch/m68k/atari/Makefile	2005-08-24 02:44:28.000000000 +0200
+@@ -20,4 +20,6 @@
+ obj-$(CONFIG_HADES)	+= hades-pci.o
+ endif
+ 
++obj-$(CONFIG_NATFEAT)	+= natfeat.o
++
+ include $(TOPDIR)/Rules.make
+--- /tmp/kernel-source-2.4.27-atari/drivers/net/Makefile	2004-08-08 01:26:04.000000000 +0200
++++ kernel-source-2.4.27-atari/drivers/net/Makefile	2005-10-25 09:36:20.000000000 +0200
+@@ -227,6 +227,7 @@
+ obj-$(CONFIG_ATARILANCE) += atarilance.o
+ obj-$(CONFIG_ATARI_BIONET) += atari_bionet.o
+ obj-$(CONFIG_ATARI_PAMSNET) += atari_pamsnet.o
++obj-$(CONFIG_ATARI_NFETH) += atari_nfeth.o
+ obj-$(CONFIG_A2065) += a2065.o
+ obj-$(CONFIG_HYDRA) += hydra.o 8390.o
+ obj-$(CONFIG_ARIADNE) += ariadne.o
+--- /tmp/kernel-source-2.4.27-atari/.config	2005-08-03 21:38:35.000000000 +0200
++++ kernel-source-2.4.27-atari/.config	2005-08-25 00:27:49.000000000 +0200
+@@ -27,6 +27,8 @@
+ CONFIG_ATARI=y
+ # CONFIG_HADES is not set
+ # CONFIG_PCI is not set
++CONFIG_ARANYM=y
++CONFIG_NATFEAT=y
+ # CONFIG_MAC is not set
+ # CONFIG_APOLLO is not set
+ # CONFIG_VME is not set
+@@ -371,6 +373,7 @@
+ CONFIG_ATARILANCE=m
+ # CONFIG_ATARI_BIONET is not set
+ # CONFIG_ATARI_PAMSNET is not set
++CONFIG_ATARI_NFETH=y
+ 
+ #
+ # Character devices
+--- /tmp/kernel-source-2.4.27-atari/arch/m68k/config.in	2005-08-03 21:38:18.000000000 +0200
++++ kernel-source-2.4.27-atari/arch/m68k/config.in	2005-08-24 23:31:08.000000000 +0200
+@@ -38,6 +38,12 @@
+ else
+    define_bool CONFIG_PCI n
+ fi  
++dep_bool '  ARAnyM support' CONFIG_ARANYM $CONFIG_ATARI
++if [ "$CONFIG_ARANYM" = "y" ]; then
++   define_bool CONFIG_NATFEAT y
++else
++   define_bool CONFIG_NATFEAT n
++fi  
+ bool 'Macintosh support' CONFIG_MAC
+ if [ "$CONFIG_MAC" = "y" ]; then
+    define_bool CONFIG_NUBUS y
+@@ -356,6 +362,9 @@
+ 	    tristate '  BioNet-100 support' CONFIG_ATARI_BIONET
+ 	    tristate '  PAMsNet support' CONFIG_ATARI_PAMSNET
+ 	 fi
++	 if [ "$CONFIG_NATFEAT" = "y" ]; then
++	    tristate '  NatFeat Ethernet support' CONFIG_ATARI_NFETH
++	 fi
+       fi
+       if [ "$CONFIG_SUN3" = "y" -o "$CONFIG_SUN3X" = "y" ]; then
+ 	tristate '  Sun3/Sun3x on-board LANCE support' CONFIG_SUN3LANCE
+--- /tmp/kernel-source-2.4.27-atari/Documentation/Configure.help	2005-08-03 21:38:18.000000000 +0200
++++ kernel-source-2.4.27-atari/Documentation/Configure.help	2005-08-24 23:47:00.000000000 +0200
+@@ -23555,6 +23555,13 @@
+   This option enables support for the Hades Atari clone. If you plan
+   to use this kernel on a Hades, say Y here; otherwise say N.
+ 
++ARAnyM support
++CONFIG_ARANYM
++  This option enables support for the ARAnyM virtual machine. If you plan
++  to use this kernel on ARAnyM, say Y here; otherwise say N.
++  Currently it just enables support for Native Features - a common
++  API for accessing host hardware from within the virtual machine.
++
+ Macintosh support
+ CONFIG_MAC
+   This option enables support for the Apple Macintosh series of
+@@ -24012,6 +24019,16 @@
+   ACSI port ("ACSI node"). The driver works (has to work...) with a
+   polled I/O scheme, so it's rather slow :-(
+ 
++ARAnyM networking support
++CONFIG_ATARI_NFETH
++  Say Y to include support for the NatFeat based Ethernet driver
++  currently available in ARAnyM virtual machine.
++
++  This driver is also available as a module ( = code which can be
++  inserted in and removed from the running kernel whenever you
++  want). The module is called atari_nfeth.o. If you want to compile it as a
++  module, say M here and read <file:Documentation/modules.txt>.
++
+ Amiga mouse support
+ CONFIG_AMIGAMOUSE
+   If you want to be able to use an Amiga mouse in Linux, say Y.
+--- /tmp/kernel-source-2.4.27-atari/drivers/net/Space.c	2005-08-03 21:38:18.000000000 +0200
++++ kernel-source-2.4.27-atari/drivers/net/Space.c	2005-08-19 23:02:49.000000000 +0200
+@@ -84,6 +84,7 @@
+ extern int seeq8005_probe(struct net_device *);
+ extern int smc_init( struct net_device * );
+ extern int atarilance_probe(struct net_device *);
++extern int atari_nfeth_probe(struct net_device *);
+ extern int sun3lance_probe(struct net_device *);
+ extern int sun3_82586_probe(struct net_device *);
+ extern int apne_probe(struct net_device *);
+@@ -333,6 +334,9 @@
+ #ifdef CONFIG_ATARILANCE	/* Lance-based Atari ethernet boards */
+ 	{atarilance_probe, 0},
+ #endif
++#ifdef CONFIG_ATARI_NFETH
++	{atari_nfeth_probe, 0},
++#endif
+ #ifdef CONFIG_SUN3LANCE         /* sun3 onboard Lance chip */
+ 	{sun3lance_probe, 0},
+ #endif

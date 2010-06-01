@@ -1,0 +1,39 @@
+hostfs.xfs
+==========
+
+The .xfs driver is now maintained in the FreeMiNT CVS repository.
+
+
+hostfs.dos
+==========
+
+This is the MetaDOS driver that makes use of the NatFeat .XFS
+interface. Basicaly it is the FreeMiNT file IO GEMDOS
+implementation (FreeMiNT_CVS/sys/ dosfile.c dosdir.c)
+mangled so that it compiles as a standalone binary.
+
+
+Installation
+------------
+MetaDOS driver:
+ * copy new hostfs.dos to your AUTO folder and add the entries
+   into your bdconfig.sys, as follows:
+
+   \AUTO\HOSTFS.DOS, E:E
+   \AUTO\HOSTFS.DOS, F:F
+
+   This example maps drives E: and F:.
+
+
+BUGS
+----
+hostfs.dos
+ - relocatable programs crash due to a serious bug in MetaDOS. Use BetaDOS
+   instead (version 3.12+ might be available at
+   http://www.ettnet.se/~dlanor/main/html/ra_files.htm).
+
+
+Compilation
+-----------
+ * use make.sh to compile
+ * the binary is placed into the bin subfolder

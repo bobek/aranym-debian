@@ -1,0 +1,19 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                debug = id; 
+                makeFullscreen = id; 
+                makeScreenshot = id; 
+                quit = id; 
+                reboot = id; 
+                showPrefs = id; 
+            }; 
+            CLASS = SDLMain; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

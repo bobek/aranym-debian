@@ -1,0 +1,12 @@
+These are the first basic tools for Aranym:
+
+- CLOCKY.PRG that write actual mouse position to $f9000e/$f90010
+  (It was faster to implement it into Clocky (TM) than to write a new TSR).
+  Clocky by default do not alter the keyboard layout now. Get full
+  Clocky 3.0 distribution at http://joy.atari.org/ - there's a nice editor
+  of keyboard layout.
+
+- PCPATCH.PRG that patches PureC (PC.PRG) to be able to compile
+  projects and files from the BetaDOS driven filesystem.
+
+Petr

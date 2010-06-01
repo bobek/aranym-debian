@@ -1,0 +1,81 @@
+# 
+# cross compiling
+#
+ifneq (yes,$(M68K_ATARI_MINT_CROSS))
+CROSS = no
+else
+CROSS = yes
+endif
+
+#
+# target and host compiler
+# 
+ifeq ($(CROSS),yes)
+
+CROSSPREFIX=m68k-atari-mint-
+
+NATIVECC = gcc
+NATIVECFLAGS = -O -Wall
+CRLF = echo crlf -s
+
+# e.g. when you don't have the mintlib/gemlib/cflib in
+#      the /usr/m68k-atari/mint
+GENERAL = $(M68K_ATARI_MINT_CFLAGS) $(M68K_ATARI_MINT_LDFLAGS)
+
+else
+
+CROSSPREFIX=
+
+NATIVECC = gcc
+NATIVECFLAGS = -O -Wall
+CRLF  = crlf -s
+
+endif
+
+CC = $(CROSSPREFIX)gcc
+AS = $(CC)
+AR = $(CROSSPREFIX)ar
+RANLIB = $(CROSSPREFIX)ranlib
+STRIP = $(CROSSPREFIX)strip
+FLAGS = $(CROSSPREFIX)flags
+
+# 
+# some tools
+# 
+YACC  = bison -dk
+LEX   = flex
+MV    = mv
+CP    = cp
+RM    = rm -f
+TOUCH = touch
+MKDIR = mkdir
+SED   = sed
+
+#
+# optimizations
+# 
+OPTS = -O2 -finline-functions -fomit-frame-pointer
+
+
+#
+# warning options
+#
+WARN = \
+	-Wall \
+	-Wmissing-prototypes \
+	-Wshadow \
+	-Wpointer-arith \
+	-Wcast-qual \
+	-Waggregate-return
+
+#	-Winline \
+#
+# default definitions
+#
+DEFINITIONS = 
+
+
+#
+# model type
+#
+MODEL = 
