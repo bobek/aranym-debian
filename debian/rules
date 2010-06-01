@@ -28,7 +28,8 @@ build-stamp:
 	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --mandir=/usr/share/man --enable-addressing=direct --enable-fullmmu --enable-lilo --enable-nfjpeg && $(MAKE))
 	($(MAKE) install DESTDIR=`pwd`/debian/aranym-mmu )
 	cp `pwd`/debian/aranym-mmu/usr/bin/aranym `pwd`/debian/tmp/usr/bin/aranym-mmu
-
+	
+	cp `pwd`/debian/menu-other `pwd`/debian/menu
 
 ifeq ($(HOSTTYPE),i386)
 	([ ! -f Makefile ] || $(MAKE) distclean)
@@ -36,6 +37,8 @@ ifeq ($(HOSTTYPE),i386)
 	($(MAKE) install DESTDIR=`pwd`/debian/aranym-jit )
 
 	cp `pwd`/debian/aranym-jit/usr/bin/aranym `pwd`/debian/tmp/usr/bin/aranym-jit
+
+	cp `pwd`/debian/menu-i386 `pwd`/debian/menu
 endif
 
 	touch build-stamp
@@ -48,6 +51,7 @@ clean:
 	rm -rf debian/aranym
 	rm -rf debian/aranym-jit
 	rm -rf debian/aranym-mmu
+	rm -f debian/menu
 
 	([ ! -f Makefile ] || $(MAKE) distclean)
 
