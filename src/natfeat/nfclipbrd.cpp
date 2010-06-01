@@ -1,7 +1,7 @@
 /*
  * nfclipbrd.cpp - NatFeat Clipboard
  *
- * Copyright (c) 2006 Standa Opichal of ARAnyM dev team (see AUTHORS)
+ * Copyright (c) 2006-2009 Standa Opichal of ARAnyM dev team (see AUTHORS)
  * 
  * This file is part of the ARAnyM project which builds a new and powerful
  * TOS/FreeMiNT compatible virtual machine running on almost any hardware.
@@ -25,18 +25,13 @@
 #include "nfclipbrd.h"
 #include "nfclipbrd_nfapi.h"
 
-#ifdef OS_cygwin
-
-/* from Unix/cygwin/clipbrd_cygwin.cpp
- * FIXME: generalize for all OSes -> make C++ Clipboarc class? */
-void write_aclip(char *data, int len);
-char * read_aclip( int *len);
-
+int init_aclip();
+void write_aclip(char *data, size_t len);
+char * read_aclip(size_t *len);
 
 #define DEBUG 0
 #include "debug.h"
 
-// load a TOS executable to the designated address
 int32 ClipbrdNatFeat::dispatch(uint32 fncode)
 {
 	switch(fncode) {
@@ -53,71 +48,91 @@ int32 ClipbrdNatFeat::dispatch(uint32 fncode)
 		case CLIP_WRITE:
 			return write( getParameter(0), getParameter(1), getParameter(2), getParameter(3) );
 
-		default:;
-				return -1;
+		default:
+			return -1;
+	}
+}
+
+void ClipbrdNatFeat::reset()
+{
+	D(bug("clipbrd: reset"));
+	if (init_aclip() < 0) {
+		; // TODO disable clipboard
 	}
 }
 
 int32 ClipbrdNatFeat::open(uint32 id, uint32 mode)
 {
-	(void)id; (void)mode;
+	DUNUSED(id);
 	D(bug("clipbrd: open id=%ld mode=%ld", id, mode));
+	is_read = (mode == 1);
+	clip_len = 0;
+	if (clip_buf) {
+		delete clip_buf;
+		clip_buf = NULL;
+	}
+	if (is_read) {
+		clip_buf = read_aclip(&clip_len);
+		if (!clip_buf) {
+			clip_len = 0;
+		}
+	}
 	return 0;
 }
 
 int32 ClipbrdNatFeat::close(uint32 id)
 {
-	(void)id;
+	DUNUSED(id);
 	D(bug("clipbrd: close id=%ld", id));
+	if (clip_buf) {
+		if (!is_read && clip_len > 0) {
+			write_aclip(clip_buf, clip_len);
+		}
+		delete clip_buf;
+		clip_buf = NULL;
+	}
 	return 0;
 }
 
 int32 ClipbrdNatFeat::read(uint32 id, memptr buff, uint32 size, uint32 pos)
 {
-	int len;
-	char *data = read_aclip( &len);
-
-	(void)id;
+	DUNUSED(id);
+	int len = (clip_len - pos > size) ? size : clip_len - pos;
 	D(bug("clipbrd: read pos=%ld, len=%ld", pos, len));
 
-	len = len-pos>size ? size : len-pos;
-	if ( data ) {
-		if ( len < 0 ) len = 0; 
-		if ( len ) Host2Atari_memcpy(buff, data + pos, len);
-		delete []data;
+
+	if (clip_buf) {
+		if (len < 0) len = 0; 
+		else if (len) Host2Atari_memcpy(buff, clip_buf + pos, len);
 	}
 	return len;
 }
 
 int32 ClipbrdNatFeat::write(uint32 id, memptr buff, uint32 len, uint32 pos)
 {
-	int clen;
-	char *cdata = read_aclip( &clen);
-	char *data = new char[pos+len];
-
-	(void)id;
+	DUNUSED(id);
 	D(bug("clipbrd: write pos=%ld, len=%d", pos, len));
 
-	if ( cdata ) {
-		memcpy( data, cdata, clen>(long)(pos+len) ? pos : clen);
-		delete []cdata;
-	}
+	size_t newlen = pos + len;
+	char *newbuf = new char[newlen];
 
-	Atari2Host_memcpy(data + pos, buff, len);
+	if (clip_buf) {
+		memcpy(newbuf, clip_buf, (clip_len > newlen) ? pos : clip_len);
+		delete clip_buf;
+	}
+	clip_buf = newbuf;
+	clip_len = newlen;
+
+	Atari2Host_memcpy(clip_buf + pos, buff, len);
 
 	/* send to host os
 	 *
 	 * shortens the clip to pos+len (expects the writes to come sequentially
 	 * and therefore the last write sets the complete clipboard contents)
 	 */
-	write_aclip( data, pos+len);
-
-	delete []data;
+	write_aclip(clip_buf, clip_len);
+	
 	return len;
 }
 
-#endif
-
-/*
-vim:ts=4:sw=4:
-*/
+// don't remove this modeline with intended formatting for vim:ts=4:sw=4:

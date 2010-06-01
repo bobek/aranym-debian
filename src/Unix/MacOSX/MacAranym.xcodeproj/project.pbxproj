@@ -236,6 +236,9 @@
 		17EC08D70ECB82B200100ED7 /* joypads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17EC080A0ECB774200100ED7 /* joypads.cpp */; };
 		17EC08D80ECB82B700100ED7 /* joypads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17EC080A0ECB774200100ED7 /* joypads.cpp */; };
 		17EC08D90ECB82BA00100ED7 /* joypads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17EC080A0ECB774200100ED7 /* joypads.cpp */; };
+		17F10C641066C16500BDE380 /* clipbrd_darwin.M in Sources */ = {isa = PBXBuildFile; fileRef = 17F10C631066C16500BDE380 /* clipbrd_darwin.M */; };
+		17F10C651066C16500BDE380 /* clipbrd_darwin.M in Sources */ = {isa = PBXBuildFile; fileRef = 17F10C631066C16500BDE380 /* clipbrd_darwin.M */; };
+		17F10C661066C16500BDE380 /* clipbrd_darwin.M in Sources */ = {isa = PBXBuildFile; fileRef = 17F10C631066C16500BDE380 /* clipbrd_darwin.M */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		B41F6DAA0C646F0E00868C14 /* MacAranym JIT IEEE.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = B439AC9B0C5B2FD00046EFC9 /* MacAranym JIT IEEE.app */; };
 		B428FAF70C7BA7100039CA66 /* aranym.nib in Resources */ = {isa = PBXBuildFile; fileRef = B428FAF50C7BA7100039CA66 /* aranym.nib */; };
@@ -679,7 +682,6 @@
 		17798DB10A652B51009733EB /* parameters.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = parameters.cpp; path = ../../parameters.cpp; sourceTree = SOURCE_ROOT; };
 		17798DB20A652B51009733EB /* romdiff.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = romdiff.cpp; path = ../../romdiff.cpp; sourceTree = SOURCE_ROOT; };
 		17798DB30A652B51009733EB /* rtc.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = rtc.cpp; path = ../../rtc.cpp; sourceTree = SOURCE_ROOT; };
-		17798DB40A652B51009733EB /* template.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = template.cpp; path = ../../template.cpp; sourceTree = SOURCE_ROOT; };
 		17798DB50A652B51009733EB /* tools.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = tools.cpp; path = ../../tools.cpp; sourceTree = SOURCE_ROOT; };
 		17798DB70A652B51009733EB /* aranym_glue.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; path = aranym_glue.cpp; sourceTree = "<group>"; };
 		17798DB80A652B51009733EB /* build68k.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; path = build68k.c; sourceTree = "<group>"; };
@@ -777,7 +779,6 @@
 		17B2B78D0C41785800595D44 /* libOSMesa.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libOSMesa.7.dylib; path = MesaGL/lib/libOSMesa.7.dylib; sourceTree = "<group>"; };
 		17BCD68C0B20BFDB00432CE1 /* config.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = config.h; path = build/MacAranym.build/config.h; sourceTree = "<group>"; };
 		17BCD6C60B20C34400432CE1 /* cputbl.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = cputbl.h; path = build/MacAranym.build/Release/MacAranym.build/DerivedSources/cputbl.h; sourceTree = "<group>"; };
-		17BCD6E00B20C4C200432CE1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.make; name = Makefile; path = build/MacAranym.build/Makefile; sourceTree = "<group>"; };
 		17BCD7E90B20F65000432CE1 /* MacAranym MMU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MacAranym MMU.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		17BCD8B00B21004100432CE1 /* AUTHORS */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = AUTHORS; path = ../../../AUTHORS; sourceTree = SOURCE_ROOT; };
 		17BCD8B10B21004100432CE1 /* BUGS */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = BUGS; path = ../../../BUGS; sourceTree = SOURCE_ROOT; };
@@ -802,6 +803,8 @@
 		17EC08050ECB76FD00100ED7 /* joypads.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = joypads.h; sourceTree = "<group>"; };
 		17EC080A0ECB774200100ED7 /* joypads.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = joypads.cpp; path = ../../joypads.cpp; sourceTree = "<group>"; };
 		17EC08D20ECB829E00100ED7 /* audio_conv.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = audio_conv.cpp; path = ../../audio_conv.cpp; sourceTree = "<group>"; };
+		17F10C631066C16500BDE380 /* clipbrd_darwin.M */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = clipbrd_darwin.M; path = darwin/clipbrd_darwin.M; sourceTree = "<group>"; };
+		17FFD47E106953D40084B493 /* clipbrd_x11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clipbrd_x11.cpp; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107320486CEB800E47090 /* MacAranym.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacAranym.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1001,7 +1004,6 @@
 				17798DB10A652B51009733EB /* parameters.cpp */,
 				17798DB20A652B51009733EB /* romdiff.cpp */,
 				17798DB30A652B51009733EB /* rtc.cpp */,
-				17798DB40A652B51009733EB /* template.cpp */,
 				17798DB50A652B51009733EB /* tools.cpp */,
 				17798E8B0A652B52009733EB /* videl.cpp */,
 				F83B576C0C8B1F0100BA68D4 /* videl_zoom.cpp */,
@@ -1273,6 +1275,7 @@
 				17798DEA0A652B51009733EB /* ansidecl.h */,
 				17798DEB0A652B51009733EB /* aratapif.c */,
 				17798DEC0A652B51009733EB /* autogen.sh */,
+				17FFD47E106953D40084B493 /* clipbrd_x11.cpp */,
 				17798DF60A652B51009733EB /* config.guess */,
 				17798DF90A652B51009733EB /* config.log */,
 				17798DFB0A652B51009733EB /* config.sub */,
@@ -1356,7 +1359,6 @@
 				17AAE3630A666BC100301447 /* cpuemu.cpp */,
 				17E8B58B0ABC82DD00BBFD59 /* cpuemu_i386.cpp */,
 				17E8B58C0ABC82DD00BBFD59 /* cpuemu_ppc.cpp */,
-				17BCD6E00B20C4C200432CE1 /* Makefile */,
 			);
 			name = "Generated Sources";
 			sourceTree = "<group>";
@@ -1430,6 +1432,7 @@
 				B4844A6B0C7BA262003FE2D2 /* aranym.icns */,
 				B4844A6C0C7BA262003FE2D2 /* aranym2.icns */,
 				B4844A6D0C7BA262003FE2D2 /* busybee.icns */,
+				17F10C631066C16500BDE380 /* clipbrd_darwin.M */,
 				B4844A6E0C7BA262003FE2D2 /* host_filesys_darwin.M */,
 				B4844A6F0C7BA262003FE2D2 /* Info.plist */,
 				B4844A700C7BA262003FE2D2 /* parameters_darwin.cpp */,
@@ -1574,7 +1577,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		17AAB2A80B20A8150016FB8D /* Create Diskimage */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -1582,11 +1585,10 @@
 			name = "Create Diskimage";
 			outputPaths = (
 				"$(TARGET_BUILD_DIR)/aranym-*-macosx.dmg",
-				"$(SHARED_DERIVED_FILE_DIR)/aranym_version",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "VERSION=`\"$SHARED_DERIVED_FILE_DIR/aranym_version\" | awk '{FS=\" \"}{print $2}'`\n\ncd \"$TARGET_BUILD_DIR/aranym-xxx-macosx/DOC\"\necho \"Processing text files...\"\nDATE=`date '+%Y\\/%m\\/%d'`\nmv COPYING ..\ncat README.rtf \\\n\t| sed \"s/(\\*VERSION\\*)/$VERSION/g\" \\\n\t| sed \"s/(\\*DATE\\*)/$DATE/g\" \\\n\t> ../README.rtf\nrm README.rtf\n\ncd \"$TARGET_BUILD_DIR/aranym-xxx-macosx\"\nVERSION=`echo \"-$VERSION\" | sed 's/ //g;s/-//g'`\nDMGNAME=$TARGET_BUILD_DIR/aranym-$VERSION-macosx.dmg\necho \"Building disk image $DMGNAME...\"\nhdiutil create \"$DMGNAME\" -ov -volname \"MacAranym $VERSION\" -srcfolder . -format UDZO\nexit $?";
+			shellScript = "VERSION=`\"$CONFIGURATION_TEMP_DIR/MacAranym.build/DerivedSources/aranym_version\" | awk '{FS=\" \"}{print $2}'`\n\ncd \"$TARGET_BUILD_DIR/aranym-xxx-macosx/DOC\"\necho \"Processing text files...\"\nDATE=`date '+%Y\\/%m\\/%d'`\nmv COPYING ..\ncat README.rtf \\\n\t| sed \"s/(\\*VERSION\\*)/$VERSION/g\" \\\n\t| sed \"s/(\\*DATE\\*)/$DATE/g\" \\\n\t> ../README.rtf\nrm README.rtf\n\ncd \"$TARGET_BUILD_DIR/aranym-xxx-macosx\"\nVERSION=`echo \"-$VERSION\" | sed 's/ //g;s/-//g'`\nDMGNAME=$TARGET_BUILD_DIR/aranym-$VERSION-macosx.dmg\necho \"Building disk image $DMGNAME...\"\nhdiutil create \"$DMGNAME\" -ov -volname \"MacAranym $VERSION\" -srcfolder . -format UDZO\nexit $?";
 			showEnvVarsInLog = 0;
 		};
 		17AAB3240B20AF440016FB8D /* Run configure */ = {
@@ -1598,15 +1600,12 @@
 			);
 			name = "Run configure";
 			outputPaths = (
-				"$(DERIVED_FILES_DIR)/Makefile",
 				"$(DERIVED_FILES_DIR)/config.h",
-				"$(DERIVED_FILES_DIR)/config_i386.h",
-				"$(DERIVED_FILES_DIR)/config_ppc.h",
-				"$(TARGET_TEMP_DIR)/configure_options",
+				"$(DERIVED_FILES_DIR)/configure_options",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#################### CONFIGURE SYSTEM ################\n# Check if configure script has to be run\necho \"Checking configure options: $CONFIGURE_OPTIONS\"\nOPTIONS_FILE=$TARGET_TEMP_DIR/configure_options\nFILE_CONTENT=`cat \"$OPTIONS_FILE\" 2>/dev/null`\nif [ \\( -f \"$OPTIONS_FILE\" \\) -a \\( \"$FILE_CONTENT\" == \"$CONFIGURE_OPTIONS\" \\) ]; then\n\techo \"config.h still valid\"\t\n\texit 0\nfi\n\necho \"Running configure script\"\n\n# Check if PROJECT_DIR variable is set (Xcode 2.x)\nif [ -z \"$PROJECT_DIR\" ]; then\n\techo '$PROJECT_DIR was not declared. Setting variable:'\n\told_dir=$PWD\n\tcd \"$BUILD_DIR/..\"\n\texport PROJECT_DIR=\"$PWD\"\n\tcd $old_dir\n\techo \"\t\\$PROJECT_DIR = $PROJECT_DIR\"\n\techo\nfi\n\t\n# Make sure makedepend can be found\nexport PATH=\"$PATH:/usr/X11R6/bin\"\n\n# Make sure SDL.m4 can be found\nexport ACLOCAL_FLAGS=\"-I $PROJECT_DIR/../darwin\"\n\n# Make sure SDL.framework can be found\nexport LDFLAGS=-F$PROJECT_DIR\nexport DYLD_FRAMEWORK_PATH=$PROJECT_DIR\n\nCHANGELOG_FILE=$SOURCE_DIR/../ChangeLog\nVERSIONDATE_FILE=$DERIVED_FILES_DIR/version_date.h\n\nmkdir -p \"$DERIVED_FILES_DIR\"\n\ncd \"$SOURCE_DIR/..\"\n\n# Remove old files\nrm -rf Makefile autom4te.cache aclocal.m4 config.h config.log 2>/dev/null\n\n# Generate configure script\nif [ -f autogen.sh ]; then\n\texport NO_CONFIGURE=yes\n\t./autogen.sh\nfi\n\n# Configure system for all build architectures\necho \"\" > \"$DERIVED_FILES_DIR/config.h\"\nfor ARCH in $ARCHS ; do\n\tCPU_TYPE=$(eval echo $(echo \\$CPU_TYPE_$ARCH))\n\techo \"Running $CONFIG_EXEC for $ARCH architecture / $CPU_TYPE\"\n\t./configure $CONFIGURE_OPTIONS --host=$ARCH-apple-darwin || exit 1\n\n\tif [ \"$ARCH\" = \"ppc\" ]; then\n\t\t# 10.3.9 compatibility:\n\t\tcat config.h | sed 's/#define HAVE_SYS_STATVFS_H 1/\\/* #undef HAVE_SYS_STATVFS_H *\\//' > config_$ARCH.h\n\t\trm config.h\n\telse\n\t\tmv config.h config_$ARCH.h\n\tfi\n\tcat  >> \"$DERIVED_FILES_DIR/config.h\" << EOF\n#ifdef $CPU_TYPE\n#include \"config_$ARCH.h\"\n#endif\n\nEOF\n\tmv config_$ARCH.h \"$DERIVED_FILES_DIR\"\ndone\nmv Makefile \"$DERIVED_FILES_DIR\"\n\n# Create version_date.h\necho '/* generated from ChangeLog */' > $VERSIONDATE_FILE\ngrep -m 1 '^20[0-9][0-9]/[0-9][0-9]/[0-9][0-9]' $CHANGELOG_FILE | sed 's/^\\(20[0-9][0-9]\\/[0-9]*\\/[0-9]*\\).*/#define VERSION_DATE \"\\1\"/;q'  >> $VERSIONDATE_FILE\n\n# Remember configure options for next script execution\nmkdir -p \"$TARGET_TEMP_DIR\" 2>/dev/null\necho \"$CONFIGURE_OPTIONS\" > \"$OPTIONS_FILE\"\nexit 0";
+			shellScript = "#################### CONFIGURE SYSTEM ################\n# Check if configure script has to be run\necho \"Checking configure options: $CONFIGURE_OPTIONS\"\nOPTIONS_FILE=$DERIVED_FILES_DIR/configure_options\nFILE_CONTENT=`cat \"$OPTIONS_FILE\" 2>/dev/null`\nif [ \\( -f \"$OPTIONS_FILE\" \\) -a \\( \"$FILE_CONTENT\" == \"$CONFIGURE_OPTIONS\" \\) ]; then\n\techo \"config.h still valid\"\t\n\texit 0\nfi\n\necho \"Running configure script\"\n\n# Check if PROJECT_DIR variable is set (Xcode 2.x)\nif [ -z \"$PROJECT_DIR\" ]; then\n\techo '$PROJECT_DIR was not declared. Setting variable:'\n\told_dir=$PWD\n\tcd \"$BUILD_DIR/..\"\n\texport PROJECT_DIR=\"$PWD\"\n\tcd $old_dir\n\techo \"\t\\$PROJECT_DIR = $PROJECT_DIR\"\n\techo\nfi\n\n# Make sure makedepend can be found\nexport PATH=\"$PATH:/usr/X11R6/bin\"\n\n# Make sure SDL.m4 can be found\nexport ACLOCAL_FLAGS=\"-I $PROJECT_DIR/../darwin\"\n\n# Make sure SDL.framework can be found\nexport LDFLAGS=-F$PROJECT_DIR\nexport DYLD_FRAMEWORK_PATH=$PROJECT_DIR\n\nmkdir -p \"$DERIVED_FILES_DIR\"\n\ncd \"$SOURCE_DIR/..\"\n\n# Remove old files\nrm -rf Makefile autom4te.cache aclocal.m4 config.h config.log 2>/dev/null\n\n# Generate configure script\nif [ -f autogen.sh ]; then\n\texport NO_CONFIGURE=yes\n\t./autogen.sh\nfi\n\n# Configure system for all build architectures\necho \"\" > \"$DERIVED_FILES_DIR/config.h\"\nfor ARCH in $ARCHS ; do\n\tCPU_TYPE=$(eval echo $(echo \\$CPU_TYPE_$ARCH))\n\techo \"Running configure for $ARCH architecture / $CPU_TYPE\"\n\t./configure $CONFIGURE_OPTIONS --host=$ARCH-apple-darwin || exit 1\n\n\tif [ \"$ARCH\" = \"ppc\" ]; then\n\t\t# 10.3.9 compatibility:\n\t\tcat config.h | sed 's/#define HAVE_SYS_STATVFS_H 1/\\/* #undef HAVE_SYS_STATVFS_H *\\//' > config_$ARCH.h\n\t\trm config.h\n\telse\n\t\tmv config.h config_$ARCH.h\n\tfi\n\tcat  >> \"$DERIVED_FILES_DIR/config.h\" << EOF\n#ifdef $CPU_TYPE\n#include \"config_$ARCH.h\"\n#endif\n\nEOF\n\tmv config_$ARCH.h \"$DERIVED_FILES_DIR\"\n\tmv Makefile \"$DERIVED_FILES_DIR/Makefile_$ARCH\"\ndone\n\n# Remember configure options for next script execution\necho \"$CONFIGURE_OPTIONS\" > \"$OPTIONS_FILE\"\n\nexit 0";
 			showEnvVarsInLog = 0;
 		};
 		17AAB32E0B20AFF50016FB8D /* Build CPU source files */ = {
@@ -1626,7 +1625,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "########################## BUILD CPU EMULATION CORE ##########################\n\nmkdir -p \"$DERIVED_FILES_DIR\" && cd \"$DERIVED_FILES_DIR\" || exit 1\nTRANSFERRED=`rsync -pogt --stats cpudefs.cpp cpuemu.cpp cpuemu_*.cpp cputbl.h cpustbl.cpp Makefile config*.h \"$PROJECT_TEMP_DIR\" \\\n\t\t\t\t2>/dev/null | grep \"transferred:\"| awk '{print $5}'`\nRET=$?\necho \"$TRANSFERRED files transferred. (Return code $RET)\"\nif [ \"$RET\" -eq 0 -a \"$TRANSFERRED\" -eq 0 ]; then\n\texit 0\nfi\n\necho ; echo \"Building CPU definition...\"\n\ncd \"$TEMP_FILES_DIR\" \ngcc -o build68k \"$SOURCE_DIR/uae_cpu/build68k.c\" && \\\n\t(./build68k < \"$SOURCE_DIR/uae_cpu/table68k\" > \"$DERIVED_FILES_DIR/cpudefs.cpp\") || exit 1\n\nfor CURRENT_ARCH in $ARCHS ; do\n\techo ; echo \"Building CPU emulation core... $CURRENT_ARCH\"\n\tg++ `echo \"-DCPU_$CURRENT_ARCH\" | sed s/ppc/powerpc/` \"-I$DERIVED_FILES_DIR\" \"-I$SOURCE_DIR/Unix\" \"-I$SOURCE_DIR/uae_cpu\" -o gencpu \\\n\t\t\"$SOURCE_DIR/uae_cpu/gencpu.c\" \"$SOURCE_DIR/uae_cpu/readcpu.cpp\" \"$DERIVED_FILES_DIR/cpudefs.cpp\" && \\\n\t\t./gencpu || exit 1\n\tmv cpuemu.cpp \"$DERIVED_FILES_DIR/cpuemu_$CURRENT_ARCH.cpp\"\ndone\nmv cpustbl.cpp cputbl.h \"$DERIVED_FILES_DIR\" || exit 1\n\ncat << EOF > \"$DERIVED_FILES_DIR/cpuemu.cpp\"\n#ifdef CPU_i386\n#include \"cpuemu_i386.cpp\"\n#endif\n#ifdef CPU_powerpc\n#include \"cpuemu_ppc.cpp\"\n#endif\nEOF\n\ncd \"$DERIVED_FILES_DIR\"\nmkdir -p \"$PROJECT_TEMP_DIR\"\nrsync -pogt cpudefs.cpp cpuemu.cpp cpuemu_*.cpp cputbl.h cpustbl.cpp Makefile config*.h \"$PROJECT_TEMP_DIR\"\n";
+			shellScript = "########################## BUILD CPU EMULATION CORE ##########################\n\nmkdir -p \"$DERIVED_FILES_DIR\" && cd \"$DERIVED_FILES_DIR\" || exit 1\necho \"Copying derived files to build location...\"\nTRANSFERRED=`rsync -pogt --stats cpuemu.cpp cpuemu_*.cpp cpudefs.cpp cputbl.h cpustbl.cpp config*.h \"$PROJECT_TEMP_DIR\" \\\n\t\t\t\t2>/dev/null | grep \"transferred:\" | awk '{print $5}'`\nRET=$?\necho \"$TRANSFERRED files transferred. (Return code $RET)\"\nif [ \"$RET\" -eq 0 -a \"$TRANSFERRED\" -eq 0 ]; then\n\texit 0\nfi\n\necho ; echo \"Building CPU definition...\"\n\nfor ARCH in $ARCHS ; do\n\techo ; echo \"Building CPU emulation core... $ARCH\"\n\tmkdir -p \"$TEMP_FILES_DIR/$ARCH\"\n\tcd \"$TEMP_FILES_DIR/$ARCH\"\n\tcp \"$DERIVED_FILES_DIR\"/config*.h .\n\tmake -f \"$DERIVED_FILES_DIR/Makefile_$ARCH\" top_srcdir=\"$SOURCE_DIR/..\" GEN_DIR=. version_date.h ./cpuemu.cpp || exit 1\n\tmv cpuemu.cpp \"$DERIVED_FILES_DIR/cpuemu_$ARCH.cpp\"\ndone\nrsync -pogt version_date.h cpudefs.cpp cputbl.h cpustbl.cpp \"$DERIVED_FILES_DIR\"\n\ncat << EOF > \"$DERIVED_FILES_DIR/cpuemu.cpp\"\n#ifdef CPU_i386\n#include \"cpuemu_i386.cpp\"\n#endif\n#ifdef CPU_powerpc\n#include \"cpuemu_ppc.cpp\"\n#endif\nEOF\n\ncd \"$DERIVED_FILES_DIR\"\nmkdir -p \"$PROJECT_TEMP_DIR\" || exit 1\nrsync -pogt cpuemu.cpp cpuemu_*.cpp cpudefs.cpp cputbl.h cpustbl.cpp config*.h \"$PROJECT_TEMP_DIR\" || exit 1\n";
 			showEnvVarsInLog = 0;
 		};
 		17AF05D91040117E007839B5 /* Set correct ARAnyM version */ = {
@@ -1639,11 +1638,11 @@
 			name = "Set correct ARAnyM version";
 			outputPaths = (
 				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
-				"$(SHARED_DERIVED_FILE_DIR)/aranym_version",
+				"$(DERIVED_FILE_DIR)/aranym_version",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ! -f \"$SHARED_DERIVED_FILE_DIR/aranym_version\" ]; then\n  mkdir -p \"$SHARED_DERIVED_FILE_DIR\"  || exit 1\n  cd \"$SHARED_DERIVED_FILE_DIR\"  || exit 1\n\n  cat > aranym_version.c <<EOF\n#include \"version.h\"\n\nint main() {\n  puts(VERSION_STRING);\n  return 0;\n}\nEOF\n  gcc -o aranym_version aranym_version.c \"-I$SOURCE_DIR/include\" \"-I$DERIVED_FILES_DIR\" || exit 1\nfi\n\n\"$SHARED_DERIVED_FILE_DIR/aranym_version\" || exit 1\n\nVERSION=`\"$SHARED_DERIVED_FILE_DIR/aranym_version\" | awk '{FS=\" \"}{print $2}'`\n\n\n\necho \"Setting Aranym version in info.plist to $VERSION\"\nPLIST=$TARGET_BUILD_DIR/$INFOPLIST_PATH\nPLIST_NEW=$PLIST.new\nPLIST_OLD=$PLIST.old\n\nif [ -f \"$PLIST\" ]; then\n  cat \"$PLIST\" | sed \"s/\\#\\#VERSION\\#\\#/$VERSION/\" > \"$PLIST_NEW\" || exit 1\n  if [ -f \"$PLIST_NEW\" ]; then \n    #mv \"$PLIST\" \"$PLIST_OLD\"\n    mv \"$PLIST_NEW\" \"$PLIST\"\n  else\n    echo \"Error: Update failed\"\n    echo \"  PLIST file: $PLIST\"\n    echo \"  VERSION: $VERSION\"\n    exit 1\n  fi\nelse\n  echo \"Error: unable to update version description in PLIST: \"\n  echo \"  missing $PLIST\"\n  exit 1\nfi\n";
+			shellScript = "if [ ! -f \"$DERIVED_FILE_DIR/aranym_version\" ]; then\n  mkdir -p \"$DERIVED_FILE_DIR\"  || exit 1\n  cd \"$DERIVED_FILE_DIR\"  || exit 1\n\n  cat > aranym_version.c <<EOF\n#include \"version.h\"\n\nint main() {\n  puts(VERSION_STRING);\n  return 0;\n}\nEOF\n  gcc -o aranym_version aranym_version.c \"-I$SOURCE_DIR/include\" \"-I$DERIVED_FILES_DIR\" || exit 1\nfi\n\n\"$DERIVED_FILE_DIR/aranym_version\" || exit 1\n\nVERSION=`\"$DERIVED_FILE_DIR/aranym_version\" | awk '{FS=\" \"}{print $2}'`\n\n\n\necho \"Setting Aranym version in info.plist to $VERSION\"\nPLIST=$TARGET_BUILD_DIR/$INFOPLIST_PATH\nPLIST_NEW=$PLIST.new\nPLIST_OLD=$PLIST.old\n\nif [ -f \"$PLIST\" ]; then\n  cat \"$PLIST\" | sed \"s/\\#\\#VERSION\\#\\#/$VERSION/\" > \"$PLIST_NEW\" || exit 1\n  if [ -f \"$PLIST_NEW\" ]; then \n    #mv \"$PLIST\" \"$PLIST_OLD\"\n    mv \"$PLIST_NEW\" \"$PLIST\"\n  else\n    echo \"Error: Update failed\"\n    echo \"  PLIST file: $PLIST\"\n    echo \"  VERSION: $VERSION\"\n    exit 1\n  fi\nelse\n  echo \"Error: unable to update version description in PLIST: \"\n  echo \"  missing $PLIST\"\n  exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		17AF061110401EDD007839B5 /* Set correct ARAnyM version */ = {
@@ -1656,11 +1655,11 @@
 			name = "Set correct ARAnyM version";
 			outputPaths = (
 				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
-				"$(SHARED_DERIVED_FILE_DIR)/aranym_version",
+				"$(DERIVED_FILE_DIR)/aranym_version",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ! -f \"$SHARED_DERIVED_FILE_DIR/aranym_version\" ]; then\n  mkdir -p \"$SHARED_DERIVED_FILE_DIR\"  || exit 1\n  cd \"$SHARED_DERIVED_FILE_DIR\"  || exit 1\n\n  cat > aranym_version.c <<EOF\n#include \"version.h\"\n\nint main() {\n  puts(VERSION_STRING);\n  return 0;\n}\nEOF\n  gcc -o aranym_version aranym_version.c \"-I$SOURCE_DIR/include\" \"-I$DERIVED_FILES_DIR\" || exit 1\nfi\n\n\"$SHARED_DERIVED_FILE_DIR/aranym_version\" || exit 1\n\nVERSION=`\"$SHARED_DERIVED_FILE_DIR/aranym_version\" | awk '{FS=\" \"}{print $2}'`\n\n\n\necho \"Setting Aranym version in info.plist to $VERSION\"\nPLIST=$TARGET_BUILD_DIR/$INFOPLIST_PATH\nPLIST_NEW=$PLIST.new\nPLIST_OLD=$PLIST.old\n\nif [ -f \"$PLIST\" ]; then\n  cat \"$PLIST\" | sed \"s/\\#\\#VERSION\\#\\#/$VERSION/\" > \"$PLIST_NEW\" || exit 1\n  if [ -f \"$PLIST_NEW\" ]; then \n    #mv \"$PLIST\" \"$PLIST_OLD\"\n    mv \"$PLIST_NEW\" \"$PLIST\"\n  else\n    echo \"Error: Update failed\"\n    echo \"  PLIST file: $PLIST\"\n    echo \"  VERSION: $VERSION\"\n    exit 1\n  fi\nelse\n  echo \"Error: unable to update version description in PLIST: \"\n  echo \"  missing $PLIST\"\n  exit 1\nfi\n";
+			shellScript = "if [ ! -f \"$DERIVED_FILE_DIR/aranym_version\" ]; then\n  mkdir -p \"$DERIVED_FILE_DIR\"  || exit 1\n  cd \"$DERIVED_FILE_DIR\"  || exit 1\n\n  cat > aranym_version.c <<EOF\n#include \"version.h\"\n\nint main() {\n  puts(VERSION_STRING);\n  return 0;\n}\nEOF\n  gcc -o aranym_version aranym_version.c \"-I$SOURCE_DIR/include\" \"-I$DERIVED_FILES_DIR\" || exit 1\nfi\n\n\"$DERIVED_FILE_DIR/aranym_version\" || exit 1\n\nVERSION=`\"$DERIVED_FILE_DIR/aranym_version\" | awk '{FS=\" \"}{print $2}'`\n\n\n\necho \"Setting Aranym version in info.plist to $VERSION\"\nPLIST=$TARGET_BUILD_DIR/$INFOPLIST_PATH\nPLIST_NEW=$PLIST.new\nPLIST_OLD=$PLIST.old\n\nif [ -f \"$PLIST\" ]; then\n  cat \"$PLIST\" | sed \"s/\\#\\#VERSION\\#\\#/$VERSION/\" > \"$PLIST_NEW\" || exit 1\n  if [ -f \"$PLIST_NEW\" ]; then \n    #mv \"$PLIST\" \"$PLIST_OLD\"\n    mv \"$PLIST_NEW\" \"$PLIST\"\n  else\n    echo \"Error: Update failed\"\n    echo \"  PLIST file: $PLIST\"\n    echo \"  VERSION: $VERSION\"\n    exit 1\n  fi\nelse\n  echo \"Error: unable to update version description in PLIST: \"\n  echo \"  missing $PLIST\"\n  exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		17AF0613104020E8007839B5 /* Set correct ARAnyM version */ = {
@@ -1673,11 +1672,11 @@
 			name = "Set correct ARAnyM version";
 			outputPaths = (
 				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
-				"$(SHARED_DERIVED_FILE_DIR)/aranym_version",
+				"$(DERIVED_FILE_DIR)/aranym_version",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ! -f \"$SHARED_DERIVED_FILE_DIR/aranym_version\" ]; then\n  mkdir -p \"$SHARED_DERIVED_FILE_DIR\"  || exit 1\n  cd \"$SHARED_DERIVED_FILE_DIR\"  || exit 1\n\n  cat > aranym_version.c <<EOF\n#include \"version.h\"\n\nint main() {\n  puts(VERSION_STRING);\n  return 0;\n}\nEOF\n  gcc -o aranym_version aranym_version.c \"-I$SOURCE_DIR/include\" \"-I$DERIVED_FILES_DIR\" || exit 1\nfi\n\n\"$SHARED_DERIVED_FILE_DIR/aranym_version\" || exit 1\n\nVERSION=`\"$SHARED_DERIVED_FILE_DIR/aranym_version\" | awk '{FS=\" \"}{print $2}'`\n\n\n\necho \"Setting Aranym version in info.plist to $VERSION\"\nPLIST=$TARGET_BUILD_DIR/$INFOPLIST_PATH\nPLIST_NEW=$PLIST.new\nPLIST_OLD=$PLIST.old\n\nif [ -f \"$PLIST\" ]; then\n  cat \"$PLIST\" | sed \"s/\\#\\#VERSION\\#\\#/$VERSION/\" > \"$PLIST_NEW\" || exit 1\n  if [ -f \"$PLIST_NEW\" ]; then \n    #mv \"$PLIST\" \"$PLIST_OLD\"\n    mv \"$PLIST_NEW\" \"$PLIST\"\n  else\n    echo \"Error: Update failed\"\n    echo \"  PLIST file: $PLIST\"\n    echo \"  VERSION: $VERSION\"\n    exit 1\n  fi\nelse\n  echo \"Error: unable to update version description in PLIST: \"\n  echo \"  missing $PLIST\"\n  exit 1\nfi\n";
+			shellScript = "if [ ! -f \"$DERIVED_FILE_DIR/aranym_version\" ]; then\n  mkdir -p \"$DERIVED_FILE_DIR\"  || exit 1\n  cd \"$DERIVED_FILE_DIR\"  || exit 1\n\n  cat > aranym_version.c <<EOF\n#include \"version.h\"\n\nint main() {\n  puts(VERSION_STRING);\n  return 0;\n}\nEOF\n  gcc -o aranym_version aranym_version.c \"-I$SOURCE_DIR/include\" \"-I$DERIVED_FILES_DIR\" || exit 1\nfi\n\n\"$DERIVED_FILE_DIR/aranym_version\" || exit 1\n\nVERSION=`\"$DERIVED_FILE_DIR/aranym_version\" | awk '{FS=\" \"}{print $2}'`\n\n\n\necho \"Setting Aranym version in info.plist to $VERSION\"\nPLIST=$TARGET_BUILD_DIR/$INFOPLIST_PATH\nPLIST_NEW=$PLIST.new\nPLIST_OLD=$PLIST.old\n\nif [ -f \"$PLIST\" ]; then\n  cat \"$PLIST\" | sed \"s/\\#\\#VERSION\\#\\#/$VERSION/\" > \"$PLIST_NEW\" || exit 1\n  if [ -f \"$PLIST_NEW\" ]; then \n    #mv \"$PLIST\" \"$PLIST_OLD\"\n    mv \"$PLIST_NEW\" \"$PLIST\"\n  else\n    echo \"Error: Update failed\"\n    echo \"  PLIST file: $PLIST\"\n    echo \"  VERSION: $VERSION\"\n    exit 1\n  fi\nelse\n  echo \"Error: unable to update version description in PLIST: \"\n  echo \"  missing $PLIST\"\n  exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		17BCD7890B20F64F00432CE1 /* Run configure */ = {
@@ -1689,15 +1688,12 @@
 			);
 			name = "Run configure";
 			outputPaths = (
-				"$(DERIVED_FILES_DIR)/Makefile",
 				"$(DERIVED_FILES_DIR)/config.h",
-				"$(DERIVED_FILES_DIR)/config_i386.h",
-				"$(DERIVED_FILES_DIR)/config_ppc.h",
-				"$(TARGET_TEMP_DIR)/configure_options",
+				"$(DERIVED_FILES_DIR)/configure_options",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#################### CONFIGURE SYSTEM ################\n# Check if configure script has to be run\necho \"Checking configure options: $CONFIGURE_OPTIONS\"\nOPTIONS_FILE=$TARGET_TEMP_DIR/configure_options\nFILE_CONTENT=`cat \"$OPTIONS_FILE\" 2>/dev/null`\nif [ \\( -f \"$OPTIONS_FILE\" \\) -a \\( \"$FILE_CONTENT\" == \"$CONFIGURE_OPTIONS\" \\) ]; then\n\techo \"config.h still valid\"\t\n\texit 0\nfi\n\necho \"Running configure script\"\n\n# Check if PROJECT_DIR variable is set (Xcode 2.x)\nif [ -z \"$PROJECT_DIR\" ]; then\n\techo '$PROJECT_DIR was not declared. Setting variable:'\n\told_dir=$PWD\n\tcd \"$BUILD_DIR/..\"\n\texport PROJECT_DIR=\"$PWD\"\n\tcd $old_dir\n\techo \"\t\\$PROJECT_DIR = $PROJECT_DIR\"\n\techo\nfi\n\n# Make sure makedepend can be found\nexport PATH=\"$PATH:/usr/X11R6/bin\"\n\n# Make sure SDL.m4 can be found\nexport ACLOCAL_FLAGS=\"-I $PROJECT_DIR/../darwin\"\n\n# Make sure SDL.framework can be found\nexport LDFLAGS=-F$PROJECT_DIR\nexport DYLD_FRAMEWORK_PATH=$PROJECT_DIR\n\nCHANGELOG_FILE=$SOURCE_DIR/../ChangeLog\nVERSIONDATE_FILE=$DERIVED_FILES_DIR/version_date.h\n\nmkdir -p \"$DERIVED_FILES_DIR\"\n\n\ncd \"$SOURCE_DIR/..\"\n\n# Remove old files\nrm -rf Makefile autom4te.cache aclocal.m4 config.h config.log 2>/dev/null\n\n# Generate configure script\nif [ -f autogen.sh ]; then\n\texport NO_CONFIGURE=yes\n\t./autogen.sh\nfi\n\n# Configure system for all build architectures\necho \"\" > \"$DERIVED_FILES_DIR/config.h\"\nfor ARCH in $ARCHS ; do\n\tCPU_TYPE=$(eval echo $(echo \\$CPU_TYPE_$ARCH))\n\techo \"Running $CONFIG_EXEC for $ARCH architecture / $CPU_TYPE\"\n\t./configure $CONFIGURE_OPTIONS --host=$ARCH-apple-darwin || exit 1\n\n\tif [ \"$ARCH\" = \"ppc\" ]; then\n\t\t# 10.3.9 compatibility:\n\t\tcat config.h | sed 's/#define HAVE_SYS_STATVFS_H 1/\\/* #undef HAVE_SYS_STATVFS_H *\\//' > config_$ARCH.h\n\t\trm config.h\n\telse\n\t\tmv config.h config_$ARCH.h\n\tfi\n\tcat  >> \"$DERIVED_FILES_DIR/config.h\" << EOF\n#ifdef $CPU_TYPE\n#include \"config_$ARCH.h\"\n#endif\n\nEOF\n\tmv config_$ARCH.h \"$DERIVED_FILES_DIR\"\ndone\nmv Makefile \"$DERIVED_FILES_DIR\"\n\n# Create version_date.h\necho '/* generated from ChangeLog */' > $VERSIONDATE_FILE\ngrep -m 1 '^20[0-9][0-9]/[0-9][0-9]/[0-9][0-9]' $CHANGELOG_FILE | sed 's/^\\(20[0-9][0-9]\\/[0-9]*\\/[0-9]*\\).*/#define VERSION_DATE \"\\1\"/;q'  >> $VERSIONDATE_FILE\n\n# Remember configure options for next script execution\nmkdir -p \"$TARGET_TEMP_DIR\" 2>/dev/null\necho \"$CONFIGURE_OPTIONS\" > \"$OPTIONS_FILE\"\nexit 0";
+			shellScript = "#################### CONFIGURE SYSTEM ################\n# Check if configure script has to be run\necho \"Checking configure options: $CONFIGURE_OPTIONS\"\nOPTIONS_FILE=$DERIVED_FILES_DIR/configure_options\nFILE_CONTENT=`cat \"$OPTIONS_FILE\" 2>/dev/null`\nif [ \\( -f \"$OPTIONS_FILE\" \\) -a \\( \"$FILE_CONTENT\" == \"$CONFIGURE_OPTIONS\" \\) ]; then\n\techo \"config.h still valid\"\t\n\texit 0\nfi\n\necho \"Running configure script\"\n\n# Check if PROJECT_DIR variable is set (Xcode 2.x)\nif [ -z \"$PROJECT_DIR\" ]; then\n\techo '$PROJECT_DIR was not declared. Setting variable:'\n\told_dir=$PWD\n\tcd \"$BUILD_DIR/..\"\n\texport PROJECT_DIR=\"$PWD\"\n\tcd $old_dir\n\techo \"\t\\$PROJECT_DIR = $PROJECT_DIR\"\n\techo\nfi\n\n# Make sure makedepend can be found\nexport PATH=\"$PATH:/usr/X11R6/bin\"\n\n# Make sure SDL.m4 can be found\nexport ACLOCAL_FLAGS=\"-I $PROJECT_DIR/../darwin\"\n\n# Make sure SDL.framework can be found\nexport LDFLAGS=-F$PROJECT_DIR\nexport DYLD_FRAMEWORK_PATH=$PROJECT_DIR\n\nmkdir -p \"$DERIVED_FILES_DIR\"\n\ncd \"$SOURCE_DIR/..\"\n\n# Remove old files\nrm -rf Makefile autom4te.cache aclocal.m4 config.h config.log 2>/dev/null\n\n# Generate configure script\nif [ -f autogen.sh ]; then\n\texport NO_CONFIGURE=yes\n\t./autogen.sh\nfi\n\n# Configure system for all build architectures\necho \"\" > \"$DERIVED_FILES_DIR/config.h\"\nfor ARCH in $ARCHS ; do\n\tCPU_TYPE=$(eval echo $(echo \\$CPU_TYPE_$ARCH))\n\techo \"Running configure for $ARCH architecture / $CPU_TYPE\"\n\t./configure $CONFIGURE_OPTIONS --host=$ARCH-apple-darwin || exit 1\n\n\tif [ \"$ARCH\" = \"ppc\" ]; then\n\t\t# 10.3.9 compatibility:\n\t\tcat config.h | sed 's/#define HAVE_SYS_STATVFS_H 1/\\/* #undef HAVE_SYS_STATVFS_H *\\//' > config_$ARCH.h\n\t\trm config.h\n\telse\n\t\tmv config.h config_$ARCH.h\n\tfi\n\tcat  >> \"$DERIVED_FILES_DIR/config.h\" << EOF\n#ifdef $CPU_TYPE\n#include \"config_$ARCH.h\"\n#endif\n\nEOF\n\tmv config_$ARCH.h \"$DERIVED_FILES_DIR\"\n\tmv Makefile \"$DERIVED_FILES_DIR/Makefile_$ARCH\"\ndone\n\n# Remember configure options for next script execution\necho \"$CONFIGURE_OPTIONS\" > \"$OPTIONS_FILE\"\n\nexit 0";
 			showEnvVarsInLog = 0;
 		};
 		17BCD78A0B20F64F00432CE1 /* Build CPU source files */ = {
@@ -1717,7 +1713,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "########################## BUILD CPU EMULATION CORE ##########################\n\nmkdir -p \"$DERIVED_FILES_DIR\" && cd \"$DERIVED_FILES_DIR\" || exit 1\nTRANSFERRED=`rsync -pogt --stats cpudefs.cpp cpuemu.cpp cpuemu_*.cpp cputbl.h cpustbl.cpp Makefile config*.h \"$PROJECT_TEMP_DIR\" \\\n\t\t\t\t2>/dev/null | grep \"transferred:\"| awk '{print $5}'`\nRET=$?\necho \"$TRANSFERRED files transferred. (Return code $RET)\"\nif [ \"$RET\" -eq 0 -a \"$TRANSFERRED\" -eq 0 ]; then\n\texit 0\nfi\n\necho ; echo \"Building CPU definition...\"\n\ncd \"$TEMP_FILES_DIR\" \ngcc -o build68k \"$SOURCE_DIR/uae_cpu/build68k.c\" && \\\n\t(./build68k < \"$SOURCE_DIR/uae_cpu/table68k\" > \"$DERIVED_FILES_DIR/cpudefs.cpp\") || exit 1\n\nfor CURRENT_ARCH in $ARCHS ; do\n\techo ; echo \"Building CPU emulation core... $CURRENT_ARCH\"\n\tg++ `echo \"-DCPU_$CURRENT_ARCH\" | sed s/ppc/powerpc/` \"-I$DERIVED_FILES_DIR\" \"-I$SOURCE_DIR/Unix\" \"-I$SOURCE_DIR/uae_cpu\" -o gencpu \\\n\t\t\"$SOURCE_DIR/uae_cpu/gencpu.c\" \"$SOURCE_DIR/uae_cpu/readcpu.cpp\" \"$DERIVED_FILES_DIR/cpudefs.cpp\" && \\\n\t\t./gencpu || exit 1\n\tmv cpuemu.cpp \"$DERIVED_FILES_DIR/cpuemu_$CURRENT_ARCH.cpp\"\ndone\nmv cpustbl.cpp cputbl.h \"$DERIVED_FILES_DIR\" || exit 1\n\ncat << EOF > \"$DERIVED_FILES_DIR/cpuemu.cpp\"\n#ifdef CPU_i386\n#include \"cpuemu_i386.cpp\"\n#endif\n#ifdef CPU_powerpc\n#include \"cpuemu_ppc.cpp\"\n#endif\nEOF\n\ncd \"$DERIVED_FILES_DIR\"\nmkdir -p \"$PROJECT_TEMP_DIR\"\nrsync -pogt cpudefs.cpp cpuemu.cpp cpuemu_*.cpp cputbl.h cpustbl.cpp Makefile config*.h \"$PROJECT_TEMP_DIR\"\n";
+			shellScript = "########################## BUILD CPU EMULATION CORE ##########################\n\nmkdir -p \"$DERIVED_FILES_DIR\" && cd \"$DERIVED_FILES_DIR\" || exit 1\necho \"Copying derived files to build location...\"\nTRANSFERRED=`rsync -pogt --stats cpuemu.cpp cpuemu_*.cpp cpudefs.cpp cputbl.h cpustbl.cpp config*.h \"$PROJECT_TEMP_DIR\" \\\n\t\t\t\t2>/dev/null | grep \"transferred:\" | awk '{print $5}'`\nRET=$?\necho \"$TRANSFERRED files transferred. (Return code $RET)\"\nif [ \"$RET\" -eq 0 -a \"$TRANSFERRED\" -eq 0 ]; then\n\texit 0\nfi\n\necho ; echo \"Building CPU definition...\"\n\nfor ARCH in $ARCHS ; do\n\techo ; echo \"Building CPU emulation core... $ARCH\"\n\tmkdir -p \"$TEMP_FILES_DIR/$ARCH\"\n\tcd \"$TEMP_FILES_DIR/$ARCH\"\n\tcp \"$DERIVED_FILES_DIR\"/config*.h .\n\tmake -f \"$DERIVED_FILES_DIR/Makefile_$ARCH\" top_srcdir=\"$SOURCE_DIR/..\" GEN_DIR=. version_date.h ./cpuemu.cpp || exit 1\n\tmv cpuemu.cpp \"$DERIVED_FILES_DIR/cpuemu_$ARCH.cpp\"\ndone\nrsync -pogt version_date.h cpudefs.cpp cputbl.h cpustbl.cpp \"$DERIVED_FILES_DIR\"\n\ncat << EOF > \"$DERIVED_FILES_DIR/cpuemu.cpp\"\n#ifdef CPU_i386\n#include \"cpuemu_i386.cpp\"\n#endif\n#ifdef CPU_powerpc\n#include \"cpuemu_ppc.cpp\"\n#endif\nEOF\n\ncd \"$DERIVED_FILES_DIR\"\nmkdir -p \"$PROJECT_TEMP_DIR\" || exit 1\nrsync -pogt cpuemu.cpp cpuemu_*.cpp cpudefs.cpp cputbl.h cpustbl.cpp config*.h \"$PROJECT_TEMP_DIR\" || exit 1\n";
 			showEnvVarsInLog = 0;
 		};
 		B439AC300C5B2FD00046EFC9 /* Run configure */ = {
@@ -1737,7 +1733,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#################### CONFIGURE SYSTEM ################\n# Check if configure script has to be run\necho \"Checking configure options: $CONFIGURE_OPTIONS\"\nOPTIONS_FILE=$TARGET_TEMP_DIR/configure_options\nFILE_CONTENT=`cat \"$OPTIONS_FILE\" 2>/dev/null`\nif [ \\( -f \"$OPTIONS_FILE\" \\) -a \\( \"$FILE_CONTENT\" == \"$CONFIGURE_OPTIONS\" \\) ]; then\n\techo \"config.h still valid\"\t\n\texit 0\nfi\n\necho \"Running configure script\"\n\n# Check if PROJECT_DIR variable is set (Xcode 2.x)\nif [ -z \"$PROJECT_DIR\" ]; then\n\techo '$PROJECT_DIR was not declared. Setting variable:'\n\told_dir=$PWD\n\tcd \"$BUILD_DIR/..\"\n\texport PROJECT_DIR=\"$PWD\"\n\tcd $old_dir\n\techo \"\t\\$PROJECT_DIR = $PROJECT_DIR\"\n\techo\nfi\n\n# Make sure makedepend can be found\nexport PATH=\"$PATH:/usr/X11R6/bin\"\n\n# Make sure SDL.m4 can be found\nexport ACLOCAL_FLAGS=\"-I $PROJECT_DIR/../darwin\"\n\n# Make sure SDL.framework can be found\nexport LDFLAGS=-F$PROJECT_DIR\nexport DYLD_FRAMEWORK_PATH=$PROJECT_DIR\n\nCHANGELOG_FILE=$SOURCE_DIR/../ChangeLog\nVERSIONDATE_FILE=$DERIVED_FILES_DIR/version_date.h\n\nmkdir -p \"$DERIVED_FILES_DIR\"\n\n\ncd \"$SOURCE_DIR/..\"\n\n# Remove old files\nrm -rf Makefile autom4te.cache aclocal.m4 config.h config.log 2>/dev/null\n\n# Generate configure script\nif [ -f autogen.sh ]; then\n\texport NO_CONFIGURE=yes\n\t./autogen.sh\nfi\n\n# Configure system for all build architectures\necho \"\" > \"$DERIVED_FILES_DIR/config.h\"\nfor ARCH in $ARCHS ; do\n\tCPU_TYPE=$(eval echo $(echo \\$CPU_TYPE_$ARCH))\n\techo \"Running $CONFIG_EXEC for $ARCH architecture / $CPU_TYPE\"\n\t./configure $CONFIGURE_OPTIONS --host=$ARCH-apple-darwin || exit 1\n\n\tif [ \"$ARCH\" = \"ppc\" ]; then\n\t\t# 10.3.9 compatibility:\n\t\tcat config.h | sed 's/#define HAVE_SYS_STATVFS_H 1/\\/* #undef HAVE_SYS_STATVFS_H *\\//' > config_$ARCH.h\n\t\trm config.h\n\telse\n\t\tmv config.h config_$ARCH.h\n\tfi\n\tcat  >> \"$DERIVED_FILES_DIR/config.h\" << EOF\n#ifdef $CPU_TYPE\n#include \"config_$ARCH.h\"\n#endif\n\nEOF\n\tmv config_$ARCH.h \"$DERIVED_FILES_DIR\"\ndone\nmv Makefile \"$DERIVED_FILES_DIR\"\n\n# Create version_date.h\necho '/* generated from ChangeLog */' > $VERSIONDATE_FILE\ngrep -m 1 '^20[0-9][0-9]/[0-9][0-9]/[0-9][0-9]' $CHANGELOG_FILE | sed 's/^\\(20[0-9][0-9]\\/[0-9]*\\/[0-9]*\\).*/#define VERSION_DATE \"\\1\"/;q'  >> $VERSIONDATE_FILE\n\n# Remember configure options for next script execution\nmkdir -p \"$TARGET_TEMP_DIR\" 2>/dev/null\necho \"$CONFIGURE_OPTIONS\" > \"$OPTIONS_FILE\"\nexit 0";
+			shellScript = "#################### CONFIGURE SYSTEM ################\n# Check if configure script has to be run\necho \"Checking configure options: $CONFIGURE_OPTIONS\"\nOPTIONS_FILE=$DERIVED_FILES_DIR/configure_options\nFILE_CONTENT=`cat \"$OPTIONS_FILE\" 2>/dev/null`\nif [ \\( -f \"$OPTIONS_FILE\" \\) -a \\( \"$FILE_CONTENT\" == \"$CONFIGURE_OPTIONS\" \\) ]; then\n\techo \"config.h still valid\"\t\n\texit 0\nfi\n\necho \"Running configure script\"\n\n# Check if PROJECT_DIR variable is set (Xcode 2.x)\nif [ -z \"$PROJECT_DIR\" ]; then\n\techo '$PROJECT_DIR was not declared. Setting variable:'\n\told_dir=$PWD\n\tcd \"$BUILD_DIR/..\"\n\texport PROJECT_DIR=\"$PWD\"\n\tcd $old_dir\n\techo \"\t\\$PROJECT_DIR = $PROJECT_DIR\"\n\techo\nfi\n\n# Make sure makedepend can be found\nexport PATH=\"$PATH:/usr/X11R6/bin\"\n\n# Make sure SDL.m4 can be found\nexport ACLOCAL_FLAGS=\"-I $PROJECT_DIR/../darwin\"\n\n# Make sure SDL.framework can be found\nexport LDFLAGS=-F$PROJECT_DIR\nexport DYLD_FRAMEWORK_PATH=$PROJECT_DIR\n\nmkdir -p \"$DERIVED_FILES_DIR\"\n\ncd \"$SOURCE_DIR/..\"\n\n# Remove old files\nrm -rf Makefile autom4te.cache aclocal.m4 config.h config.log 2>/dev/null\n\n# Generate configure script\nif [ -f autogen.sh ]; then\n\texport NO_CONFIGURE=yes\n\t./autogen.sh\nfi\n\n# Configure system for all build architectures\necho \"\" > \"$DERIVED_FILES_DIR/config.h\"\nfor ARCH in $ARCHS ; do\n\tCPU_TYPE=$(eval echo $(echo \\$CPU_TYPE_$ARCH))\n\techo \"Running configure for $ARCH architecture / $CPU_TYPE\"\n\t./configure $CONFIGURE_OPTIONS --host=$ARCH-apple-darwin || exit 1\n\n\tif [ \"$ARCH\" = \"ppc\" ]; then\n\t\t# 10.3.9 compatibility:\n\t\tcat config.h | sed 's/#define HAVE_SYS_STATVFS_H 1/\\/* #undef HAVE_SYS_STATVFS_H *\\//' > config_$ARCH.h\n\t\trm config.h\n\telse\n\t\tmv config.h config_$ARCH.h\n\tfi\n\tcat  >> \"$DERIVED_FILES_DIR/config.h\" << EOF\n#ifdef $CPU_TYPE\n#include \"config_$ARCH.h\"\n#endif\n\nEOF\n\tmv config_$ARCH.h \"$DERIVED_FILES_DIR\"\n\tmv Makefile \"$DERIVED_FILES_DIR/Makefile_$ARCH\"\ndone\n\n# Remember configure options for next script execution\necho \"$CONFIGURE_OPTIONS\" > \"$OPTIONS_FILE\"\n\nexit 0";
 			showEnvVarsInLog = 0;
 		};
 		B439AC310C5B2FD00046EFC9 /* Build CPU source files */ = {
@@ -1757,7 +1753,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "########################## BUILD CPU EMULATION CORE ##########################\nmkdir -p \"$DERIVED_FILES_DIR\" && cd \"$DERIVED_FILES_DIR\" || exit 1\nTRANSFERRED=`rsync -pogt --stats cpudefs.cpp cpuemu*.cpp cputbl.h cpustbl*.cpp compemu.cpp compstbl.cpp comptbl.h Makefile config*.h \"$PROJECT_TEMP_DIR\" \\\n\t\t\t\t2>/dev/null | grep \"transferred:\"| awk '{print $5}'`\nRET=$?\necho \"$TRANSFERRED files transferred. (Return code $RET)\"\nif [ \"$RET\" -eq 0 -a \"$TRANSFERRED\" -eq 0 ]; then\n\texit 0\nfi\n\necho ; echo \"Building CPU definition...\"\n\ncd \"$TEMP_FILES_DIR\" \necho \"Compile build68k\"\ngcc -o build68k \"$SOURCE_DIR/uae_cpu/build68k.c\" && \\\n\t(./build68k < \"$SOURCE_DIR/uae_cpu/table68k\" > \"$DERIVED_FILES_DIR/cpudefs.cpp\") || exit 1\n\necho \"Compile & Execute gencomp\"\ng++ -DCPU_i386 -DUSE_JIT=1 -DFULLMMU \"-I$DERIVED_FILES_DIR\" \"-I$SOURCE_DIR/Unix\" \"-I$SOURCE_DIR/uae_cpu\" -o gencomp \\\n\t\t\"$SOURCE_DIR/uae_cpu/compiler/gencomp.c\" \"$SOURCE_DIR/uae_cpu/readcpu.cpp\" \"$DERIVED_FILES_DIR/cpudefs.cpp\" && \\\n\t\t./gencomp || exit 1\nmv compemu.cpp compstbl.cpp comptbl.h \"$DERIVED_FILES_DIR\" || exit 1\n\necho \"Loop through Architectures\"\nfor CURRENT_ARCH in $ARCHS ; do\n\techo ; echo \"Building CPU emulation core... $CURRENT_ARCH\"\n\tg++ -DUSE_JIT=1 -DUSE_JIT_FPU=1 `echo \"-DCPU_$CURRENT_ARCH\" | sed s/ppc/powerpc/` \"-I$DERIVED_FILES_DIR\" \"-I$SOURCE_DIR/Unix\" \"-I$SOURCE_DIR/uae_cpu\" -o gencpu \\\n\t\t\"$SOURCE_DIR/uae_cpu/gencpu.c\" \"$SOURCE_DIR/uae_cpu/readcpu.cpp\" \"$DERIVED_FILES_DIR/cpudefs.cpp\" && \\\n\t\t./gencpu || exit 1\n\tmv cpuemu.cpp \"$DERIVED_FILES_DIR/cpuemu_$CURRENT_ARCH.cpp\"\ndone\nmv cpustbl.cpp cputbl.h \"$DERIVED_FILES_DIR\" || exit 1\n\necho \"Building $DERIVED_FILES_DIR/cpuemu.cpp\"\ncat << EOF > \"$DERIVED_FILES_DIR/cpuemu.cpp\"\n#ifdef CPU_i386\n#include \"cpuemu_i386.cpp\"\n#endif\n#ifdef CPU_powerpc\n#include \"cpuemu_ppc.cpp\"\n#endif\nEOF\n\necho \"Building $DERIVED_FILES_DIR/cpustbl_nf.cpp\"\ncat << EOF > \"$DERIVED_FILES_DIR/cpustbl_nf.cpp\"\n\t#define NOFLAGS\n\t#include \"cpustbl.cpp\"\nEOF\n\necho \"Building $DERIVED_FILES_DIR/cpuemu_nf.cpp\"\ncat << EOF > \"$DERIVED_FILES_DIR/cpuemu_nf.cpp\"\n\t#define NOFLAGS\n\t#include \"cpuemu.cpp\"\nEOF\n\ncd \"$DERIVED_FILES_DIR\"\nmkdir -p \"$PROJECT_TEMP_DIR\"\nrsync -pogt cpudefs.cpp cpuemu*.cpp cputbl.h cpustbl*.cpp compemu.cpp compstbl.cpp comptbl.h Makefile config*.h \"$PROJECT_TEMP_DIR\"\n";
+			shellScript = "########################## BUILD CPU EMULATION CORE ##########################\n\nmkdir -p \"$DERIVED_FILES_DIR\" && cd \"$DERIVED_FILES_DIR\" || exit 1\necho \"Copying derived files to build location...\"\nTRANSFERRED=`rsync -pogt --stats cpuemu*.cpp cpudefs.cpp cputbl.h cpustbl*.cpp config*.h compemu.cpp compstbl.cpp comptbl.h \"$PROJECT_TEMP_DIR\" \\\n\t\t\t\t2>/dev/null | grep \"transferred:\" | awk '{print $5}'`\nRET=$?\necho \"$TRANSFERRED files transferred. (Return code $RET)\"\nif [ \"$RET\" -eq 0 -a \"$TRANSFERRED\" -eq 0 ]; then\n\texit 0\nfi\n\necho ; echo \"Building CPU definition...\"\n\nfor ARCH in $ARCHS ; do\n\techo ; echo \"Building CPU emulation core... $ARCH\"\n\tmkdir -p \"$TEMP_FILES_DIR/$ARCH\"\n\tcd \"$TEMP_FILES_DIR/$ARCH\"\n\tcp \"$DERIVED_FILES_DIR\"/config*.h .\n\tmake -f \"$DERIVED_FILES_DIR/Makefile_$ARCH\" top_srcdir=\"$SOURCE_DIR/..\" GEN_DIR=. version_date.h ./cpuemu.cpp ./compemu.cpp || exit 1\n\tmv cpuemu.cpp \"$DERIVED_FILES_DIR/cpuemu_$ARCH.cpp\" || exit 1\ndone\nrsync -pogt version_date.h cpudefs.cpp cputbl.h cpustbl.cpp compemu.cpp compstbl.cpp comptbl.h \"$DERIVED_FILES_DIR\" || exit 1\n\necho \"Building $DERIVED_FILES_DIR/cpuemu.cpp\"\ncat << EOF > \"$DERIVED_FILES_DIR/cpuemu.cpp\"\n#ifdef CPU_i386\n#include \"cpuemu_i386.cpp\"\n#endif\n#ifdef CPU_powerpc\n#include \"cpuemu_ppc.cpp\"\n#endif\nEOF\n\necho \"Building $DERIVED_FILES_DIR/cpustbl_nf.cpp\"\ncat << EOF > \"$DERIVED_FILES_DIR/cpustbl_nf.cpp\"\n\t#define NOFLAGS\n\t#include \"cpustbl.cpp\"\nEOF\n\necho \"Building $DERIVED_FILES_DIR/cpuemu_nf.cpp\"\ncat << EOF > \"$DERIVED_FILES_DIR/cpuemu_nf.cpp\"\n\t#define NOFLAGS\n\t#include \"cpuemu.cpp\"\nEOF\n\ncd \"$DERIVED_FILES_DIR\"\nmkdir -p \"$PROJECT_TEMP_DIR\" || exit 1\nrsync -pogt cpuemu*.cpp cpudefs.cpp cputbl.h cpustbl*.cpp config*.h compemu.cpp compstbl.cpp comptbl.h \"$PROJECT_TEMP_DIR\" || exit 1\n\n\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1869,6 +1865,7 @@
 				17EC07E90ECB762900100ED7 /* dsp_disasm.c in Sources */,
 				17EC08D40ECB829E00100ED7 /* audio_conv.cpp in Sources */,
 				17EC08D80ECB82B700100ED7 /* joypads.cpp in Sources */,
+				17F10C651066C16500BDE380 /* clipbrd_darwin.M in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1977,6 +1974,7 @@
 				17EC07E40ECB762900100ED7 /* dsp_cpu.c in Sources */,
 				17EC08D30ECB829E00100ED7 /* audio_conv.cpp in Sources */,
 				17EC08D70ECB82B200100ED7 /* joypads.cpp in Sources */,
+				17F10C641066C16500BDE380 /* clipbrd_darwin.M in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2093,6 +2091,7 @@
 				17EC07ED0ECB762900100ED7 /* dsp_disasm.c in Sources */,
 				17EC08D50ECB829E00100ED7 /* audio_conv.cpp in Sources */,
 				17EC08D90ECB82BA00100ED7 /* joypads.cpp in Sources */,
+				17F10C661066C16500BDE380 /* clipbrd_darwin.M in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2159,8 +2158,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = ppc;
-				COMPILE_DEFS = "HAVE_CONFIG_H OS_darwin $(CPU_TYPE_$(arch)) MACOSX_support DIRSEPARATOR=\\\"/\\\" _GNU_SOURCE ENABLE_EXCLUSIVE_SPCFLAGS _REENTRANT _THREAD_SAFE ENABLE_TUNTAP LOGO_FILENAME=\\\"Contents/Resources/logo.png\\\" ";
-				CONFIGURE_OPTIONS = "--with-classicconfig --enable-ctrlkey=ctrl --enable-debug=no";
+				COMPILE_DEFS = "HAVE_CONFIG_H OS_darwin $(CPU_TYPE_$(arch)) MACOSX_support DIRSEPARATOR=\\\"/\\\" _GNU_SOURCE ENABLE_EXCLUSIVE_SPCFLAGS _REENTRANT _THREAD_SAFE ENABLE_TUNTAP LOGO_FILENAME=\\\"Contents/Resources/logo.png\\\" $(COMPILE_DEF_$(arch))";
+				COMPILE_DEF_i386 = "UNALIGNED_PROFITABLE REGPARAM=\"__attribute__((regparm(3)))\" X86_ASSEMBLY OPTIMIZED_FLAGS SAHF_SETO_PROFITABLE";
+				CONFIGURE_OPTIONS = "--with-classicconfig --enable-ctrlkey=ctrl --enable-debug=no --enable-nfclipbrd";
+				COPY_PHASE_STRIP = NO;
 				CPU_TYPE_i386 = CPU_i386;
 				CPU_TYPE_ppc = CPU_powerpc;
 				CURRENT_PROJECT_VERSION = "##VERSION##";
@@ -2215,8 +2216,10 @@
 					ppc,
 					i386,
 				);
-				COMPILE_DEFS = "HAVE_CONFIG_H OS_darwin $(CPU_TYPE_$(arch)) MACOSX_support DIRSEPARATOR=\\\"/\\\" _GNU_SOURCE ENABLE_EXCLUSIVE_SPCFLAGS _REENTRANT _THREAD_SAFE ENABLE_TUNTAP LOGO_FILENAME=\\\"Contents/Resources/logo.png\\\" ";
-				CONFIGURE_OPTIONS = "--with-classicconfig --enable-ctrlkey=ctrl --enable-debug=no";
+				COMPILE_DEFS = "HAVE_CONFIG_H OS_darwin $(CPU_TYPE_$(arch)) MACOSX_support DIRSEPARATOR=\\\"/\\\" _GNU_SOURCE ENABLE_EXCLUSIVE_SPCFLAGS _REENTRANT _THREAD_SAFE ENABLE_TUNTAP LOGO_FILENAME=\\\"Contents/Resources/logo.png\\\" $(COMPILE_DEF_$(arch))";
+				COMPILE_DEF_i386 = "UNALIGNED_PROFITABLE REGPARAM=\"__attribute__((regparm(3)))\" X86_ASSEMBLY OPTIMIZED_FLAGS SAHF_SETO_PROFITABLE";
+				CONFIGURE_OPTIONS = "--with-classicconfig --enable-ctrlkey=ctrl --enable-debug=no --enable-nfclipbrd";
+				COPY_PHASE_STRIP = NO;
 				CPU_TYPE_i386 = CPU_i386;
 				CPU_TYPE_ppc = CPU_powerpc;
 				CURRENT_PROJECT_VERSION = "##VERSION##";
@@ -2249,7 +2252,6 @@
 		17AAB2AB0B20A8330016FB8D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2260,7 +2262,6 @@
 		17AAB2AC0B20A8330016FB8D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				PRODUCT_NAME = "Build Release Package";
@@ -2346,8 +2347,10 @@
 		17E8B5B60ABC88C600BBFD59 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMPILE_DEFS = "HAVE_CONFIG_H OS_darwin $(CPU_TYPE_$(arch)) MACOSX_support DIRSEPARATOR=\\\"/\\\" _GNU_SOURCE ENABLE_EXCLUSIVE_SPCFLAGS _REENTRANT _THREAD_SAFE ENABLE_TUNTAP LOGO_FILENAME=\\\"Contents/Resources/logo.png\\\" ";
-				CONFIGURE_OPTIONS = "--with-classicconfig --enable-ctrlkey=ctrl --enable-full-debug --enable-full-history";
+				COMPILE_DEFS = "HAVE_CONFIG_H OS_darwin $(CPU_TYPE_$(arch)) MACOSX_support DIRSEPARATOR=\\\"/\\\" _GNU_SOURCE ENABLE_EXCLUSIVE_SPCFLAGS _REENTRANT _THREAD_SAFE ENABLE_TUNTAP LOGO_FILENAME=\\\"Contents/Resources/logo.png\\\" $(COMPILE_DEF_$(arch))";
+				COMPILE_DEF_i386 = "UNALIGNED_PROFITABLE REGPARAM=\"__attribute__((regparm(3)))\" X86_ASSEMBLY OPTIMIZED_FLAGS SAHF_SETO_PROFITABLE";
+				CONFIGURE_OPTIONS = "--with-classicconfig --enable-ctrlkey=ctrl --enable-full-debug --enable-full-history --enable-nfclipbrd";
+				COPY_PHASE_STRIP = NO;
 				CPU_TYPE_i386 = CPU_i386;
 				CPU_TYPE_ppc = CPU_powerpc;
 				CURRENT_PROJECT_VERSION = "##VERSION##";
@@ -2404,13 +2407,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = i386;
-				COMPILE_DEFS = "$(inherited) FIXED_ADDRESSING FMEMORY=0x51000000 UNALIGNED_PROFITABLE  X86_ASSEMBLY OPTIMIZED_FLAGS SAHF_SETO_PROFITABLE USE_JIT=1 USE_JIT_FPU=1 HAVE_MACH_VM UAEDEBUG JIT_DEBUG REGPARAM=\"__attribute__((regparm(3)))\"  FPU_IEEE NO_NESTED_SIGSEGV";
+				COMPILE_DEFS = "$(inherited) FIXED_ADDRESSING FMEMORY=0x51000000 UNALIGNED_PROFITABLE  X86_ASSEMBLY OPTIMIZED_FLAGS SAHF_SETO_PROFITABLE USE_JIT=1 HAVE_MACH_VM UAEDEBUG JIT_DEBUG REGPARAM=\"__attribute__((regparm(3)))\"  FPU_IEEE NO_NESTED_SIGSEGV";
 				CONFIGURE_OPTIONS = "$(inherited) --enable-fpe=ieee --enable-jit-compiler";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "$(COMPILE_DEFS)";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
