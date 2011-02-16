@@ -1,3 +1,11 @@
+aranym (0.9.11-1) unstable; urgency=low
+
+  * [02e3bf1] follow debian policy 3.9.1
+  * [e4b9044] Imported Upstream version 0.9.11
+  * [e8a425e] minimize the number of logs generated in SCC emulation
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 16 Feb 2011 12:47:43 +0100
+
 aranym (0.9.10-1) unstable; urgency=low
 
   * [4fc092f] Imported Upstream version 0.9.10
