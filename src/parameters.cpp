@@ -1,7 +1,7 @@
 /*
  * parameters.cpp - parameter init/load/save code
  *
- * Copyright (c) 2001-2008 ARAnyM developer team (see AUTHORS)
+ * Copyright (c) 2001-2010 ARAnyM developer team (see AUTHORS)
  *
  * Authors:
  *  MJ		Milan Jurik
@@ -27,7 +27,6 @@
 
 
 #include "sysdeps.h"
-#include "config.h"
 #include "parameters.h"
 #include "tools.h"		// for safe_strncpy()
 #include "host.h"
@@ -120,6 +119,10 @@ static struct option const long_options[] =
 #define TOS_FILENAME		"ROM"
 #define EMUTOS_FILENAME		"etos512k.img"
 #define FREEMINT_FILENAME	"mintara.prg"
+
+#ifndef DEFAULT_SERIAL
+#define DEFAULT_SERIAL "/dev/ttyS0"
+#endif
 
 char *program_name;		// set by main()
 
@@ -749,6 +752,23 @@ void postload_parallel() {
 
 void presave_parallel() {
 }
+/*************************************************************************/
+#define SERIAL_CONF(x) bx_options.serial.x
+
+struct Config_Tag serial_conf[]={
+	{ "Serport", String_Tag, &SERIAL_CONF(serport), sizeof(SERIAL_CONF(serport)), 0},
+	{ NULL , Error_Tag, NULL, 0, 0 }
+};
+
+void preset_serial() {
+  safe_strncpy(SERIAL_CONF(serport), DEFAULT_SERIAL, sizeof(SERIAL_CONF(serport)));
+}
+
+void postload_serial() {
+}
+
+void presave_serial() {
+}
 
 /*************************************************************************/
 #define NATFEAT_CONF(x) bx_options.natfeats.x
@@ -1006,6 +1026,7 @@ void preset_cfg() {
   preset_autozoom();
   preset_osmesa();
   preset_parallel();
+  preset_serial();
   preset_natfeat();
   preset_nfvdi();
   preset_audio();
@@ -1031,6 +1052,7 @@ void postload_cfg() {
   postload_autozoom();
   postload_osmesa();
   postload_parallel();
+  postload_serial();
   postload_natfeat();
   postload_nfvdi();
   postload_audio();
@@ -1056,6 +1078,7 @@ void presave_cfg() {
   presave_autozoom();
   presave_osmesa();
   presave_parallel();
+  presave_serial();
   presave_natfeat();
   presave_nfvdi();
   presave_audio();
@@ -1353,6 +1376,7 @@ static bool decode_ini_file(const char *rcfile)
 	cfgopts.process_config(autozoom_conf, "[AUTOZOOM]", verbose);
 	cfgopts.process_config(osmesa_conf, "[NFOSMESA]", verbose);
 	cfgopts.process_config(parallel_conf, "[PARALLEL]", verbose);
+	cfgopts.process_config(serial_conf, "[SERIAL]", verbose);
 	cfgopts.process_config(natfeat_conf, "[NATFEATS]", verbose);
 	cfgopts.process_config(nfvdi_conf, "[NFVDI]", verbose);
 	cfgopts.process_config(audio_conf, "[AUDIO]", verbose);
@@ -1424,6 +1448,7 @@ bool saveSettings(const char *fs)
 	cfgopts.update_config(autozoom_conf, "[AUTOZOOM]");
 	cfgopts.update_config(osmesa_conf, "[NFOSMESA]");
 	cfgopts.update_config(parallel_conf, "[PARALLEL]");
+	cfgopts.update_config(serial_conf, "[SERIAL]");
 	cfgopts.update_config(natfeat_conf, "[NATFEATS]");
 	cfgopts.update_config(nfvdi_conf, "[NFVDI]");
 	cfgopts.update_config(audio_conf, "[AUDIO]");

@@ -1,3 +1,57 @@
+*** CVS tagged as ARANYM_0_9_11
+
+2011/02/06 - Petr
+- version.h: version++
+- gui-sdl/dlgMain.cpp: print current version in the ABOUT dialog
+- README, NEWS, TODO, aranym.spec, tools/export: updated for release
+
+
+2011/01/26 - Patrice
+- Use current fullscreen mode size if fixed size is 0x0.
+
+
+2010/11/26 - Patrice, contributed by François Revol
+- Add resource file for Haiku and BeOS.
+
+
+2010/11/20 - Patrice, contributed by François Revol
+- videl: refresh palette when switching from true color to bitplane mode.
+
+
+2010/11/10 - Andreas
+- fpu_*.cpp: don't modify registers before reading fp value from memory.
+- cpummu.c: fix initialising mmu register.
+
+
+2010/09/27 - Patrice, contributed by François Revol
+- BeOS: Fixes for missing includes, defines, and default configuration.
+
+
+2010/08/27 - David Gálvez
+- USB NatFeat support
+
+
+2010/08/17 - Patrice, contributed by François Revol
+- Consider Haiku as a BeOS target.
+
+
+2010/08/09 - milan
+- newcpu.cpp: fix wrong removal of code
+
+
+2010/07/22 - milan
+- use macro guard around config.h (contributed by Benoît Tuduri)
+- removal of distributed dispatcher
+
+
+2010/07/20 - Patrice
+- Check availability of realpath() function, lacking on some Mingw flavours.
+
+
+2010/07/17 - Patrice, contributed by Jean Conter
+- Preliminary SCC emulation for serial port.
+
+
 *** CVS tagged as ARANYM_0_9_10
 
 2010/05/27 - Petr
@@ -7,7 +61,7 @@
 
 2010/05/26 - Patrice
 - HostSurface: Even if we do not recreate a new surface on resize, we must still
-  update the width and height of the dirty rectangle list. 
+  update the width and height of the dirty rectangle list.
 
 - VidelZoom: Keep Atari aspect ratio also when using autozoom, with or without
   integer coefs.
@@ -42,7 +96,7 @@ screen when pixel shape is not squared (320x400, 640x200 modes for example).
 - Xcode project: fix building of Universal Binaries when compiling on PPC
 - configure.ac: fix script generation when cross-compiling
   ("[: too many arguments" errors)
-- nfclipbrd.h: remove warning 
+- nfclipbrd.h: remove warning
   overriding 'virtual const char* NF_Base::name()'
 
 
@@ -91,7 +145,7 @@ screen when pixel shape is not squared (320x400, 640x200 modes for example).
 
 
 2009/09/03 - Philipp
-- Fixed ALT+mouse click problem by setting environment variable 
+- Fixed ALT+mouse click problem by setting environment variable
   SDL_HAS3BUTTONMOUSE in input.cpp InputInit for MacAranym.
 
 
