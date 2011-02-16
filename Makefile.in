@@ -11,6 +11,7 @@ prefix = @prefix@
 exec_prefix = @exec_prefix@
 bindir = @bindir@
 datadir = @datadir@
+datarootdir = @datarootdir@
 mandir = @mandir@
 man1dir = $(mandir)/man1
 docdir = $(prefix)/share/doc
@@ -52,10 +53,12 @@ NFVDISRCS = @NFVDISRCS@
 NFCLIPBOARDSRCS = @NFCLIPBOARDSRCS@
 PARALLELX86SRCS = @PARALLELX86SRCS@
 PARALLELPARPORTSRCS = @PARALLELPARPORTSRCS@
+SERIALSRCS = @SERIALSRCS@
 GUISDLSRCS = @GUISDLSRCS@
 DYNGLSRCS = @DYNGLSRCS@
 DBGSP = @DBGSP@
 TAPIF = @TAPIF@
+USBHOSTSRCS = @USBHOSTSRCS@
 
 ACLOCAL = aclocal
 AUTOCONF = autoconf
@@ -120,6 +123,8 @@ SRCS = main.cpp \
 	parameters.cpp \
 	romdiff.cpp \
 	rtc.cpp \
+	serial.cpp \
+	scc.cpp \
 	tools.cpp \
 	videl.cpp \
 	videl_zoom.cpp \
@@ -134,12 +139,14 @@ SRCS = main.cpp \
 	$(MIDISEQSRCS) \
 	$(NFCDROMSRCS) \
 	$(NFPCISRCS) \
+	$(USBHOSTSRCS) \
 	$(NFOSMESASRCS) \
 	$(NFJPEGSRCS) \
 	$(NFVDISRCS) \
 	$(NFCLIPBOARDSRCS) \
 	$(PARALLELX86SRCS) \
 	$(PARALLELPARPORTSRCS) \
+	$(SERIALSRCS) \
 	$(SYSSRCS) \
 	$(CPUSRCS) \
 	$(DSPSRCS) \
@@ -167,6 +174,13 @@ BUNDLE_CONTENTS = \
 
 BUNDLE_FRAMEWORKS =  /Library/Frameworks/SDL.framework /Library/Frameworks/SDL_image.framework
 
+BEOS_RESOURCES = \
+	$(top_srcdir)/aranym.rdef
+
+BEOS_XRES = @BEOS_XRES@
+BEOS_RC = @BEOS_RC@
+BEOS_SETVERSION = @BEOS_SETVERSION@
+
 APP = aranym
 APP_ARCH = aranym_$(ARCH)
 APP_STATIC = aranym_static
@@ -174,6 +188,7 @@ APP_LIB = libaranym.a
 APP_BUNDLE = ARAnyM.app
 APP_IFC = aratapif
 TARGET = @TARGET@
+PACKAGE_VERSION = @PACKAGE_VERSION@
 
 ## Rules
 .PHONY: install installdirs uninstall mostlyclean clean distclean depend $(APP_BUNDLE)
@@ -206,6 +221,18 @@ VPATH += $(subst $(space),:,$(strip $(addprefix $(filter-out ./,$(srcdir)/), $(S
 
 $(APP): $(OBJ_DIR) $(GEN_DIR) $(OBJS)
 	$(CXX) -o $@ $(LDFLAGS) $(ARCHFLAGS) $(OBJS) $(LIBS)
+ifneq ($(BEOS_XRES),)
+	$(BEOS_RC) -o $(APP).rsrc $(BEOS_RESOURCES)
+endif
+ifneq ($(BEOS_XRES),)
+	$(BEOS_XRES) -o $(APP) $(APP).rsrc
+endif
+ifneq ($(BEOS_SETVERSION),)
+	$(BEOS_SETVERSION) $(APP) \
+		-app 0 9 0 d 0 \
+		-short "$(APP) $(PACKAGE_VERSION)" \
+		-long "$(APP) $(PACKAGE_VERSION)"
+endif
 
 $(APP_ARCH): $(OBJ_DIR) $(GEN_DIR) $(OBJS)
 	$(CXX) -o $@ $(LDFLAGS) $(ARCHFLAGS) $(OBJS) $(LIBS)

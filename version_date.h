@@ -1,2 +1,2 @@
 /* generated from ChangeLog */
-#define VERSION_DATE "2010/05/27"
+#define VERSION_DATE "2011/02/06"

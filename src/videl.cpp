@@ -19,6 +19,7 @@
 */
 
 #include <SDL.h>
+#include <SDL_endian.h>
 
 #include "sysdeps.h"
 #include "hardware.h"
@@ -292,6 +293,10 @@ HostSurface *VIDEL::getSurface(void)
 		crcList = new Uint32[crcWidth*crcHeight];
 		memset(crcList, 0, sizeof(Uint32)*crcWidth*crcHeight);
 	}
+
+	/* Refresh surface palette if switching from true color to bitplane mode */
+	if ((prevVidelBpp == 16) && (bpp != 16))
+		updatePalette = true;
 
 	prevVidelWidth = width;
 	prevVidelHeight = height;

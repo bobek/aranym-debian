@@ -84,6 +84,8 @@ AC_ARG_ENABLE(nfcdrom,         [  --enable-nfcdrom        enable NatFeat CD-ROM 
 
 AC_ARG_ENABLE(nfpci,           [  --enable-nfpci          enable NatFeat PCI (default=no)], [WANT_NFPCI=$enableval], [WANT_NFPCI=no])
 
+AC_ARG_ENABLE(usbhost,         [  --enable-usbhost        enable NatFeat USB (default=no)], [WANT_USBHOST=$enableval], [WANT_USBHOST=no])
+
 AC_ARG_ENABLE(nfosmesa,        [  --enable-nfosmesa       enable NatFeat OSMesa (default=no)], [WANT_NFOSMESA=$enableval], [WANT_NFOSMESA=no])
 
 AC_ARG_ENABLE(nfjpeg,          [  --enable-nfjpeg         enable NatFeat JPEG (default=yes)], [WANT_NFJPEG=$enableval], [WANT_NFJPEG=yes])
@@ -103,6 +105,8 @@ AC_ARG_ENABLE(rtctimer,        [  --enable-rtctimer       enable Linux /dev/rtc 
 AC_ARG_ENABLE(parallelx86,     [  --enable-parallelx86    enable Linux X86 hw access for parallel port (default=no)], [WANT_PARALLELX86=$enableval], [WANT_PARALLELX86=no])
 
 AC_ARG_ENABLE(parport,         [  --enable-parport        enable Linux /dev/parport access for parallel port (default=yes)], [WANT_PARALLELPARPORT=$enableval], [WANT_PARALLELPARPORT=yes])
+
+AC_ARG_ENABLE(serialport,      [  --enable-serialport     enable Unix /dev/ttySn serial port support (default=yes)], [WANT_UNIXSERIALPORT=$enableval], [WANT_UNIXSERIALPORT=yes])
 
 AC_ARG_WITH(fink,              [  --with-fink             Use Fink suite to build Aranym on MacOSX (default=no)], [WITH_FINK=$withval], [WITH_FINK=no])
 
@@ -162,8 +166,6 @@ AC_ARG_ENABLE(jit-fpu,
 
 AC_ARG_ENABLE(jit-debug,       [  --enable-jit-debug      activate native code disassemblers (default=no)], [WANT_JIT_DEBUG=$enableval], [WANT_JIT_DEBUG=no])
 
-AC_ARG_ENABLE(disdip,          [  --enable-disdip         enable distributed dispatcher (default=no)], [WANT_DIS_DIP=$enableval], [WANT_DIS_DIP=no])
-
 AC_ARG_ENABLE(ethernet,        [  --enable-ethernet       enable ethernet card emulation (default=yes)], [WANT_ETHERNET=$enableval], [WANT_ETHERNET=yes])
 
 AC_ARG_ENABLE(cxx-exceptions,  [  --enable-cxx-exceptions enable the use of C++ try/catch instead of setjmp/longjmp (default=yes)], [WANT_CXX_EXCEPTIONS=$enableval], [WANT_CXX_EXCEPTIONS=yes])
@@ -179,7 +181,7 @@ case "$host_os" in
   cygwin*)	OS_TYPE=cygwin;;
   irix*)	OS_TYPE=irix;;
   mint*)	OS_TYPE=mint;;
-  beos*)	OS_TYPE=beos;;
+  beos*|haiku*)	OS_TYPE=beos;;
   mingw*)	OS_TYPE=mingw;;
   *)		OS_TYPE=`echo $host_os | sed -e 's/-/_/g' | sed -e 's/\./_/g'`;;
 esac
@@ -198,7 +200,13 @@ case "$host_cpu" in
 	HAVE_I386=yes
 	if [[ "x$OS_TYPE" = "xdarwin" ]]; then
 		ARCHFLAGS="-arch i386"
-		ISYSROOT="-mmacosx-version-min=10.4 -isysroot /Developer/SDKs/MacOSX10.4u.sdk"
+		case "$host_os" in
+			darwin8* | darwin9* )	ISYSROOT="-mmacosx-version-min=10.4 -isysroot /Developer/SDKs/MacOSX10.4u.sdk";;
+			darwin10* )	ISYSROOT="-mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk";;
+			*)
+				AC_MSG_ERROR([Sorry, unknown Darwin version: $host_os])
+				;;
+		esac
 		dnl Add the ARCHFLAGS here to let configure check for the target and not host capabilities.
 		CPPFLAGS="$CPPFLAGS $ISYSROOT $ARCHFLAGS"
 		LDFLAGS="$LDFLAGS $ISYSROOT $ARCHFLAGS"
@@ -230,6 +238,7 @@ AC_PROG_CXX
 AC_PROG_CXXCPP
 AC_PROG_MAKE_SET
 AC_PROG_INSTALL
+AC_PATH_PROG(PKG_CONFIG, pkg-config, [AC_MSG_ERROR([pkg-config not found.])])
 
 dnl Checks for header files.
 AC_HEADER_STDC
@@ -281,7 +290,7 @@ AC_CHECK_FUNCS(vm_allocate vm_deallocate vm_protect)
 AC_CHECK_FUNCS(strchr memcpy bcopy)
 AC_CHECK_FUNCS(usleep gettimeofday)
 AC_CHECK_FUNCS(fseeko fsync)
-AC_CHECK_FUNCS(canonicalize_file_name)
+AC_CHECK_FUNCS(canonicalize_file_name realpath)
 
 dnl Defines caddr_t as void * if not already defined
 AC_CHECK_TYPES(caddr_t)
@@ -348,9 +357,16 @@ case "$host_os" in
 		ARANYM_CHECK_FRAMEWORK(Security, [#include <Security/Security.h>])
 	fi
 	;;
-  beos*)
+  beos*|haiku*)
+    dnl Find tools needed to add resources
+    AC_PATH_PROG(BEOS_XRES, xres, [AC_MSG_ERROR([xres not found.])])
+    AC_PATH_PROG(BEOS_RC, rc, [AC_MSG_ERROR([rc not found.])])
+    AC_PATH_PROG(BEOS_SETVERSION, setversion, [AC_MSG_ERROR([setversion not found.])])
+
     EXTRASYSSRCS="Unix/parameters_unix.cpp Unix/beos/cdrom_beos.cpp Unix/host_filesys_unix.cpp"
     CPPFLAGS="$CPPFLAGS -I\$(srcdir)/Unix/beos"
+    WANT_UNIXSERIALPORT=no
+    ac_cv_tun_tap_support=no
     ;;
   *)
     EXTRASYSSRCS="Unix/parameters_unix.cpp Unix/host_filesys_unix.cpp"
@@ -1119,27 +1135,11 @@ if [[ "x$HAVE_GCC27" = "xyes" ]]; then
   fi
 fi
 
-dnl Distributed dispatcher eliminates pipeline stall
-dnl It needs computed gotos (supported by GNU C++)
-dnl DODO - test for computed gotos
-if [[ "x$WANT_DIS_DIP" = "xyes" ]]; then
-  DEFINES="$DEFINES -DDISDIP"
-fi
-
-dnl And also remove functions calls costs
-if [[ "x$WANT_SIGSEGV_GOTO" = "xyes" ]]; then
-  AC_DEFINE(SIGSEGV_HANDLER_GOTO, 1, [Define if you want computed gotos for sigsegv handler])
-fi
-
 dnl Select appropriate CPU source and REGPARAM define.
 CPUSRCS=
 GENCPUSRCS=
 ASM_OPTIMIZATIONS=none
-if [[ "x$WANT_DIS_DIP" = "xyes" ]]; then
-	GENCPUSRCS="cpuemu.cpp"
-else
-	GENCPUSRCS="cpuemu1.cpp cpuemu2.cpp cpuemu3.cpp cpuemu4.cpp cpuemu5.cpp cpuemu6.cpp cpuemu7.cpp cpuemu8.cpp"
-fi
+GENCPUSRCS="cpuemu1.cpp cpuemu2.cpp cpuemu3.cpp cpuemu4.cpp cpuemu5.cpp cpuemu6.cpp cpuemu7.cpp cpuemu8.cpp"
 
 dnl gb-- JITSRCS and GENJITSRCS will be emptied later if the JIT is not available
 dnl gb-- Other platforms should define their own set of noflags file variants
@@ -1153,11 +1153,7 @@ if [[ "x$HAVE_GCC27" = "xyes" -a "x$HAVE_I386" = "xyes" ]]; then
   if [[ "x$HAVE_GAS" = "xyes" ]]; then
     ASM_OPTIMIZATIONS=i386
     DEFINES="$DEFINES -DX86_ASSEMBLY -DOPTIMIZED_FLAGS -DSAHF_SETO_PROFITABLE"
-#    if [[ "x$WANT_DIS_DIP" = "xyes" ]]; then
-#      GENCPUSRCS="cpufast.s"
-#    else
-#      GENCPUSRCS="cpufast1.s cpufast2.s cpufast3.s cpufast4.s cpufast5.s cpufast6.s cpufast7.s cpufast8.s"
-#    fi
+#    GENCPUSRCS="cpufast1.s cpufast2.s cpufast3.s cpufast4.s cpufast5.s cpufast6.s cpufast7.s cpufast8.s"
      GENJITSRCS="cpuemu1_nf.cpp cpuemu2_nf.cpp cpuemu3_nf.cpp cpuemu4_nf.cpp cpuemu5_nf.cpp cpuemu6_nf.cpp cpuemu7_nf.cpp cpuemu8_nf.cpp $GENJITSRCS"
 #    GENJITSRCS="cpufast1_nf.s cpufast2_nf.s cpufast3_nf.s cpufast4_nf.s cpufast5_nf.s cpufast6_nf.s cpufast7_nf.s cpufast8_nf.s $GENJITSRCS"
     CAN_JIT=yes
@@ -1369,13 +1365,6 @@ if [[ "x$HAVE_OFAST" = "xyes" ]]; then
   LDFLAGS="$LDFLAGS -ipa"
 fi
 
-dnl For computed gotos it is necessary no-gcse
-if [[ "x$WANT_DIS_DIP" = "xyes" ]]; then
-  if [[ "x$HAVE_GCC27" = "xyes" ]]; then
-    CXXFLAGS="$CXXFLAGS -fno-gcse"
-  fi
-fi
-
 dnl Check for SDL
 SDL_CFLAGS=
 SDL_LIBS=
@@ -1475,6 +1464,28 @@ else
 	have_zlib="not required"
 fi
 
+dnl Check for libusb-1.0
+WITH_USBHOST="no"
+if test "x$WANT_USBHOST" = "xyes"; then
+  # Search using pkg-config
+    if test "x$PKG_CONFIG" != "x"; then
+      PKG_CHECK_MODULES([LIBUSB], [libusb-1.0], [WITH_USBHOST="yes"], [WITH_USBHOST="no"])
+    fi
+   
+  # Search the library and headers directly
+    if test "x$WITH_USBHOST" = "xno"; then
+      AC_CHECK_HEADER(libusb-1.0/libusb.h, [], [AC_MSG_ERROR([The libusb headers are missing])])
+      AC_CHECK_LIB(usb-1.0, libusb_init, [], [AC_MSG_ERROR([The libusb library is missing])])
+
+      LIBUSB_LIBS="-lusb-1.0"
+      WITH_USBHOST="yes"
+    fi
+
+    if test "x$WITH_USBHOST" = "xno"; then
+      AC_MSG_ERROR([libusb is mandatory for usb support])
+    fi
+fi
+
 dnl Linux loader
 
 if [[ "x$WANT_LILO" = "xyes" ]]; then
@@ -1514,6 +1525,15 @@ if [[ "x$WANT_NFPCI" = "xyes" ]]; then
 			AC_MSG_ERROR([*** NatFeats PCI not supported by this OS ***])
 			;;
 	esac
+fi
+
+dnl Natfeat USB driver
+
+USBHOSTSRCS=""
+if [[ "x$WANT_USBHOST" = "xyes" -a "x$WITH_USBHOST" = "xyes" ]]; then
+	AC_DEFINE([USBHOST_SUPPORT], 1, [Define if you want to use host USB driver])
+		USBHOSTSRCS="natfeat/usbhost.cpp"
+		LIBS="$LIBS $LIBUSB_LIBS"
 fi
 
 dnl Natfeat OSMesa driver
@@ -1631,6 +1651,18 @@ if test "x$OS_TYPE" = "xlinux"; then
 	MIDISEQSRCS="midi_sequencer.cpp"
 fi
 
+dnl Serial port support
+
+SERIALSRCS=""
+if test "x$WANT_UNIXSERIALPORT" = "xyes" ; then
+	if test "x$ac_cv_header_termios_h" = "xyes" -a "x$ac_cv_header_sys_ioctl_h" = "xyes"; then
+		AC_DEFINE([ENABLE_SERIALUNIX], 1, [Define if you want to use /dev/ttyXXX access for serial port])
+		SERIALSRCS="serial_port.cpp"
+	else
+		WANT_UNIXSERIALPORT="no"
+	fi
+fi
+
 dnl Data directory
 
 APP=aranym
@@ -1673,12 +1705,14 @@ AC_SUBST(DSPSRCS)
 AC_SUBST(MIDISEQSRCS)
 AC_SUBST(NFCDROMSRCS)
 AC_SUBST(NFPCISRCS)
+AC_SUBST(USBHOSTSRCS)
 AC_SUBST(NFOSMESASRCS)
 AC_SUBST(NFJPEGSRCS)
 AC_SUBST(NFVDISRCS)
 AC_SUBST(NFCLIPBOARDSRCS)
 AC_SUBST(PARALLELX86SRCS)
 AC_SUBST(PARALLELPARPORTSRCS)
+AC_SUBST(SERIALSRCS)
 AC_SUBST(GUISDLSRCS)
 AC_SUBST(DYNGLSRCS)
 AC_SUBST(DBGSP)
@@ -1717,7 +1751,6 @@ echo Linux /dev/rtc source timer ............ : $WANT_RTCTIMER
 echo Real STOP implementation ............... : $WANT_REALSTOP
 echo DSP 56001 support ...................... : $WANT_DSP
 echo DSP 56001 disassembly support .......... : $WANT_DSP_DISASM
-echo Distributed dispatcher ................. : $WANT_DIS_DIP
 echo Debugger ............................... : $WHICH_DEBUG
 echo Check memory ........................... : $MEMORY_CHECK
 echo First 2kB of RAM Supervisor protected... : $WANT_PROTECT2K
@@ -1731,8 +1764,10 @@ echo GUI .................................... : $WANT_SDLGUI
 echo OpenGL ................................. : $WANT_OPENGL
 echo Linux-m68k loader ...................... : $WANT_LILO
 echo Zlib ................................... : $have_zlib
+echo libusb-1.0.............................. : $WITH_USBHOST
 echo NatFeat CD-ROM driver .................. : $WANT_NFCDROM
 echo NatFeat PCI driver ..................... : $WANT_NFPCI
+echo NatFeat USB driver ..................... : $WANT_USBHOST
 echo NatFeat OSMesa driver .................. : $WANT_NFOSMESA
 echo NatFeat JPEG decoder ................... : $WANT_NFJPEG
 echo NatFeat Clipboard ...................... : $WANT_NFCLIPBRD
@@ -1740,6 +1775,7 @@ echo NatFeat VDI driver ..................... : $WANT_NFVDI
 echo Exception per second limiter ........... : $WANT_EPSLIMITER
 echo Linux/X86 h/w access for parallel port.. : $WANT_PARALLELX86
 echo Linux /dev/parport for parallel port.... : $WANT_PARALLELPARPORT
+echo Unix /dev/ttySn for serial port......... : $WANT_UNIXSERIALPORT
 echo Use C++ exceptions for m68k exceptions.. : $WANT_CXX_EXCEPTIONS
 echo
 echo "Configuration done. Now type \"make depend\" (or \"gmake depend\") then

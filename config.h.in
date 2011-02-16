@@ -63,6 +63,9 @@
 /* Define if you want real STOP instruction implementation */
 #undef ENABLE_REALSTOP
 
+/* Define if you want to use /dev/ttyXXX access for serial port */
+#undef ENABLE_SERIALUNIX
+
 /* Define if your system supports TUN/TAP devices. */
 #undef ENABLE_TUNTAP
 
@@ -217,6 +220,9 @@
 /* Define to 1 if you have the `m' library (-lm). */
 #undef HAVE_LIBM
 
+/* Define to 1 if you have the `usb-1.0' library (-lusb-1.0). */
+#undef HAVE_LIBUSB_1_0
+
 /* Define to 1 if you have the `z' library (-lz). */
 #undef HAVE_LIBZ
 
@@ -291,6 +297,9 @@
 
 /* Define to 1 if you have the `powl' function. */
 #undef HAVE_POWL
+
+/* Define to 1 if you have the `realpath' function. */
+#undef HAVE_REALPATH
 
 /* Define if you have SDL_image */
 #undef HAVE_SDL_IMAGE
@@ -513,9 +522,6 @@
 /* Define if your system requires signals to be reinstalled. */
 #undef SIGNAL_NEED_REINSTALL
 
-/* Define if you want computed gotos for sigsegv handler */
-#undef SIGSEGV_HANDLER_GOTO
-
 /* The size of `double', as computed by sizeof. */
 #undef SIZEOF_DOUBLE
 
@@ -557,6 +563,9 @@
 
 /* Define if using UAE debugger */
 #undef UAEDEBUG
+
+/* Define if you want to use host USB driver */
+#undef USBHOST_SUPPORT
 
 /* Define to use 33-bit memory addressing on 64-bit JIT capable systems. */
 #undef USE_33BIT_ADDRESSING

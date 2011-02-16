@@ -1,7 +1,7 @@
-/* 2001 MJ */
-
 /*
  *  sysdeps.h - System dependent definitions for Unix
+ *
+ *  Copyright (c) 2009 ARAnyM dev team (see AUTHORS)
  *
  *  Basilisk II (C) 1997-2000 Christian Bauer
  *
@@ -27,7 +27,9 @@
 #error "Your compiler is not ANSI nor ISO. Get a real one."
 #endif
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 
 #ifndef STDC_HEADERS
 #error "You don't have ANSI C header files."
@@ -81,6 +83,11 @@
 #include <alloca.h>
 #include <dirent.h>
 
+#endif
+
+#ifdef OS_beos
+#include <stdlib.h>
+#include <string.h>
 #endif
 
 #ifdef MACOSX_support
@@ -324,7 +331,7 @@ static inline void do_put_mem_word(uae_u16 *a, uae_u32 v) {uint8 *b = (uint8 *)a
 
 #else /* WORDS_BIGENDIAN */
 
-#if defined(CPU_i386) || defined(CPU_x86_64)
+#if defined(X86_ASSEMBLY) || defined(X86_64_ASSEMBLY)
 
 /* Intel x86 */
 #define X86_PPRO_OPT
@@ -483,6 +490,9 @@ extern CFBundleRef mainBundle;
 # define JMP_BUF	jmp_buf
 #endif
 
+#if __GNUC__ < 3
+# define __builtin_expect(foo,bar) (foo)
+#endif
 #define likely(x)	__builtin_expect(!!(x), 1)
 #define unlikely(x)	__builtin_expect(!!(x), 0)
 #define ALWAYS_INLINE	inline __attribute__((always_inline))
