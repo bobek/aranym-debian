@@ -21,11 +21,11 @@ build-stamp:
 	dh_testdir
 
 	([ ! -f Makefile ] || $(MAKE) distclean)
-	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --mandir=/usr/share/man --enable-addressing=direct --enable-nfjpeg && $(MAKE))
+	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --enable-usbhost && $(MAKE))
 	($(MAKE) install DESTDIR=`pwd`/debian/tmp )
 
 	([ ! -f Makefile ] || $(MAKE) distclean)
-	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --mandir=/usr/share/man --enable-addressing=direct --enable-fullmmu --enable-lilo --enable-nfjpeg && $(MAKE))
+	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --enable-fullmmu --enable-lilo --enable-usbhost && $(MAKE))
 	($(MAKE) install DESTDIR=`pwd`/debian/aranym-mmu )
 	cp `pwd`/debian/aranym-mmu/usr/bin/aranym `pwd`/debian/tmp/usr/bin/aranym-mmu
 	
@@ -33,7 +33,7 @@ build-stamp:
 
 ifeq ($(HOSTTYPE),i386)
 	([ ! -f Makefile ] || $(MAKE) distclean)
-	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --mandir=/usr/share/man --enable-jit-compiler --enable-nfjpeg && $(MAKE))
+	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --enable-jit-compiler --enable-usbhost && $(MAKE))
 	($(MAKE) install DESTDIR=`pwd`/debian/aranym-jit )
 
 	cp `pwd`/debian/aranym-jit/usr/bin/aranym `pwd`/debian/tmp/usr/bin/aranym-jit
@@ -69,8 +69,13 @@ install: build
 	rm -rf debian/tmp/usr/share/aranym/atari/nfjpeg
 
 	install -m 644 -D `pwd`/contrib/aranym.desktop `pwd`/debian/tmp/usr/share/applications/aranym.desktop
+	install -m 644 -D `pwd`/contrib/aranym-mmu.desktop `pwd`/debian/tmp/usr/share/applications/aranym-mmu.desktop
+ifeq ($(HOSTTYPE),i386)
+	install -m 644 -D `pwd`/contrib/aranym-jit.desktop `pwd`/debian/tmp/usr/share/applications/aranym-jit.desktop
+endif
 	mkdir -p `pwd`/debian/tmp/usr/share/pixmaps/
 	convert `pwd`/contrib/icon-32.png `pwd`/debian/tmp/usr/share/pixmaps/aranym.xpm
+	install -m 644 -D `pwd`/contrib/icon-32.png `pwd`/debian/tmp/usr/share/icons/hicolor/32x32/apps/aranym.png
 	install -m 644 -D `pwd`/contrib/icon-48.png `pwd`/debian/tmp/usr/share/icons/hicolor/48x48/apps/aranym.png
 
 	dh_install
