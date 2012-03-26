@@ -1,7 +1,7 @@
 This package was debianized by Antonin Kral <A.Kral@sh.cvut.cz> on
 Fri, 18 Jan 2002 23:33:33 +0100.
 
-It was downloaded from http://www.aranym.org
+It was downloaded from http://aranym.org/
 
 Upstream Authors: 
 
@@ -9,8 +9,9 @@ Upstream Authors:
 	Milan Jurik <M.Jurik@sh.cvut.cz>
 	Stanislav Opichal <opichals@seznam.cz>
 	Petr Stehlik <pstehlik@sophics.cz>
+	and many others, see AUTHORS file.
 
 Copyright:
 
-Copyright (C) 2008, aranym.org developers
+Copyright (C) 2012, aranym.org developers
 GPL (see /usr/share/common-licenses/GPL)

@@ -1,10 +1,10 @@
 ARAnyM for Debian
 -------------------------
 
-Project's home page: http://aranym.org
+Project's home page: http://aranym.org/
 
 For more information please read README and other files in
-/usr/share/doc/aranym and visit project's web pages at http://aranym.org
+/usr/share/doc/aranym and visit project's web pages at http://aranym.org/
 
 Further customization in ~/.aranym/config is still needed (e.g. defining
 path to ROM image, HDD images etc). Template of the configuration file is
