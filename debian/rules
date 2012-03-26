@@ -6,7 +6,7 @@ export DH_VERBOSE=1
 DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
 DEB_HOST_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
-DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE) 
+DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
 HOSTTYPE = $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
 ifeq ($(HOSTTYPE),i586)
@@ -15,8 +15,10 @@ endif
 ifeq ($(HOSTTYPE),i686)
 	HOSTTYPE = i386
 endif
-		
-build: build-stamp
+
+build: build-arch build-indep
+build-arch: build-stamp
+build-indep: build-stamp
 build-stamp:
 	dh_testdir
 
@@ -28,7 +30,7 @@ build-stamp:
 	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --enable-fullmmu --enable-lilo --enable-usbhost && $(MAKE))
 	($(MAKE) install DESTDIR=`pwd`/debian/aranym-mmu )
 	cp `pwd`/debian/aranym-mmu/usr/bin/aranym `pwd`/debian/tmp/usr/bin/aranym-mmu
-	
+
 	cp `pwd`/debian/menu-other `pwd`/debian/menu
 
 ifeq ($(HOSTTYPE),i386)
