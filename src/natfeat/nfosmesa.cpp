@@ -85,16 +85,6 @@ OSMesaDriver::~OSMesaDriver()
 
 /*--- Public functions ---*/
 
-const char *OSMesaDriver::name()
-{
-	return "OSMESA";
-}
-
-bool OSMesaDriver::isSuperOnly()
-{
-	return false;
-}
-
 int32 OSMesaDriver::dispatch(uint32 fncode)
 {
 	int32 ret = 0;
@@ -560,16 +550,19 @@ void OSMesaDriver::PutglGetString(Uint32 ctx, GLenum name, GLubyte *buffer)
 
 GLdouble OSMesaDriver::Atari2HostDouble(Uint32 high, Uint32 low)
 {
-	Uint32 ptr[2];
+	union {
+		GLdouble d;
+		Uint32 i[2];
+	} u;
 
 #if SDL_BYTEORDER == SDL_LIL_ENDIAN
-	ptr[0]=low;
-	ptr[1]=high;
+	u.i[0]=low;
+	u.i[1]=high;
 #else
-	ptr[0]=high;
-	ptr[1]=low;
+	u.i[0]=high;
+	u.i[1]=low;
 #endif
-	return *((GLdouble *)ptr);
+	return u.d;
 }
 
 void OSMesaDriver::Atari2HostDoublePtr(Uint32 size, Uint32 *src, GLdouble *dest)
@@ -581,20 +574,20 @@ void OSMesaDriver::Atari2HostDoublePtr(Uint32 size, Uint32 *src, GLdouble *dest)
 	}
 }
 
-/*
-GLfloat OSMesaDriver::Atari2HostFloat(Uint32 value)
+static GLfloat Atari2HostFloat(Uint32 value)
 {
-	return value;
+	union {
+		GLfloat f;
+		Uint32 i;
+	} u;
+	u.i = value;
+	return u.f;
 }
-*/
+
 void OSMesaDriver::Atari2HostFloatPtr(Uint32 size, Uint32 *src, GLfloat *dest)
 {
-	Uint32 i,*tmp;
-	
-	tmp = (Uint32 *)dest;
-	
-	for (i=0;i<size;i++) {
-		tmp[i]=SDL_SwapBE32(src[i]);
+	for (Uint32 i=0;i<size;i++) {
+		dest[i]=Atari2HostFloat(SDL_SwapBE32(src[i]));
 	}
 }
 
@@ -983,10 +976,10 @@ Uint32 OSMesaDriver::getStackedParameter(Uint32 n)
 
 float OSMesaDriver::getStackedFloat(Uint32 n)
 {
-	Uint32 tmp;
+	union { float f; Uint32 i; } u;
 
-	tmp = SDL_SwapBE32(ctx_ptr[n]);
-	return *((float *)&tmp);
+	u.i = SDL_SwapBE32(ctx_ptr[n]);
+	return u.f;
 }
 
 #include "nfosmesa/call-gl.c"

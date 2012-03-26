@@ -6,8 +6,22 @@ AC_INIT(aranym,0.9,aranym@lists.bobek.cz,aranym)
 AC_PREREQ(2.52)
 AC_CONFIG_HEADER(config.h)
 
+dnl Define list of provided Native Features
+PROVIDES_NF="audio bootstrap xhdi"
+
 dnl Canonical system information.
 AC_CANONICAL_HOST
+
+dnl Silent rules
+
+AC_ARG_ENABLE(silent-rules,
+AC_HELP_STRING([--enable-silent-rules], [Enable silent build [[default=yes]]]),
+              , enable_silent_rules=yes)
+AM_DEFAULT_VERBOSITY=1
+if test x$enable_silent_rules = xyes; then
+	AM_DEFAULT_VERBOSITY=0
+fi
+AC_SUBST(AM_DEFAULT_VERBOSITY)
 
 dnl Options.
 AC_ARG_ENABLE(nat-debug,     [  --enable-nat-debug      enable native debugger support (default=yes)], [WANT_NATDEBUG=$enableval], [WANT_NATDEBUG=yes])
@@ -80,8 +94,6 @@ AC_ARG_ENABLE(opengl,          [  --enable-opengl         enable OpenGL (default
 
 AC_ARG_WITH(mesa-headers,      [  --with-mesa-headers     Path to Mesa header files], [WITH_MESAINC=$withval], [WITH_MESAINC=no])
 
-AC_ARG_ENABLE(nfcdrom,         [  --enable-nfcdrom        enable NatFeat CD-ROM (default=yes)], [WANT_NFCDROM=$enableval], [WANT_NFCDROM=yes])
-
 AC_ARG_ENABLE(nfpci,           [  --enable-nfpci          enable NatFeat PCI (default=no)], [WANT_NFPCI=$enableval], [WANT_NFPCI=no])
 
 AC_ARG_ENABLE(usbhost,         [  --enable-usbhost        enable NatFeat USB (default=no)], [WANT_USBHOST=$enableval], [WANT_USBHOST=no])
@@ -90,7 +102,7 @@ AC_ARG_ENABLE(nfosmesa,        [  --enable-nfosmesa       enable NatFeat OSMesa 
 
 AC_ARG_ENABLE(nfjpeg,          [  --enable-nfjpeg         enable NatFeat JPEG (default=yes)], [WANT_NFJPEG=$enableval], [WANT_NFJPEG=yes])
 
-AC_ARG_ENABLE(nfclipbrd,       [  --enable-nfclipbrd      enable NatFeat Clipboard (default=no)], [WANT_NFCLIPBRD=$enableval], [WANT_NFCLIPBRD=yes])
+AC_ARG_ENABLE(nfclipbrd,       [  --enable-nfclipbrd      enable NatFeat Clipboard (default=yes)], [WANT_NFCLIPBRD=$enableval], [WANT_NFCLIPBRD=yes])
 
 AC_ARG_ENABLE(nfvdi,           [  --enable-nfvdi          enable NatFeat VDI (default=yes)], [WANT_NFVDI=$enableval], [WANT_NFVDI=yes])
 
@@ -113,18 +125,24 @@ AC_ARG_WITH(fink,              [  --with-fink             Use Fink suite to buil
 AC_ARG_WITH(classicconfig,     [  --with-classicconfig	  Use Classic config names on MacOSX (default=no)], [WITH_CLASSIC_CONFIG=$withval], [WITH_CLASSIC_CONFIG=no])
 
 dnl FPU emulation core.
+if [[ "x$WANT_MMU" = "xyes" ]]; then
+    SUGGESTED_AUTO_FPE_CORE_TEST_ORDER="mpfr ieee uae"
+else
+    SUGGESTED_AUTO_FPE_CORE_TEST_ORDER="ieee uae"
+fi
 AC_ARG_ENABLE(fpe,
 [  --enable-fpe=FPE        specify which fpu emulator to use (default=auto)],
 [ case "$enableval" in
     dnl default is always ieee, if architecture has this fp format
-    auto)	FPE_CORE_TEST_ORDER="ieee uae";;
+    auto)	FPE_CORE_TEST_ORDER=$SUGGESTED_AUTO_FPE_CORE_TEST_ORDER;;
     ieee)	FPE_CORE_TEST_ORDER="ieee";;
     uae)	FPE_CORE_TEST_ORDER="uae";;
     x86)	FPE_CORE_TEST_ORDER="x86";;
-    *)		AC_MSG_ERROR([--enable-fpe takes only one of the following values: auto, uae, x86, ieee]);;
+    mpfr)	FPE_CORE_TEST_ORDER="mpfr";;
+    *)		AC_MSG_ERROR([--enable-fpe takes only one of the following values: auto, uae, x86, ieee, mpfr]);;
   esac
 ],
-[ FPE_CORE_TEST_ORDER="ieee uae"
+[ FPE_CORE_TEST_ORDER=$SUGGESTED_AUTO_FPE_CORE_TEST_ORDER
 ])
 
 dnl Addressing modes.
@@ -201,8 +219,9 @@ case "$host_cpu" in
 	if [[ "x$OS_TYPE" = "xdarwin" ]]; then
 		ARCHFLAGS="-arch i386"
 		case "$host_os" in
-			darwin8* | darwin9* )	ISYSROOT="-mmacosx-version-min=10.4 -isysroot /Developer/SDKs/MacOSX10.4u.sdk";;
-			darwin10* )	ISYSROOT="-mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk";;
+			darwin8* | darwin9* )	ISYSROOT="-mmacosx-version-min=10.4 -isysroot $DEVELOPER_SDK_DIR/MacOSX10.4u.sdk";;
+			darwin10* )	ISYSROOT="-mmacosx-version-min=10.5 -isysroot $DEVELOPER_SDK_DIR/MacOSX10.5.sdk";;
+			darwin11* )	ISYSROOT="-mmacosx-version-min=10.6 -isysroot $DEVELOPER_SDK_DIR/MacOSX10.6.sdk";;
 			*)
 				AC_MSG_ERROR([Sorry, unknown Darwin version: $host_os])
 				;;
@@ -238,7 +257,8 @@ AC_PROG_CXX
 AC_PROG_CXXCPP
 AC_PROG_MAKE_SET
 AC_PROG_INSTALL
-AC_PATH_PROG(PKG_CONFIG, pkg-config, [AC_MSG_ERROR([pkg-config not found.])])
+PKG_PROG_PKG_CONFIG
+m4_ifndef([PKG_CHECK_MODULES], [AC_DEFUN([PKG_CHECK_MODULES], [true])])
 
 dnl Checks for header files.
 AC_HEADER_STDC
@@ -918,16 +938,21 @@ else
   TAPIF=""
 fi
 
+if [[ "x$HAVE_ETHERNET" = "xyes" ]]; then
+  PROVIDES_NF="$PROVIDES_NF ethernet"
+fi
+
 dnl Support for direct access to host's fs
 if [[ "x$WANT_HOSTFS" = "xyes" ]]; then
   SYSSRCS="$SYSSRCS natfeat/hostfs.cpp"
   AC_DEFINE([HOSTFS_SUPPORT], 1, [Define if you want to use direct access to host's fs])
+  PROVIDES_NF="$PROVIDES_NF hostfs"
 fi
 
 dnl SDL GUI
 GUISDLSRCS=""
 if test "x$WANT_SDLGUI" = "xyes" ; then
-  GUISDLSRCS="gui-sdl/sdlgui.cpp gui-sdl/dlgFileSelect.cpp gui-sdl/file.cpp gui-sdl/dlgMain.cpp gui-sdl/dlgDisk.cpp gui-sdl/dlgPartition.cpp gui-sdl/dlgKeyboard.cpp gui-sdl/dlgHotkeys.cpp gui-sdl/dlgAlert.cpp gui-sdl/dlgOs.cpp gui-sdl/dlgVideo.cpp gui-sdl/dlgNetwork.cpp gui-sdl/dlgKeypress.cpp gui-sdl/dialog.cpp"
+  GUISDLSRCS="gui-sdl/sdlgui.cpp gui-sdl/dlgFileSelect.cpp gui-sdl/file.cpp gui-sdl/dlgMain.cpp gui-sdl/dlgDisk.cpp gui-sdl/dlgPartition.cpp gui-sdl/dlgKeyboard.cpp gui-sdl/dlgHotkeys.cpp gui-sdl/dlgAlert.cpp gui-sdl/dlgOs.cpp gui-sdl/dlgVideo.cpp gui-sdl/dlgNetwork.cpp gui-sdl/dlgKeypress.cpp gui-sdl/dialog.cpp gui-sdl/dlgUsb.cpp"
   CPPFLAGS="$CPPFLAGS -I\$(srcdir)/gui-sdl"
   AC_DEFINE([SDL_GUI], 1, [Define if you want to build SDL GUI])
 fi
@@ -1201,6 +1226,9 @@ if [[ "x$WANT_JIT" = "xyes" -a "x$CAN_JIT" = "xyes" ]]; then
   JITSRCS="$JITSRCS uae_cpu/compiler/compemu_support.cpp"
   DEFINES="$DEFINES -DUSE_JIT=1"
 
+  dnl JIT is buggy with strict-aliasing, it seems (FIXME!)
+  CXXFLAGS="$CXXFLAGS -fno-strict-aliasing"
+
   if [[ "x$WANT_JIT_DEBUG" = "xyes" ]]; then
     DEFINES="$DEFINES -DJIT_DEBUG=1"
   fi
@@ -1242,6 +1270,7 @@ for fpe in $FPE_CORE_TEST_ORDER; do
     case $ac_cv_c_float_format in
     IEEE*)
       FPE_CORE="IEEE fpu core"
+      AC_DEFINE([USES_FPU_CORE], "IEEE", [FPU core])
       DEFINES="$DEFINES -DFPU_IEEE"
       FPUSRCS="uae_cpu/fpu/fpu_ieee.cpp"
       dnl Math functions not mandated by C99 standard
@@ -1277,9 +1306,20 @@ for fpe in $FPE_CORE_TEST_ORDER; do
     ;;
   uae)
     FPE_CORE="uae fpu core"
+    AC_DEFINE([USES_FPU_CORE], "UAE", [FPU core])
     DEFINES="$DEFINES -DFPU_UAE"
     FPUSRCS="uae_cpu/fpu/fpu_uae.cpp"
     break
+    ;;
+  mpfr)
+    AC_CHECK_LIB(mpfr, mpfr_set_zero, [LIBS="$LIBS -lmpfr -lgmp"], [], [-lgmp])
+    if test $ac_cv_lib_mpfr_mpfr_set_zero = yes; then
+      FPE_CORE="mpfr fpu core"
+      AC_DEFINE([USES_FPU_CORE], "MPFR", [FPU core])
+      DEFINES="$DEFINES -DFPU_MPFR"
+      FPUSRCS="uae_cpu/fpu/fpu_mpfr.cpp"
+      break
+    fi
     ;;
   *)
     AC_MSG_ERROR([Internal configure.in script error for $fpe fpu core])
@@ -1410,20 +1450,24 @@ fi
 
 dnl Add OpenGL ?
 if test "x$WANT_OPENGL" = "xyes"; then
-	AC_MSG_CHECKING(for OpenGL support)
 	have_opengl="no"
-	GL_LIBS=""
-	case "$host" in
-		*-*-cygwin* | *-*-mingw*)
-			GL_LIBS="-lopengl32"
-			;;
-		*-*-darwin*)
-			GL_LIBS="-Wl,-framework,OpenGL"
-			;;
-		*)
-			GL_LIBS="-lGL"
-			;;
-	esac
+	if test "x$PKG_CONFIG" != "x"; then
+		PKG_CHECK_MODULES([GL], [gl])
+	fi
+	if test "x$GL_LIBS" = "x"; then	
+		case "$host" in
+			*-*-cygwin* | *-*-mingw*)
+				GL_LIBS="-lopengl32"
+				;;
+			*-*-darwin*)
+				GL_LIBS="-Wl,-framework,OpenGL"
+				;;
+			*)
+				GL_LIBS="-lGL"
+				;;
+		esac
+	fi
+	AC_MSG_CHECKING(for OpenGL support)
 	tmp_cflags=$CFLAGS
 	tmp_libs=$LIBS
 	CFLAGS="$CFLAGS $SDL_CFLAGS"
@@ -1441,24 +1485,22 @@ if test "x$WANT_OPENGL" = "xyes"; then
 	else
 		WANT_OPENGL="no"
 	fi
-
-dnl	MDL_HAVE_OPENGL
-dnl	if test "x$have_GL" = "xyes"; then
-dnl		AC_DEFINE([ENABLE_OPENGL], 1, [Define if using OpenGL])
-dnl		CFLAGS="$CFLAGS $GL_CFLAGS"
-dnl		CXXFLAGS="$CXXFLAGS $GL_CFLAGS"
-dnl		LIBS="$LIBS $GL_LIBS"
-dnl	else
-dnl		WANT_OPENGL="no"
-dnl	fi
 fi
 
 dnl Check for zlib
 if [[ "x$WANT_LILO" = "xyes" ]]; then
-	CHECK_ZLIB()
+	# Search using pkg-config
+	if test "x$PKG_CONFIG" != "x"; then
+		PKG_CHECK_MODULES([ZLIB], [zlib], [have_zlib=yes], [have_zlib=no])
+	fi
+
+	# Fallback to autoconf (helps in Ubuntu 10.04 LTS)
+	if [[ "x$have_zlib" = "xno" ]]; then
+		AC_CHECK_LIB(z, gzopen, [have_zlib=yes], [have_zlib=no])
+	fi
 
 	if [[ "x$have_zlib" = "xyes" ]]; then
-		LIBS="$LIBS -lz"
+		AC_DEFINE([HAVE_LIBZ], 1, [Define if zlib enabled])
 	fi
 else
 	have_zlib="not required"
@@ -1498,17 +1540,16 @@ fi
 
 dnl Natfeat CD-ROM driver
 
-NFCDROMSRCS=""
-if [[ "x$WANT_NFCDROM" = "xyes" ]]; then
-	AC_DEFINE([NFCDROM_SUPPORT], 1, [Define if you want to use host CD-ROM driver])
-	NFCDROMSRCS="natfeat/nfcdrom.cpp"
-	case "$host_os" in
-		linux*)
-			NFCDROMSRCS="$NFCDROMSRCS natfeat/nfcdrom_linux.cpp"
-			AC_DEFINE([NFCDROM_LINUX_SUPPORT], 1, [Define if you want to use Linux support as CD-ROM driver])
-			;;
-	esac
-fi
+AC_DEFINE([NFCDROM_SUPPORT], 1, [Define if you want to use host CD-ROM driver])
+NFCDROM_DRIVER="sdl"
+case "$host_os" in
+	linux*)
+		NFCDROMSRCS="natfeat/nfcdrom_linux.cpp"
+		AC_DEFINE([NFCDROM_LINUX_SUPPORT], 1, [Define if you want to use Linux support as CD-ROM driver])
+		NFCDROM_DRIVER="linux,$NFCDROM_DRIVER"
+		;;
+esac
+PROVIDES_NF="$PROVIDES_NF cdrom($NFCDROM_DRIVER)"
 
 dnl Natfeat PCI driver
 
@@ -1520,9 +1561,11 @@ if [[ "x$WANT_NFPCI" = "xyes" ]]; then
 			NFPCISRCS="natfeat/nfpci.cpp"
 			AC_DEFINE([NFPCI_LINUX_SUPPORT], 1, [Define if you want to use Linux PCI driver])
 			NFPCISRCS="$NFPCISRCS natfeat/nfpci_linux.cpp"
+			PROVIDES_NF="$PROVIDES_NF pci"
 			;;
 		*)
 			AC_MSG_ERROR([*** NatFeats PCI not supported by this OS ***])
+			WANT_NFPCI="no"
 			;;
 	esac
 fi
@@ -1532,32 +1575,37 @@ dnl Natfeat USB driver
 USBHOSTSRCS=""
 if [[ "x$WANT_USBHOST" = "xyes" -a "x$WITH_USBHOST" = "xyes" ]]; then
 	AC_DEFINE([USBHOST_SUPPORT], 1, [Define if you want to use host USB driver])
-		USBHOSTSRCS="natfeat/usbhost.cpp"
-		LIBS="$LIBS $LIBUSB_LIBS"
+	USBHOSTSRCS="natfeat/usbhost.cpp"
+	LIBS="$LIBS $LIBUSB_LIBS"
+	PROVIDES_NF="$PROVIDES_NF usb"
 fi
 
 dnl Natfeat OSMesa driver
 
 NFOSMESASRCS=""
 if test "x$WANT_NFOSMESA" = "xyes"; then
-#	AC_CHECK_LIB(SDL, SDL_LoadObject, have_sdlloadso=yes, have_sdlloadso=no)
-#	if test "x$have_sdlloadso" = "xyes"; then
-		AC_DEFINE([NFOSMESA_SUPPORT], 1, [Define if you want to use host OSMesa driver])
-		NFOSMESASRCS="natfeat/nfosmesa.cpp"
-		if test "x$WITH_MESAINC" != "xno"; then
-			CPPFLAGS="$CPPFLAGS -I$WITH_MESAINC"
-		else
-			case "$host_os" in
-				dnl For darwin the OSMesa include path is by default not defined
-				darwin*)
-					CPPFLAGS="$CPPFLAGS -I/usr/X11R6/include/"
+	AC_DEFINE([NFOSMESA_SUPPORT], 1, [Define if you want to use host OSMesa driver])
+	NFOSMESASRCS="natfeat/nfosmesa.cpp"
+	if test "x$PKG_CONFIG" != "x"; then
+		PKG_CHECK_MODULES([OSMESA], [osmesa])
+	fi
+	if test "x$OSMESA_CFLAGS" != "x"; then
+		CPPFLAGS="$CPPFLAGS $OSMESA_CFLAGS"
+	else
+		case "$host_os" in
+			dnl For darwin the OSMesa include path is by default not defined
+			darwin*)
+				CPPFLAGS="$CPPFLAGS -I/usr/X11R6/include/"
 				;;
-			esac
-		fi
-#	else
-#		AC_MSG_ERROR([*** SDL>=1.2.6 mandatory for nfosmesa ***])
-#		WANT_NFOSMESA="no"
-#	fi
+			*)
+				WANT_NFOSMESA="no"
+				;;
+		esac
+	fi
+fi
+
+if [[ "x$WANT_NFOSMESA" = "xyes" ]]; then
+	PROVIDES_NF="$PROVIDES_NF osmesa"
 fi
 
 dnl Natfeat JPEG decoder
@@ -1567,6 +1615,7 @@ if [[ "x$WANT_NFJPEG" = "xyes" ]]; then
 	if test "x$have_sdlimage_h" = "xyes" -a "x$have_sdlimage_lib" = "xyes"; then
 		AC_DEFINE([NFJPEG_SUPPORT], 1, [Define if you want to use host JPEG decoder])
 		NFJPEGSRCS="natfeat/nfjpeg.cpp"
+		PROVIDES_NF="$PROVIDES_NF jpeg"
 	else
 		WANT_NFJPEG="no"
 	fi
@@ -1578,12 +1627,15 @@ NFVDISRCS=""
 if [[ "x$WANT_NFVDI" = "xyes" ]]; then
 	AC_DEFINE([NFVDI_SUPPORT], 1, [Define if you want to use NF VDI driver])
 	NFVDISRCS="natfeat/nfvdi.cpp natfeat/nfvdi_soft.cpp"
+	NFVDI_DRIVER="sw"
 	if [[ "x$WANT_OPENGL" = "xyes" ]]; then
 		NFVDISRCS="$NFVDISRCS natfeat/nfvdi_opengl.cpp"
+		NFVDI_DRIVER="opengl,$NFVDI_DRIVER"
 	fi
+	PROVIDES_NF="$PROVIDES_NF vdi($NFVDI_DRIVER)"
 fi
 
-dnl Natfeat Clipboard driver (so far Windows only)
+dnl Natfeat Clipboard driver
 
 NFCLIPBOARDSRCS=""
 if [[ "x$WANT_NFCLIPBRD" = "xyes" ]]; then
@@ -1595,13 +1647,27 @@ if [[ "x$WANT_NFCLIPBRD" = "xyes" ]]; then
 		AC_DEFINE([NFCLIPBRD_SUPPORT], 1, [Define if you want to use Mac OS X clipboard])
 		NFCLIPBOARDSRCS="natfeat/nfclipbrd.cpp"
  		SYSSRCS="$SYSSRCS Unix/darwin/clipbrd_darwin.M"
-	else
-		AC_DEFINE([NFCLIPBRD_SUPPORT], 1, [Define if you want to use X11 clipboard])
+	elif [[ "x$OS_TYPE" = "xbeos" -o "x$OS_TYPE" = "xhaiku" ]]; then
+		AC_DEFINE([NFCLIPBRD_SUPPORT], 1, [Define if you want to use BeOS clipboard])
 		NFCLIPBOARDSRCS="natfeat/nfclipbrd.cpp"
-		SYSSRCS="$SYSSRCS Unix/clipbrd_x11.cpp"
-		LIBS="$LIBS -lX11"
-dnl     	AC_MSG_ERROR([Sorry, NatFeat Clipboard not implemented on your platform yet])
+ 		SYSSRCS="$SYSSRCS Unix/beos/clipbrd_beos.cpp"
+		LIBS="$LIBS -lbe"
+	else
+		AC_CHECK_LIB(X11, XOpenDisplay)
+		if [[ "x$ac_cv_lib_X11_XOpenDisplay" = "xyes" ]]; then
+			AC_DEFINE([NFCLIPBRD_SUPPORT], 1, [Define if you want to use X11 clipboard])
+			NFCLIPBOARDSRCS="natfeat/nfclipbrd.cpp"
+			SYSSRCS="$SYSSRCS Unix/clipbrd_x11.cpp"
+			LIBS="$LIBS -lX11"
+		else
+		     	AC_MSG_ERROR([Sorry, NatFeat Clipboard not implemented on your platform yet])
+			WANT_NFCLIPBRD="no"
+		fi
 	fi
+fi
+
+if [[ "x$WANT_NFCLIPBRD" = "xyes" ]]; then
+	PROVIDES_NF="$PROVIDES_NF clipboard"
 fi
 
 dnl Exception per second limiter
@@ -1663,6 +1729,8 @@ if test "x$WANT_UNIXSERIALPORT" = "xyes" ; then
 	fi
 fi
 
+AC_DEFINE_UNQUOTED([PROVIDES_NATFEATS], "$PROVIDES_NF", [List of Native Features])
+
 dnl Data directory
 
 APP=aranym
@@ -1723,6 +1791,8 @@ AC_SUBST(ARCHFLAGS)
 AC_SUBST(SDL_CFLAGS)
 AC_SUBST(SDL_LIBS)
 AC_SUBST(BUNDLE_FRAMEWORKS)
+AC_SUBST(ZLIB_CFLAGS)
+AC_SUBST(ZLIB_LIBS)
 AC_OUTPUT(Makefile)
 
 dnl Print summary.
@@ -1765,7 +1835,7 @@ echo OpenGL ................................. : $WANT_OPENGL
 echo Linux-m68k loader ...................... : $WANT_LILO
 echo Zlib ................................... : $have_zlib
 echo libusb-1.0.............................. : $WITH_USBHOST
-echo NatFeat CD-ROM driver .................. : $WANT_NFCDROM
+echo NatFeat CD-ROM driver .................. : $NFCDROM_DRIVER
 echo NatFeat PCI driver ..................... : $WANT_NFPCI
 echo NatFeat USB driver ..................... : $WANT_USBHOST
 echo NatFeat OSMesa driver .................. : $WANT_NFOSMESA
