@@ -1,6 +1,6 @@
 # generic defines used by all distributions.
 #
-%define ver			0.9.11
+%define ver			0.9.13
 
 #
 #
@@ -31,12 +31,12 @@
 %endif
 
 # if present, use %distversion to find out which Mandriva version is being built
+# define %distversion and %_icondir in your .rpmmacros if build fails
 #
 %if 0%{?distversion:1}
 %if 0%{?!mandriva_version:1}
 %define	mandriva_version	%(echo $[%{distversion}/10])
 %endif
-
 %endif
 
 %if 0%{?mandriva_version:1}
@@ -159,25 +159,44 @@
 %define	_docdir			%{_prefix}/share/doc
 
 %if %{my_suse}
-Requires:			SDL >= 1.2.10
-Requires:			SDL_image >= 1.2.5
-BuildRequires:			SDL-devel >= 1.2.10
-BuildRequires:			SDL_image-devel >= 1.2.5
+Requires:			libSDL-1_2-0 >= 1.2.10
+Requires:			libSDL_image-1_2-0 >= 1.2.5
+Requires:			zlib >= 1.2.3
+Requires:			libmpfr4 >= 3.0.0
+Requires:			libusb-1_0-0 >= 1.0.0
+BuildRequires:			libSDL-devel >= 1.2.10
+BuildRequires:			libSDL_image-devel >= 1.2.5
+BuildRequires:			zlib-devel >= 1.2.3
+BuildRequires:			mpfr-devel >= 3.0.0
+BuildRequires:			libusb-1_0-devel >= 1.0.0
 BuildRequires:			update-desktop-files
+BuildRequires:			make
 %endif
 
 %if %{my_mandriva}
-Requires:			libSDL >= 1.2.10
-Requires:			libSDL_image >= 1.2.5
-BuildRequires:			libSDL_image-devel >= 1.2.5
+Requires:			libSDL1.2_0 >= 1.2.10
+Requires:			libSDL_image1.2_0 >= 1.2.5
+Requires:			zlib >= 1.2.3
+Requires:			libmpfr4 >= 3.0.0
+Requires:			libusb1.0_0 >= 1.0.0
 BuildRequires:			libSDL-devel >= 1.2.10
+BuildRequires:			libSDL_image-devel >= 1.2.5
+BuildRequires:			zlib-devel >= 1.2.3
+BuildRequires:			libmpfr-devel >= 3.0.0
+BuildRequires:			libusb1-devel >= 1.0.0
 %endif
 
 %if %{my_fedora}
 Requires:			SDL >= 1.2.10
 Requires:			SDL_image >= 1.2.5
-BuildRequires:			SDL_image-devel >= 1.2.5
+Requires:			zlib >= 1.2.3
+Requires:			mpfr >= 3.0.0
+Requires:			libusb1 >= 1.0.0
 BuildRequires:			SDL-devel >= 1.2.10
+BuildRequires:			SDL_image-devel >= 1.2.5
+BuildRequires:			zlib-devel >= 1.2.3
+BuildRequires:			mpfr-devel >= 3.0.0
+BuildRequires:			libusb1-devel >= 1.0.0
 %endif
 
 
@@ -187,7 +206,7 @@ Name:			aranym
 Version:		%{ver}
 Release:		%{rel}
 License:		GPLv2
-Summary:		32-bit Atari personal computer (Falcon030/TT030) virtual machine
+Summary:		32-bit Atari personal computer (similar to Falcon030 but better) virtual machine
 URL:			http://aranym.org/
 Group:			%{group}
 Source0:		http://prdownloads.sourceforge.net/aranym/%{name}_%{version}.orig.tar.gz
@@ -218,20 +237,20 @@ Didier MEQUIGNON, Patrice Mandin and others (see AUTHORS for a full list).
 # JIT only works on i586
 #
 %ifarch %ix86
-%configure --disable-nat-debug --enable-jit-compiler --enable-nfjpeg
+%configure --enable-jit-compiler --enable-usbhost
 %{__make} depend
 %{__make}
 %{__mv} aranym aranym-jit
 %{__make} clean
 %endif
 
-%configure --disable-nat-debug --enable-addressing=direct --enable-fullmmu --enable-lilo --enable-fixed-videoram --enable-nfjpeg
+%configure --enable-fullmmu --enable-lilo --enable-usbhost
 %{__make} depend
 %{__make}
 %{__mv} aranym aranym-mmu
 %{__make} clean
 
-%configure --disable-nat-debug --enable-addressing=direct --enable-nfjpeg
+%configure --enable-usbhost
 %{__make} depend
 %{__make}
 
@@ -262,20 +281,28 @@ mkdir -p %{buildroot}/%{_icondir}/48x48/apps
 install -m 644 contrib/icon-32.png %{buildroot}/%{_icondir}/32x32/apps/aranym.png
 install -m 644 contrib/icon-48.png %{buildroot}/%{_icondir}/48x48/apps/aranym.png
 
-%if %{my_suse}
+%if %{my_suse}%{my_mandriva}
 install -m 644 contrib/%{name}.desktop %{buildroot}/%{_datadir}/applications/%{name}.desktop
+%if %{my_suse}
 %suse_update_desktop_file -i %{name}
 %endif
+%if %{my_mandriva}
+desktop-file-install                                    \
+ --delete-original                                      \
+ --dir %{buildroot}%{_datadir}/applications             \
+ --add-category System                                  \
+ --add-category Emulator                                \
+ %{buildroot}/%{_datadir}/applications/%{name}.desktop
+%endif
+%endif
 
-%if %{my_fedora}%{my_mandriva}
+%if %{my_fedora}
 install -m 644 contrib/%{name}.desktop %{buildroot}%{_datadir}/applications/%{my_vendor}-%{name}.desktop
 desktop-file-install                                    \
  --delete-original                                      \
  --vendor %{my_vendor}                                  \
  --dir %{buildroot}%{_datadir}/applications             \
-%if %{my_fedora}
  --add-category X-Fedora                                \
-%endif
  --add-category System                                  \
  --add-category Emulator                                \
  %{buildroot}/%{_datadir}/applications/%{my_vendor}-%{name}.desktop
@@ -283,31 +310,24 @@ desktop-file-install                                    \
 
 %ifarch %ix86
 
-%if %{my_suse}
-sed -e "s/Exec=aranym/Exec=aranym-jit/g" \
- -e "s/Name=ARAnyM/Name=ARAnyM-jit/g" <%{buildroot}/%{_datadir}/applications/%{name}.desktop >%{buildroot}/%{_datadir}/applications/%{name}-jit.desktop
+%if %{my_suse}%{my_mandriva}
+install -m 644 contrib/%{name}-jit.desktop %{buildroot}/%{_datadir}/applications/%{name}-jit.desktop
 %endif
 
-%if %{my_fedora}%{my_mandriva}
-sed -e "s/Exec=aranym/Exec=aranym-jit/g" \
- -e "s/Name=ARAnyM/Name=ARAnyM-jit/g" <%{buildroot}/%{_datadir}/applications/%{my_vendor}-%{name}.desktop \
- >%{buildroot}/%{_datadir}/applications/%{my_vendor}-%{name}-jit.desktop
+%if %{my_fedora}
+install -m 644 contrib/%{name}-jit.desktop %{buildroot}%{_datadir}/applications/%{my_vendor}-%{name}-jit.desktop
 %endif
 %else
 %{__rm} %{buildroot}/%{_mandir}/man1/%{name}-jit.1*
 %endif
 
 
-%if %{my_suse}
-sed -e "s/Exec=aranym/Exec=aranym-mmu/g" \
- -e "s/Name=ARAnyM/Name=ARAnyM-mmu/g" <%{buildroot}/%{_datadir}/applications/%{name}.desktop \
- >%{buildroot}/%{_datadir}/applications/%{name}-mmu.desktop
+%if %{my_suse}%{my_mandriva}
+install -m 644 contrib/%{name}-mmu.desktop %{buildroot}/%{_datadir}/applications/%{name}-mmu.desktop
 %endif
 
-%if %{my_fedora}%{my_mandriva}
-sed -e "s/Exec=aranym/Exec=aranym-mmu/g" \
- -e "s/Name=ARAnyM/Name=ARAnyM-mmu/g" <%{buildroot}/%{_datadir}/applications/%{my_vendor}-%{name}.desktop \
- >%{buildroot}/%{_datadir}/applications/%{my_vendor}-%{name}-mmu.desktop
+%if %{my_fedora}
+install -m 644 contrib/%{name}-mmu.desktop %{buildroot}%{_datadir}/applications/%{my_vendor}-%{name}-mmu.desktop
 %endif
 
 
@@ -357,6 +377,17 @@ sed -e "s/Exec=aranym/Exec=aranym-mmu/g" \
 
 
 %changelog
+* Fri Mar 23 2012 Petr Stehlik <pstehlik@sophics.cz> 0.9.13
+New ARAnyM release.
+Make use of two new desktop files.
+Mandriva desktop files without the vendor prefix.
+
+* Sat Mar 17 2012 Petr Stehlik <pstehlik@sophics.cz> 0.9.12
+New ARAnyM release.
+New FPU emulation for MMU mode (using MPFR)
+New Native Features enabled (PCI, USB)
+New dependencies (zlib, mpfr, libusb)
+
 * Wed May 26 2010 Petr Stehlik <pstehlik@sophics.cz> 0.9.10
 New ARAnyM release.
 Icons moved to icons dir.

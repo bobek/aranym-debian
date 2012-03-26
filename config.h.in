@@ -223,7 +223,10 @@
 /* Define to 1 if you have the `usb-1.0' library (-lusb-1.0). */
 #undef HAVE_LIBUSB_1_0
 
-/* Define to 1 if you have the `z' library (-lz). */
+/* Define to 1 if you have the `X11' library (-lX11). */
+#undef HAVE_LIBX11
+
+/* Define if zlib enabled */
 #undef HAVE_LIBZ
 
 /* Define to 1 if you have the <linux/if.h> header file. */
@@ -504,6 +507,9 @@
 /* Define if you want to protect first 2kB of RAM against user mode access */
 #undef PROTECT2K
 
+/* List of Native Features */
+#undef PROVIDES_NATFEATS
+
 /* Define if you want protect end of memory */
 #undef RAMENDNEEDED
 
@@ -566,6 +572,9 @@
 
 /* Define if you want to use host USB driver */
 #undef USBHOST_SUPPORT
+
+/* FPU core */
+#undef USES_FPU_CORE
 
 /* Define to use 33-bit memory addressing on 64-bit JIT capable systems. */
 #undef USE_33BIT_ADDRESSING

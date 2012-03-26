@@ -1,3 +1,176 @@
+*** CVS tagged as ARANYM_0_9_13
+
+2012/03/23 - Petr
+- configure.ac: disable strict aliasing for JIT target (thanks to Miro)
+
+- atari/mmusetup.cnf: FastRAM enlarged from 64 to 512 MB, removed Hades
+  specific VideoRAM (thanks to Miro Kropacek)
+
+- aranym.spec: Mandriva uses desktop files without the vendor prefix
+  (with the prefix ARAnyM didn't appear in the list of apps)
+
+- tools/export: modified for the Debian compatible source archive name
+  aranym_V.E.R.orig.tar.gz
+
+- README, NEWS, version.h: updated for new release
+
+
+2012/03/22 - Petr
+- natfeat/usbhost.cpp: Change the location of the status register cleaning
+  from the function usbhost_init_libusb to the class constructor.
+  This avoids that under some circumstances devices can't be claimed.
+  Patch by David.
+
+- aranym.spec: make use of the new aranym-{jit,mmu}.desktop files
+
+
+2012/03/20 - Andreas
+- fpu_mpfr.cpp: fix restarting of FPU insns in presence of access error
+  exceptions
+
+
+2012/03/20 - Petr
+- contrib/*.desktop: updated description of the aranym.desktop and added
+  two new files: aranym-jit.desktop and aranym-mmu.desktop
+
+- natfeat/usbhost.cpp: fix compiler warning about comparison with different
+  variables types (by David)
+
+
+*** CVS tagged as ARANYM_0_9_12
+
+2012/03/19 - Petr
+- natfeat/{nfpci,nfosmesa}.h: made supervisor only (with Patrice's blessing)
+
+- aranym.spec: disabled nfpci (Patrice says it's incomplete and should even
+  be dropped from the source code completely)
+
+- Makefile.in: quiet 'make depend'
+
+- natfeat/usbhost.{cpp,h}: postponed the initialisation of libusb from the
+  class c'tor to the moment when the USB SETUP is invoked for the first time.
+  This saves users that will not use the USB from libusb access errors.
+  Also changed some variables type from int8 to int (both patches by David)
+
+- README, NEWS, AUTHORS, version.h: updated for new release
+
+
+2012/03/18 - Petr
+- aranym.spec: trying to get the build dependencies right (installed Fedora,
+  openSUSE and Mandriva and playing with it)
+
+- natfeat/*: moved all name and isSuperOnly to headers for easier grepping
+
+- uae_cpu/fpu/flags.h: fix for newer gcc in tfnstsw inline asm parameters
+
+
+2012/03/17 - Petr committing patch from David Galvez
+- natfeat/usbhost.{cpp,h}:
+  - Trigger interrupt for "port status change" from a new thread until
+    the driver acknowledges.
+  - Close libusb resources in class deconstructor.
+  - Check inside usb_lowlevel_init function if any usb device is
+    connected and enable "port status change" bit if necessary.
+  - Rename variable idx_int to clearer idx_interface.
+  - Use reset() function to init port status registers.
+  - Code cleanup.
+
+
+2012/03/16 - Petr
+- configure.ac, parameters.cpp: list all Native Features that got compiled in
+
+
+2012/03/15 - Petr
+- configure.ac: check for ZLIB is now both by pkg-config and autoconf.
+  Also the mpfr library must be version 3.0+ that has different API
+  than previous versions. Checking for mpfr_set_zero ensures that.
+
+- natfeat/nfpci.*: name() is const
+
+- natfeat/nfosmesa.cpp: fix strict aliasing issue in newer GCC (twice,
+  thanks to Andreas)
+
+- dsp_cpu.c: initialize some uninitialized variables
+
+
+2012/03/14 - Petr
+- configure.ac: ARAnyM with MMU tries to select the new MPFR FPU if available.
+  Also, the check for ZLIB changed from pkg-config to autoconf.
+
+- parameters.cpp: "--version" shows what FPU emulation is compiled in.
+
+
+2012/03/08 - Andreas
+- gencpu.c: fix another CAS emulation bug: if the comparison failed the PC
+  was not advanced.  Fix CAS2 to properly update both memory operands.
+
+	
+2012/03/07 - Andreas
+- gencpu.c: fix CAS.[BW] emulation bug
+- fpu_mpfr.cpp: fix k factor for FMOVE.P, fix FTST and FSCALE, only set
+  FPIAR when exceptions are raised
+
+
+2012/02/24 - Andreas
+- fpu_mpfr.cpp: fpu emulation with mpfr library
+- configure.ac: fixed define HAVE_LIBZ (not HAVE_ZLIB)
+
+
+2012/01/16 - Petr committing patch from David Galvez
+- configure.ac, gui-sdl/dlgMain.cpp: added gui-sdl/dlgUSb.{cpp,h}, a new
+  setup dialog with list of all USB devices attached to the host. Users can
+  claim up to two USB devices that can then be used from the Atari side.
+
+- natfeat/usbhost.{cpp,h}: greatly enhanced: now it's able to claim any
+  device (except hubs) to the host computer. The interfaces of the USB
+  devices are shown as different devices (for example printer with a scanner
+  will be listed as two devices, printer and scanner) so they can be
+  attached to the ARAnyM guest independently.
+
+- atari/usbhost/usbhost_nfapi.h: increased protocol revision
+
+
+2011/11/08 - Patrice
+- nfcdrom_linux: Small 64 bit fixes. Move Atari CD-ROM related stuff to generic
+  header.
+
+
+2011/11/03 - Patrice
+- nfcdrom: Use proper sized types when compiling for 64 bits. Remove useless
+  __attribute__((packed)) attribute. Always enable nfcdrom, using SDL as
+  default backend.
+
+
+2011/08/29 - Patrice
+- Add silent build rules
+
+
+2011/08/18 - Andreas
+- src/natfeat/nfosmesa.cpp: Fixed an aliasing issue
+
+
+2011/08/14 - Philipp
+- Changed Xcode project to be compatible with Xcode 4 while staying compatible with older Xcode versions
+- Simplified and unified Xcode project building
+- Removed warnings
+
+2011/08/10 - Philipp
+- configure.ac added pseudo function when pkg-config is not existent.
+- Xcode project: set project root correctly
+
+
+2011/06/26 - Rodolphe Pineau
+- Fix a videl function access if blitter code use memmove
+- fix the uint64 define for Mac OS X
+
+2011/04/25 - François Revol
+- src/Unix/vm_alloc.cpp: avoid crashing in mprotect() configure test
+- src/Unix/beos/clipbrd_beos.cpp, configure.ac: NF Clipboard for BeOS
+
+2011/04/02 - milan
+- src/natfeat/hostfs.cpp, src/gui-sdl/file.cpp, src/ndebug.cpp: fix memleaks
+
+
 *** CVS tagged as ARANYM_0_9_11
 
 2011/02/06 - Petr
