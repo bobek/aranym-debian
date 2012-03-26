@@ -1,3 +1,14 @@
+aranym (0.9.13-1) unstable; urgency=low
+
+  * imported upstream version 0.9.13, including changes for 0.9.12
+  * updates aranym.desktop and creating aranym-{jit,mmu}.desktop
+  * rules updated to install two or three (on i386) desktop entries
+  * update of title, longtitle a description in menu-i386 and menu-other
+  * new dependencies on libmpfr-dev and libusb-1.0-0-dev
+  * provided last-minute patch for FPU bug reported after 0.9.13 release
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Mon, 26 Mar 2012 16:03:32 +0200
+
 aranym (0.9.11-1) unstable; urgency=low
 
   * [02e3bf1] follow debian policy 3.9.1
@@ -121,7 +132,7 @@ aranym (0.9.0final-1.1) unstable; urgency=medium
 aranym (0.9.0final-1) unstable; urgency=low
 
   * New upstream release
-  * removed references to fvdi.prg.bz2 which has been removed by 
+  * removed references to fvdi.prg.bz2 which has been removed by
     upstream
   * added --enable-nfjpeg to all targets
   * added build-dep: libsdl-image1.2-dev
@@ -247,7 +258,7 @@ aranym (0.7.0-1) unstable; urgency=low
 
   * New upstream release
   * Recompilation under gcc 3.2
-  * Package follows Debian Policy 3.5.8 
+  * Package follows Debian Policy 3.5.8
 
  -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 29 Jan 2003 18:16:01 +0100
 
