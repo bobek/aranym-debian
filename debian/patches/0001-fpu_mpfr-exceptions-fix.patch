@@ -4,7 +4,7 @@ Subject: fpu_mpfr exceptions fix
 
 ---
  src/uae_cpu/fpu/fpu_mpfr.cpp |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ 1 file changed, 1 insertion(+)
 
 diff --git a/src/uae_cpu/fpu/fpu_mpfr.cpp b/src/uae_cpu/fpu/fpu_mpfr.cpp
 index 1a9348c..3ee3918 100644
