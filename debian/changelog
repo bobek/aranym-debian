@@ -1,9 +1,17 @@
+aranym (0.9.13-3) unstable; urgency=low
+
+  * package re-upload, added source format setting
+  * fpu_mpfr longword conversion fix (Closes: #666947)
+  * fix missing libusb.h on kfreebsd platforms (Closes: #665867)
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Thu, 19 Apr 2012 21:35:57 +0200
+
 aranym (0.9.13-2) unstable; urgency=low
 
   * fpu_mpfr longword conversion fix (Closes: #666947)
   * fix missing libusb.h on kfreebsd platforms (Closes: #665867)
 
- -- Antonin Kral <A.Kral@sh.cvut.cz>  Mon, 09 Apr 2012 12:26:11 +0200
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Thu, 19 Apr 2012 21:35:54 +0200
 
 aranym (0.9.13-1) unstable; urgency=low
 
