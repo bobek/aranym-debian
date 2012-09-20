@@ -1,3 +1,9 @@
+aranym (0.9.14-1) unstable; urgency=low
+
+  * new upstream release
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Thu, 20 Sep 2012 20:28:44 +0200
+
 aranym (0.9.13-3) unstable; urgency=low
 
   * package re-upload, added source format setting
