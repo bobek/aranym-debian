@@ -748,6 +748,7 @@ enable_jit_compiler
 enable_jit_fpu
 enable_jit_debug
 enable_ethernet
+enable_bpf_ethernet
 enable_cxx_exceptions
 enable_largefile
 with_sdl_prefix
@@ -1431,6 +1432,7 @@ Optional Features:
   --enable-jit-fpu        enable JIT compiler for FPU instructions (default=no)
   --enable-jit-debug      activate native code disassemblers (default=no)
   --enable-ethernet       enable ethernet card emulation (default=yes)
+  --enable-bpf-ethernet   enable ethernet card emulation using BPF (default=no)
   --enable-cxx-exceptions enable the use of C++ try/catch instead of setjmp/longjmp (default=yes)
   --disable-largefile     omit support for large files
   --disable-sdltest       Do not try to compile and run a test SDL program
@@ -3115,6 +3117,14 @@ else
 fi
 
 
+# Check whether --enable-bpf-ethernet was given.
+if test "${enable_bpf_ethernet+set}" = set; then :
+  enableval=$enable_bpf_ethernet; WANT_BFP_ETHERNET=$enableval
+else
+  WANT_BFP_ETHERNET=no
+fi
+
+
 # Check whether --enable-cxx-exceptions was given.
 if test "${enable_cxx_exceptions+set}" = set; then :
   enableval=$enable_cxx_exceptions; WANT_CXX_EXCEPTIONS=$enableval
@@ -3155,10 +3165,16 @@ case "$host_cpu" in
 	HAVE_I386=yes
 	if [ "x$OS_TYPE" = "xdarwin" ]; then
 		ARCHFLAGS="-arch i386"
+        if [ "x$DEVELOPER_SDK_DIR" = "x" ]; then
+            DEVELOPER_SDK_DIR=/Developer/SDKs
+        fi
+        if [ ! -d "$DEVELOPER_SDK_DIR" ]; then
+            as_fn_error "Cannot find SDKs directory at $DEVELOPER_SDK_DIR" "$LINENO" 5
+        fi
 		case "$host_os" in
 			darwin8* | darwin9* )	ISYSROOT="-mmacosx-version-min=10.4 -isysroot $DEVELOPER_SDK_DIR/MacOSX10.4u.sdk";;
-			darwin10* )	ISYSROOT="-mmacosx-version-min=10.5 -isysroot $DEVELOPER_SDK_DIR/MacOSX10.5.sdk";;
-			darwin11* )	ISYSROOT="-mmacosx-version-min=10.6 -isysroot $DEVELOPER_SDK_DIR/MacOSX10.6.sdk";;
+			darwin10* )	ISYSROOT="-mmacosx-version-min=10.4 -isysroot $DEVELOPER_SDK_DIR/MacOSX10.5.sdk";;
+			darwin11* )	ISYSROOT="-mmacosx-version-min=10.5";;
 			*)
 				as_fn_error "Sorry, unknown Darwin version: $host_os" "$LINENO" 5
 				;;
@@ -5379,6 +5395,18 @@ fi
 
 done
 
+for ac_header in net/bpf.h
+do :
+  ac_fn_c_check_header_mongrel "$LINENO" "net/bpf.h" "ac_cv_header_net_bpf_h" "$ac_includes_default"
+if test "x$ac_cv_header_net_bpf_h" = x""yes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_NET_BPF_H 1
+_ACEOF
+
+fi
+
+done
+
 
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether byte ordering is bigendian" >&5
 $as_echo_n "checking whether byte ordering is bigendian... " >&6; }
@@ -6839,6 +6867,9 @@ $as_echo "#define HAVE_FRAMEWORK_SECURITY 1" >>confdefs.h
 fi
   have_framework_Security=$aranym_cv_have_framework_Security
 
+
+                PKG_CONFIG=""
+
 	fi
 	;;
   beos*|haiku*)
@@ -7030,41 +7061,34 @@ $as_echo "#define HAVE_WCHAR_T 1" >>confdefs.h
     fi
 
 
-if [ "x$OS_TYPE" = "xdarwin" ]; then
-  if [ "x$WANT_ETHERNET" = "xyes" ]; then
-	ac_cv_tun_tap_support=yes
-  else
-	ac_cv_tun_tap_support=no
-  fi
-else
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether TUN/TAP is supported" >&5
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether TUN/TAP is supported" >&5
 $as_echo_n "checking whether TUN/TAP is supported... " >&6; }
 if test "${ac_cv_tun_tap_support+set}" = set; then :
   $as_echo_n "(cached) " >&6
 else
 
-    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
-      #if defined(HAVE_LINUX_IF_H) && defined(HAVE_LINUX_IF_TUN_H)
-      #ifdef HAVE_SYS_SOCKET_H
-      #include <sys/socket.h>
-      #endif
-      #include <linux/if.h>
-      #include <linux/if_tun.h>
-      #endif
-      #if defined(HAVE_NET_IF_H) && defined(HAVE_NET_IF_TUN_H)
-      #include <net/if.h>
-      #include <net/if_tun.h>
-      #endif
+    #if defined(HAVE_LINUX_IF_H) && defined(HAVE_LINUX_IF_TUN_H)
+    #ifdef HAVE_SYS_SOCKET_H
+    #include <sys/socket.h>
+    #endif
+    #include <linux/if.h>
+    #include <linux/if_tun.h>
+    #endif
+    #if defined(HAVE_NET_IF_H) && defined(HAVE_NET_IF_TUN_H)
+    #include <net/if.h>
+    #include <net/if_tun.h>
+    #endif
 
 int
 main ()
 {
 
-      struct ifreq ifr;
-      memset(&ifr, 0, sizeof(ifr));
-      ifr.ifr_flags = IFF_TAP | IFF_NO_PI;
+    struct ifreq ifr;
+    memset(&ifr, 0, sizeof(ifr));
+    ifr.ifr_flags = IFF_TAP | IFF_NO_PI;
 
   ;
   return 0;
@@ -7081,13 +7105,41 @@ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
 fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_tun_tap_support" >&5
 $as_echo "$ac_cv_tun_tap_support" >&6; }
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether BPF is supported" >&5
+$as_echo_n "checking whether BPF is supported... " >&6; }
+if test "${ac_cv_bpf_support+set}" = set; then :
+  $as_echo_n "(cached) " >&6
+else
+
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+    #if defined(HAVE_NET_BPF_H)
+    #include <net/bpf.h>
+    #endif
+
+int
+main ()
+{
+
+    struct bpf_program filter;
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"; then :
+  ac_cv_bpf_support=yes
+else
+  ac_cv_bpf_support=no
+
 fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
 
-    if [ "x$ac_cv_tun_tap_support" = "xyes" -o "x$ac_cv_tun_tap_support" = "xguessing yes" ]; then
-
-$as_echo "#define ENABLE_TUNTAP 1" >>confdefs.h
-
-    fi
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_bpf_support" >&5
+$as_echo "$ac_cv_bpf_support" >&6; }
 
 
 have_mach_vm=no
@@ -8036,6 +8088,25 @@ $as_echo "#define ETHERNET_SUPPORT 1" >>confdefs.h
     SYSSRCS="$SYSSRCS natfeat/ethernet.cpp"
     TAPIF=""
     HAVE_ETHERNET="yes"
+  elif [ "x$OS_TYPE" = "xdarwin" ]; then
+
+$as_echo "#define ETHERNET_SUPPORT 1" >>confdefs.h
+
+    if [ "x$WANT_BFP_ETHERNET" = "xyes" ]; then
+
+    if [ "x$ac_cv_bpf_support" = "xyes" -o "x$ac_cv_bpf_support" = "xguessing yes" ]; then
+
+$as_echo "#define ENABLE_BPF 1" >>confdefs.h
+
+    fi
+
+    else
+      { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Ethernet won't work without TunTap driver for Mac OS X. See http://tuntaposx.sourceforge.net/" >&5
+$as_echo "$as_me: WARNING: Ethernet won't work without TunTap driver for Mac OS X. See http://tuntaposx.sourceforge.net/" >&2;}
+    fi
+    SYSSRCS="$SYSSRCS natfeat/ethernet.cpp"
+    TAPIF=""
+    HAVE_ETHERNET="yes"
   else
     { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Ethernet interface not supported on your system" >&5
 $as_echo "$as_me: WARNING: Ethernet interface not supported on your system" >&2;}
@@ -8463,7 +8534,7 @@ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 cat > conftest.$ac_ext <<EOF
-#line 8466 "configure"
+#line 8537 "configure"
 #include "confdefs.h"
 /* This will not work unless sizeof(double) == 8.  */
 extern char sizeof_double_must_be_8 [sizeof(double) == 8 ? 1 : -1];
@@ -9691,13 +9762,14 @@ fi
     if test "x$WITH_USBHOST" = "xno"; then
       ac_fn_c_check_header_mongrel "$LINENO" "libusb-1.0/libusb.h" "ac_cv_header_libusb_1_0_libusb_h" "$ac_includes_default"
 if test "x$ac_cv_header_libusb_1_0_libusb_h" = x""yes; then :
-
+  WITH_USBHOST="yes"
 else
-  as_fn_error "The libusb headers are missing" "$LINENO" 5
+  WITH_USBHOST="no"
 fi
 
 
-      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for libusb_init in -lusb-1.0" >&5
+      if test "x$WITH_USBHOST" = "xyes"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking for libusb_init in -lusb-1.0" >&5
 $as_echo_n "checking for libusb_init in -lusb-1.0... " >&6; }
 if test "${ac_cv_lib_usb_1_0_libusb_init+set}" = set; then :
   $as_echo_n "(cached) " >&6
@@ -9741,16 +9813,16 @@ _ACEOF
   LIBS="-lusb-1.0 $LIBS"
 
 else
-  as_fn_error "The libusb library is missing" "$LINENO" 5
+  WITH_USBHOST="no"
 fi
 
-
-      LIBUSB_LIBS="-lusb-1.0"
-      WITH_USBHOST="yes"
+        LIBUSB_LIBS="-lusb-1.0"
+      fi
     fi
 
     if test "x$WITH_USBHOST" = "xno"; then
-      as_fn_error "libusb is mandatory for usb support" "$LINENO" 5
+      { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: libusb is missing, USB NF disabled" >&5
+$as_echo "$as_me: WARNING: libusb is missing, USB NF disabled" >&2;}
     fi
 fi
 

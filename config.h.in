@@ -42,6 +42,9 @@
 /* Define if using DSP */
 #undef DSP_EMULATION
 
+/* Define if your system supports BPF devices. */
+#undef ENABLE_BPF
+
 /* Define if you want to use EPS limiter */
 #undef ENABLE_EPSLIMITER
 
@@ -65,9 +68,6 @@
 
 /* Define if you want to use /dev/ttyXXX access for serial port */
 #undef ENABLE_SERIALUNIX
-
-/* Define if your system supports TUN/TAP devices. */
-#undef ENABLE_TUNTAP
 
 /* Define if you want to use ethernet card emulation */
 #undef ETHERNET_SUPPORT
@@ -285,6 +285,9 @@
 
 /* Define to 1 if you have the <ndir.h> header file, and it defines `DIR'. */
 #undef HAVE_NDIR_H
+
+/* Define to 1 if you have the <net/bpf.h> header file. */
+#undef HAVE_NET_BPF_H
 
 /* Define to 1 if you have the <net/if.h> header file. */
 #undef HAVE_NET_IF_H

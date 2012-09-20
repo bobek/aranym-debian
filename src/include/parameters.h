@@ -113,6 +113,8 @@ typedef struct {
   uint8 refresh;
   int8 monitor;				// VGA or TV
   char window_pos[10];	// window position coordinates in the form "123,456"
+  bool single_blit_composing; // whether the screen is composed using a single BitBlit/rectangluar copy
+  bool single_blit_refresh;   // whether the composed screen is updated/sent to screen using a single BitBlit/rectangluar copy
 } bx_video_options_t;
 
 // Startup options
@@ -140,7 +142,7 @@ typedef struct {
 
 // Ethernet options
 typedef struct {
-  char type[16];
+  char type[32];
   char tunnel[16];
   char ip_host[16];
   char ip_atari[16];
