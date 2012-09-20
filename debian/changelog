@@ -1,6 +1,7 @@
 aranym (0.9.14-1) unstable; urgency=low
 
   * new upstream release
+  * use of dpkg-dev to get hardening cflags
 
  -- Antonin Kral <A.Kral@sh.cvut.cz>  Thu, 20 Sep 2012 20:28:44 +0200
 
