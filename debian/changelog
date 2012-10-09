@@ -1,3 +1,10 @@
+aranym (0.9.14-2) unstable; urgency=low
+
+  * handle libusb dependency on kfreebsd (Closes:#690007)
+    Patch courtesy of Thorsten Glaser
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 09 Oct 2012 14:59:45 +0200
+
 aranym (0.9.14-1) unstable; urgency=low
 
   * new upstream release
