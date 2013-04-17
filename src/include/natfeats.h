@@ -1,3 +1,26 @@
+/*
+ * natfeats.h - common functions for all NatFeats
+ *
+ * Copyright (c) 2001-2013 Petr Stehlik of ARAnyM dev team (see AUTHORS)
+ *
+ * This file is part of the ARAnyM project which builds a new and powerful
+ * TOS/FreeMiNT compatible virtual machine running on almost any hardware.
+ *
+ * ARAnyM is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * ARAnyM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ARAnyM; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
 #ifndef _NATFEATS_H
 #define _NATFEATS_H
 
@@ -13,6 +36,9 @@ extern uint32 nf_getparameter(int);
 
 // should NatFeats work with physical (not MMU mapped) addresses
 #define NATFEAT_PHYS_ADDR	1
+
+// should NatFeats use direct memcpy() to/from guest provided pointer (fast but less safe)
+#define NATFEAT_LIBC_MEMCPY	1
 
 #if NATFEAT_PHYS_ADDR
 #  define ReadNFInt8	ReadAtariInt8
@@ -30,53 +56,77 @@ extern uint32 nf_getparameter(int);
 #  define WriteNFInt32	WriteInt32
 #endif
 
-static inline void Atari2Host_memcpy(void *dst, memptr src, size_t n)
+static inline void Atari2Host_memcpy(void *_dst, memptr src, size_t count)
 {
-#if NATFEAT_PHYS_ADDR
-	memcpy(dst, Atari2HostAddr(src), n);
+#if NATFEAT_LIBC_MEMCPY && NATFEAT_PHYS_ADDR
+	memptr src_end = src + count - 1;
+	if (! ValidAtariAddr(src, false, 1))
+		BUS_ERROR(src);
+	if (! ValidAtariAddr(src_end, false, 1))
+		BUS_ERROR(src_end);
+
+	memcpy(_dst, Atari2HostAddr(src), count);
 #else
-	uint8 *dest = (uint8 *)dst;
-	while ( n-- )
-		*dest++ = (char)ReadInt8( (uint32)src++ );
+	uint8 *dst = (uint8 *)_dst;
+	while ( count-- )
+		*dst++ = (char)ReadNFInt8( src++ );
 #endif
 }
 
-static inline void Host2Atari_memcpy(memptr dest, const void *src, size_t n)
+static inline void Host2Atari_memcpy(memptr dst, const void *_src, size_t count)
 {
-#if NATFEAT_PHYS_ADDR
-	memcpy(Atari2HostAddr(dest), src, n);
+#if NATFEAT_LIBC_MEMCPY && NATFEAT_PHYS_ADDR
+	memptr dst_end = dst + count - 1;
+	if (! ValidAtariAddr(dst, true, 1))
+		BUS_ERROR(dst);
+	if (! ValidAtariAddr(dst_end, true, 1))
+		BUS_ERROR(dst_end);
+
+	memcpy(Atari2HostAddr(dst), _src, count);
 #else
-	uint8 *source = (uint8 *)src;
-	while ( n-- )
-		WriteInt8( dest++, *source++ );
+	uint8 *src = (uint8 *)_src;
+	while ( count-- )
+		WriteNFInt8( dst++, *src++ );
 #endif
 }
 
-static inline void Atari2HostSafeStrncpy( char *dest, memptr source, size_t count )
+static inline void Atari2HostSafeStrncpy(char *dst, memptr src, size_t count)
 {
-#if NATFEAT_PHYS_ADDR
-	safe_strncpy(dest, (const char*)Atari2HostAddr(source), count);
+#if NATFEAT_LIBC_MEMCPY && NATFEAT_PHYS_ADDR
+	memptr src_end = src + count - 1;
+	if (! ValidAtariAddr(src, false, 1))
+		BUS_ERROR(src);
+	if (! ValidAtariAddr(src_end, false, 1))
+		BUS_ERROR(src_end);
+
+	safe_strncpy(dst, (const char*)Atari2HostAddr(src), count);
 #else
-	while ( count > 1 && (*dest = (char)ReadInt8( source++ )) != 0 ) {
+	while ( count > 1 && (*dst = (char)ReadNFInt8( src++ )) != 0 ) {
 		count--;
-		dest++;
+		dst++;
 	}
 	if (count > 0)
-		*dest = '\0';
+		*dst = '\0';
 #endif
 }
 
-static inline void Host2AtariSafeStrncpy( memptr dest, const char *source, size_t count )
+static inline void Host2AtariSafeStrncpy(memptr dst, const char *src, size_t count)
 {
-#if NATFEAT_PHYS_ADDR
-	safe_strncpy((char *)Atari2HostAddr(dest), source, count);
+#if NATFEAT_LIBC_MEMCPY && NATFEAT_PHYS_ADDR
+	memptr dst_end = dst + count - 1;
+	if (! ValidAtariAddr(dst, true, 1))
+		BUS_ERROR(dst);
+	if (! ValidAtariAddr(dst_end, true, 1))
+		BUS_ERROR(dst_end);
+
+	safe_strncpy((char *)Atari2HostAddr(dst), src, count);
 #else
-	while ( count > 1 && *source ) {
-		WriteInt8( dest++, (uint8)*source++ );
+	while ( count > 1 && *src ) {
+		WriteNFInt8( dst++, (uint8)*src++ );
 		count--;
 	}
 	if (count > 0)
-		WriteInt8( dest, 0 );
+		WriteNFInt8( dst, 0 );
 #endif
 }
 #endif /* _NATFEATS_H */
