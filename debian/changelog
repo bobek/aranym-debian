@@ -1,3 +1,9 @@
+aranym (0.9.13-5) testing-proposed-updates; urgency=low
+
+  * Reupload of -4 with merged previously forgotten NMU -3.1
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 24 Apr 2013 11:40:18 +0200
+
 aranym (0.9.13-4) testing-proposed-updates; urgency=low
 
   * cherrypick patch for NatFeast problem (Closes: #698064)
