@@ -1,3 +1,10 @@
+aranym (0.9.13-4) testing-proposed-updates; urgency=low
+
+  * cherrypick patch for NatFeast problem (Closes: #698064)
+    to get Aranym to wheezy
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 24 Apr 2013 08:56:45 +0200
+
 aranym (0.9.13-3) unstable; urgency=low
 
   * package re-upload, added source format setting
