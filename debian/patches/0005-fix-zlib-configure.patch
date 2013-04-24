@@ -1,0 +1,28 @@
+# DP: have_zlib="" is possible
+
+Index: aranym-0.9.13/configure
+===================================================================
+--- aranym-0.9.13.orig/configure	2012-05-06 21:28:16.000000000 +0000
++++ aranym-0.9.13/configure	2012-05-06 21:48:58.000000000 +0000
+@@ -9556,7 +9556,7 @@
+ 	fi
+ 
+ 	# Fallback to autoconf (helps in Ubuntu 10.04 LTS)
+-	if [ "x$have_zlib" = "xno" ]; then
++	if [ "x$have_zlib" != "xyes" ]; then
+ 		{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for gzopen in -lz" >&5
+ $as_echo_n "checking for gzopen in -lz... " >&6; }
+ if test "${ac_cv_lib_z_gzopen+set}" = set; then :
+Index: aranym-0.9.13/configure.ac
+===================================================================
+--- aranym-0.9.13.orig/configure.ac	2012-03-26 13:55:44.000000000 +0000
++++ aranym-0.9.13/configure.ac	2012-05-06 21:49:04.000000000 +0000
+@@ -1495,7 +1495,7 @@
+ 	fi
+ 
+ 	# Fallback to autoconf (helps in Ubuntu 10.04 LTS)
+-	if [[ "x$have_zlib" = "xno" ]]; then
++	if [[ "x$have_zlib" != "xyes" ]]; then
+ 		AC_CHECK_LIB(z, gzopen, [have_zlib=yes], [have_zlib=no])
+ 	fi
+ 

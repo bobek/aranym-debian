@@ -1,0 +1,15 @@
+# DP: fix spelling, spotted by lintian
+
+Index: aranym-0.9.13/src/ndebug.cpp
+===================================================================
+--- aranym-0.9.13.orig/src/ndebug.cpp	2012-03-26 13:55:44.000000000 +0000
++++ aranym-0.9.13/src/ndebug.cpp	2012-05-06 21:47:03.000000000 +0000
+@@ -594,7 +594,7 @@
+ 				bug("Access error");
+ 				break;
+ 			default:
+-				bug("Unknonw access error - %d", int(prb));
++				bug("Unknown access error - %d", int(prb));
+ 			}
+ 		}
+ 		RESTORE_EXCEPTION;

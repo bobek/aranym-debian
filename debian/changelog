@@ -5,6 +5,21 @@ aranym (0.9.13-4) testing-proposed-updates; urgency=low
 
  -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 24 Apr 2013 08:56:45 +0200
 
+aranym (0.9.13-3.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * explicitly build-depend on zlib1g-dev for transparent kernel
+    decompression (Closes: #669660)
+  * drop quilt build-dependency (unneeded, as per lintian)
+  * add a watch file (lintian)
+  * 0004-fix-spelling.patch: new (lintian)
+  * 0005-fix-zlib-configure.patch: new: have_zlib="" is not
+    caught by "= no" but by "!= yes" comparison; this fixes
+    zlib detection for systems without pkg_config
+  * run configure scripts with bash, as they use [[
+
+ -- Thorsten Glaser <tg@mirbsd.de>  Sun, 06 May 2012 21:49:56 +0000
+
 aranym (0.9.13-3) unstable; urgency=low
 
   * package re-upload, added source format setting

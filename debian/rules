@@ -23,11 +23,11 @@ build-stamp:
 	dh_testdir
 
 	([ ! -f Makefile ] || $(MAKE) distclean)
-	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --enable-usbhost && $(MAKE))
+	(bash configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --enable-usbhost && $(MAKE))
 	($(MAKE) install DESTDIR=`pwd`/debian/tmp )
 
 	([ ! -f Makefile ] || $(MAKE) distclean)
-	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --enable-fullmmu --enable-lilo --enable-usbhost && $(MAKE))
+	(bash configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --enable-fullmmu --enable-lilo --enable-usbhost && $(MAKE))
 	($(MAKE) install DESTDIR=`pwd`/debian/aranym-mmu )
 	cp `pwd`/debian/aranym-mmu/usr/bin/aranym `pwd`/debian/tmp/usr/bin/aranym-mmu
 
@@ -35,7 +35,7 @@ build-stamp:
 
 ifeq ($(HOSTTYPE),i386)
 	([ ! -f Makefile ] || $(MAKE) distclean)
-	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --enable-jit-compiler --enable-usbhost && $(MAKE))
+	(bash configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --enable-jit-compiler --enable-usbhost && $(MAKE))
 	($(MAKE) install DESTDIR=`pwd`/debian/aranym-jit )
 
 	cp `pwd`/debian/aranym-jit/usr/bin/aranym `pwd`/debian/tmp/usr/bin/aranym-jit
