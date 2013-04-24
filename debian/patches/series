@@ -1,3 +1,4 @@
 0001-fpu_mpfr-exceptions-fix.patch
 0002-fpu_mpfr-longword-conversion-fix-Closes-666947.patch
 0003-fix-missing-libusb.h-on-kfreebsd-platforms-Closes-66.patch
+0004-NatFeats-patch-to-address-Bug-698064.patch
