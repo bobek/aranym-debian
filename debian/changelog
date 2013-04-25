@@ -1,3 +1,10 @@
+aranym (0.9.13-6) testing-proposed-updates; urgency=low
+
+  [ Thorsten Glaser ]
+  * handle libusb dependency on kfreebsd (Closes: #690007)
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 24 Apr 2013 20:02:06 +0000
+
 aranym (0.9.13-5) testing-proposed-updates; urgency=low
 
   * Reupload of -4 with merged previously forgotten NMU -3.1
