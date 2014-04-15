@@ -1,5 +1,5 @@
 /*
- * $Id: k_fds.h,v 1.2 2005-09-26 22:18:05 standa Exp $
+ * $Id$
  *
  * The ARAnyM MetaDOS driver.
  *

@@ -1,5 +1,5 @@
 /*
- * $Header: /var/repos/aranym/atari/hostfs/metados/global.h,v 1.3 2006-02-09 04:22:58 standa Exp $
+ * $Header$
  *
  * 2001-2003 STanda
  *
@@ -44,11 +44,7 @@ extern struct kerinfo *KERNEL;
 
 
 /*
- * $Log: global.h,v $
- * Revision 1.3  2006-02-09 04:22:58  standa
- * Sync with the FreeMiNT CVS.  Now using the right integration point with
- * the kernel (the KERNEL macro).
- *
+ * $Log$
  * Revision 1.2  2006/02/06 20:58:17  standa
  * Sync with the FreeMiNT CVS. The make.sh now only builds the BetaDOS
  * hostfs.dos.

@@ -1,5 +1,5 @@
 /*
- * $Id: filesys.c,v 1.3 2006-02-04 21:03:03 standa Exp $
+ * $Id$
  *
  * The ARAnyM MetaDOS driver.
  *

@@ -211,6 +211,7 @@ AC_DEFINE_UNQUOTED([OS_TYPE], "$OS_TYPE", [Define OS type])
 dnl Target CPU type.
 ARCHFLAGS=
 HAVE_I386=no
+HAVE_ARM=no
 HAVE_SPARC=no
 HAVE_POWERPC=no
 HAVE_X86_64=no
@@ -230,6 +231,7 @@ case "$host_cpu" in
 			darwin8* | darwin9* )	ISYSROOT="-mmacosx-version-min=10.4 -isysroot $DEVELOPER_SDK_DIR/MacOSX10.4u.sdk";;
 			darwin10* )	ISYSROOT="-mmacosx-version-min=10.4 -isysroot $DEVELOPER_SDK_DIR/MacOSX10.5.sdk";;
 			darwin11* | darwin12* )	ISYSROOT="-mmacosx-version-min=10.5";;
+			darwin13* )	ISYSROOT="-mmacosx-version-min=10.7";;
 			*)
 				AC_MSG_ERROR([Sorry, unknown Darwin version: $host_os])
 				;;
@@ -240,6 +242,7 @@ case "$host_cpu" in
 	fi
 	;;
   sparc* ) CPU_TYPE=sparc HAVE_SPARC=yes;;
+  arm* ) CPU_TYPE=arm HAVE_ARM=yes;;
   powerpc* )
 	CPU_TYPE=powerpc
 	HAVE_POWERPC=yes
@@ -1005,6 +1008,9 @@ if [[ "x$WANT_EXSIGSEGV" = "xyes" ]]; then
 	x86_64)
           SYSSRCS="$SYSSRCS Unix/linux/sigsegv_linux_x86_64.cpp"
           ;;
+	arm)
+          SYSSRCS="$SYSSRCS Unix/linux/sigsegv_linux_arm.cpp"
+          ;;
         *)
           AC_MSG_ERROR([Sorry, extended segfault handler not supported on your platform])
           ;;
@@ -1245,6 +1251,22 @@ elif [[ "x$HAVE_GCC27" = "xyes" -a "x$HAVE_SPARC" = "xyes" -a "x$HAVE_GAS" = "xy
     esac
     ;;
   esac
+elif [[ "x$HAVE_GCC30" = "xyes" -a "x$HAVE_ARM" = "xyes" ]]; then
+  dnl ARM CPU
+  if [[ "x$HAVE_GAS" = "xyes" ]]; then
+    case "$host_cpu" in
+	armv6* | armv7* )
+           ASM_OPTIMIZATIONS="ARM/V6 architecture w optimized flags"
+	   DEFINES="$DEFINES -DARMV6_ASSEMBLY -DARM_ASSEMBLY -DOPTIMIZED_FLAGS"
+           CFLAGS="$CFLAGS -march=armv6"
+           CXXFLAGS="$CXXFLAGS -march=armv6"
+	   ;;
+	*)
+           ASM_OPTIMIZATIONS="ARM/generic w optimized flags"
+	   DEFINES="$DEFINES -DARM_ASSEMBLY -DOPTIMIZED_FLAGS"
+	   ;;
+    esac
+  fi
 fi
 
 dnl JIT sources if available

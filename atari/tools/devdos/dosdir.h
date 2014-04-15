@@ -1,5 +1,5 @@
 /*
- * $Id: dosdir.h,v 1.2 2006-02-05 03:03:46 standa Exp $
+ * $Id$
  *
  * The ARAnyM MetaDOS driver.
  *

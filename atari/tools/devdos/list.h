@@ -20,12 +20,12 @@
  * WinDom: a high level GEM library
  * Copyright (c) 1997-2006 windom authors (see AUTHORS file)
  *
- * $Source: /var/repos/aranym/atari/tools/devdos/list.h,v $
+ * $Source$
  *
  * CVS info:
- *   $Author: standa $
- *   $Date: 2006-01-30 01:03:28 $
- *   $Revision: 1.1 $
+ *   $Author$
+ *   $Date$
+ *   $Revision$
  */
 
 #ifndef __WINDOM_LIST__

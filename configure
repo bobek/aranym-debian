@@ -3178,6 +3178,7 @@ _ACEOF
 
 ARCHFLAGS=
 HAVE_I386=no
+HAVE_ARM=no
 HAVE_SPARC=no
 HAVE_POWERPC=no
 HAVE_X86_64=no
@@ -3197,6 +3198,7 @@ case "$host_cpu" in
 			darwin8* | darwin9* )	ISYSROOT="-mmacosx-version-min=10.4 -isysroot $DEVELOPER_SDK_DIR/MacOSX10.4u.sdk";;
 			darwin10* )	ISYSROOT="-mmacosx-version-min=10.4 -isysroot $DEVELOPER_SDK_DIR/MacOSX10.5.sdk";;
 			darwin11* | darwin12* )	ISYSROOT="-mmacosx-version-min=10.5";;
+			darwin13* )	ISYSROOT="-mmacosx-version-min=10.7";;
 			*)
 				as_fn_error $? "Sorry, unknown Darwin version: $host_os" "$LINENO" 5
 				;;
@@ -3206,6 +3208,7 @@ case "$host_cpu" in
 	fi
 	;;
   sparc* ) CPU_TYPE=sparc HAVE_SPARC=yes;;
+  arm* ) CPU_TYPE=arm HAVE_ARM=yes;;
   powerpc* )
 	CPU_TYPE=powerpc
 	HAVE_POWERPC=yes
@@ -8158,6 +8161,9 @@ if [ "x$WANT_EXSIGSEGV" = "xyes" ]; then
 	x86_64)
           SYSSRCS="$SYSSRCS Unix/linux/sigsegv_linux_x86_64.cpp"
           ;;
+	arm)
+          SYSSRCS="$SYSSRCS Unix/linux/sigsegv_linux_arm.cpp"
+          ;;
         *)
           as_fn_error $? "Sorry, extended segfault handler not supported on your platform" "$LINENO" 5
           ;;
@@ -8482,6 +8488,21 @@ $as_echo "$SPARC_TYPE" >&6; }
     esac
     ;;
   esac
+elif [ "x$HAVE_GCC30" = "xyes" -a "x$HAVE_ARM" = "xyes" ]; then
+    if [ "x$HAVE_GAS" = "xyes" ]; then
+    case "$host_cpu" in
+	armv6* | armv7* )
+           ASM_OPTIMIZATIONS="ARM/V6 architecture w optimized flags"
+	   DEFINES="$DEFINES -DARMV6_ASSEMBLY -DARM_ASSEMBLY -DOPTIMIZED_FLAGS"
+           CFLAGS="$CFLAGS -march=armv6"
+           CXXFLAGS="$CXXFLAGS -march=armv6"
+	   ;;
+	*)
+           ASM_OPTIMIZATIONS="ARM/generic w optimized flags"
+	   DEFINES="$DEFINES -DARM_ASSEMBLY -DOPTIMIZED_FLAGS"
+	   ;;
+    esac
+  fi
 fi
 
 if [ "x$WANT_JIT" = "xyes" -a "x$CAN_JIT" = "xyes" ]; then
@@ -8536,7 +8557,7 @@ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 cat > conftest.$ac_ext <<EOF
-#line 8539 "configure"
+#line 8560 "configure"
 #include "confdefs.h"
 /* This will not work unless sizeof(double) == 8.  */
 extern char sizeof_double_must_be_8 [sizeof(double) == 8 ? 1 : -1];

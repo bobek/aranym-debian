@@ -1,5 +1,5 @@
 /*
- * $Id: main.c,v 1.2 2006-09-25 18:13:25 standa Exp $
+ * $Id$
  *
  * The ARAnyM BetaDOS driver.
  *

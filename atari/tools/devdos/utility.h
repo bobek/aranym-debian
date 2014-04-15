@@ -3,7 +3,7 @@
 /*
  * fVDI utility function declarations
  *
- * $Id: utility.h,v 1.2 2006-02-05 03:02:33 standa Exp $
+ * $Id$
  *
  * Copyright 2003, Johan Klockars 
  * This software is licensed under the GNU General Public License.

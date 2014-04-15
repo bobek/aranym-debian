@@ -1,5 +1,5 @@
 /*
- * $Id: mintfake.h,v 1.2 2004-04-26 07:14:04 standa Exp $
+ * $Id$
  *
  * The ARAnyM MetaDOS driver.
  *

@@ -1,5 +1,5 @@
 /*
- * $Id: main.c,v 1.13 2006-02-09 04:22:58 standa Exp $
+ * $Id$
  *
  * The ARAnyM BetaDOS driver.
  *
@@ -148,11 +148,7 @@ void* _cdecl InitDevice( long bosDevID, long dosDevID )
 
 
 /**
- * $Log: main.c,v $
- * Revision 1.13  2006-02-09 04:22:58  standa
- * Sync with the FreeMiNT CVS.  Now using the right integration point with
- * the kernel (the KERNEL macro).
- *
+ * $Log$
  * Revision 1.12  2006/02/06 20:58:17  standa
  * Sync with the FreeMiNT CVS. The make.sh now only builds the BetaDOS
  * hostfs.dos.

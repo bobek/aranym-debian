@@ -1,5 +1,5 @@
 //
-// $Header: /var/repos/aranym/atari/hostfs/metados/mdglue.S,v 1.4 2006-05-22 13:57:18 standa Exp $ 
+// $Header$ 
 //
 // 2001 STanda
 //
@@ -524,10 +524,7 @@ temp:
 stack:	
 	
 //
-// $Log: mdglue.S,v $
-// Revision 1.4  2006-05-22 13:57:18  standa
-// Debugging updated to use DEBUGPRINTF NF.
-//
+// $Log$
 // Revision 1.3  2004/04/26 07:14:04  standa
 // Adjusted to the recent FreeMiNT CVS state to compile and also made
 // BetaDOS only. No more MetaDOS compatibility attempts.
