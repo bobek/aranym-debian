@@ -1,3 +1,12 @@
+aranym (0.9.16-1) unstable; urgency=medium
+
+  * [57093b8] Imported Upstream version 0.9.16
+  * [cf22323] Bump standards
+  * [fc8a0cb] JIT is supported on amd64 starting this new upstream release
+  * [12f537b] Reference icons with absolute paths
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 15 Apr 2014 14:34:41 +0200
+
 aranym (0.9.15-1) unstable; urgency=low
 
   * new upstream realease (Closes:#698064)
