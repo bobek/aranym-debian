@@ -18,6 +18,9 @@ endif
 ifeq ($(HOSTTYPE),i686)
 	HOSTTYPE = i386
 endif
+ifeq ($(HOSTTYPE),amd64)
+	HOSTTYPE = i386
+endif
 
 DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
 
