@@ -1,5 +1,5 @@
 /*
- * $Id: kerinfo.h,v 1.1 2002-12-10 20:47:21 standa Exp $
+ * $Id$
  *
  * The ARAnyM MetaDOS driver.
  *

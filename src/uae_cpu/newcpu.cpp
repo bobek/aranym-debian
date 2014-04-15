@@ -457,11 +457,11 @@ uae_s32 ShowEA (int reg, amodes mode, wordsizes size, char *buf)
      case imm2:
 	offset = (uae_s32)get_ilong_1 (m68kpc_offset);
 	m68kpc_offset += 4;
-	sprintf (buffer,"#$%08lx", (unsigned long)offset);
+	sprintf (buffer,"#$%08lx", (unsigned long)offset & 0xffffffff);
 	break;
      case immi:
 	offset = (uae_s32)(uae_s8)(reg & 0xff);
-	sprintf (buffer,"#$%08lx", (unsigned long)offset);
+	sprintf (buffer,"#$%08lx", (unsigned long)offset & 0xffffffff);
 	break;
      default:
 	break;
@@ -970,7 +970,7 @@ int m68k_move2c (int regno, uae_u32 *regp)
 	 case 1: regs.dfc = *regp & 7; break;
 	 case 2: regs.cacr = *regp & 0x80008000;
 #ifdef USE_JIT
-		 set_cache_state((regs.cacr & 0x8000) || 0);
+		 set_cache_state(regs.cacr & 0x8000);
 		 if (*regp & 0x08) {	/* Just to be on the safe side */
 			flush_icache(2);
 		 }

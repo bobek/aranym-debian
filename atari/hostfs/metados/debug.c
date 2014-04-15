@@ -1,5 +1,5 @@
 /*
- * $Id: debug.c,v 1.3 2006-01-31 04:44:19 standa Exp $
+ * $Id$
  *
  * The ARAnyM MetaDOS driver.
  *

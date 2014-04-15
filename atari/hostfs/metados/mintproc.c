@@ -1,5 +1,5 @@
 /*
- * $Id: mintproc.c,v 1.2 2006-02-04 21:03:03 standa Exp $
+ * $Id$
  *
  * The ARAnyM MetaDOS driver.
  *

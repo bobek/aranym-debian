@@ -1,5 +1,5 @@
 /*
- * $Id: nf_ops.h,v 1.2 2006-01-31 16:21:22 standa Exp $
+ * $Id$
  * 
  * ARAnyM Native Features suite.
  *

@@ -1,5 +1,5 @@
 /*
- * $Id: dosfsfn.c,v 1.2 2006-02-05 03:08:12 standa Exp $
+ * $Id$
  *
  * The ARAnyM MetaDOS driver.
  *
