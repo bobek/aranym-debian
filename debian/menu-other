@@ -2,13 +2,13 @@
      section="Applications/Emulators" \
      title="ARAnyM" \
      longtitle="Atari Running on Any Machine"\
-     icon="aranym.xpm"\
+     icon="/usr/share/pixmaps/aranym.xpm"\
      description="Virtual Machine for Atari 32-bit applications"\
      command="/usr/bin/aranym"
 ?package(aranym):needs="x11" \
      section="Applications/Emulators" \
      title="ARAnyM MMU" \
      longtitle="Atari Running on Any Machine with MMU support"\
-     icon="aranym.xpm"\
+     icon="/usr/share/pixmaps/aranym.xpm"\
      description="Virtual Machine with MMU for FreeMiNT and Linux-m68k"\
      command="/usr/bin/aranym-mmu"
