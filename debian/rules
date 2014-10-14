@@ -12,20 +12,25 @@ DEB_HOST_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
 HOSTTYPE = $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+JIT_ENABLED = 0
+ifeq ($(HOSTTYPE),i386)
+	JIT_ENABLED = 1
+endif
 ifeq ($(HOSTTYPE),i586)
-	HOSTTYPE = i386
+	JIT_ENABLED = 1
 endif
 ifeq ($(HOSTTYPE),i686)
-	HOSTTYPE = i386
+	JIT_ENABLED = 1
 endif
 ifeq ($(HOSTTYPE),amd64)
-	HOSTTYPE = i386
+	JIT_ENABLED = 1
 endif
 
 DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
 
 ifeq (${DEB_HOST_ARCH_OS},kfreebsd)
 	CF_USB = --disable-usbhost
+	JIT_ENABLED = 0
 else
 	CF_USB = --enable-usbhost
 endif
@@ -47,7 +52,7 @@ build-stamp:
 
 	cp `pwd`/debian/menu-other `pwd`/debian/menu
 
-ifeq ($(HOSTTYPE),i386)
+ifeq ($(JIT_ENABLED),1)
 	([ ! -f Makefile ] || $(MAKE) distclean)
 	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr --enable-jit-compiler ${CF_USB} && $(MAKE))
 	($(MAKE) install DESTDIR=`pwd`/debian/aranym-jit )
