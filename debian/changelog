@@ -1,3 +1,9 @@
+aranym (0.9.16-2) unstable; urgency=medium
+
+  * [07da0ad] Do not built JIT on kfreebsd
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 14 Oct 2014 10:27:23 +0200
+
 aranym (0.9.16-1) unstable; urgency=medium
 
   * [57093b8] Imported Upstream version 0.9.16
