@@ -37,6 +37,10 @@ ifeq (${DEB_HOST_ARCH_OS},hurd)
 	JIT_ENABLED = 0
 endif
 
+ifeq (${DEB_HOST_ARCH_OS},kfreebsd)
+	CF_USB = --disable-usbhost
+endif
+
 build: build-arch build-indep
 build-arch: build-stamp
 build-indep: build-stamp
