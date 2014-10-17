@@ -25,6 +25,9 @@ endif
 ifeq ($(HOSTTYPE),amd64)
 	JIT_ENABLED = 1
 endif
+ifeq ($(DEB_HOST_ARCH_CPU),arm)
+	JIT_ENABLED = 1
+endif
 
 DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
 
