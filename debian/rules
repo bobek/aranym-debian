@@ -39,6 +39,10 @@ endif
 
 ifeq (${DEB_HOST_ARCH_OS},kfreebsd)
 	CF_USB = --disable-usbhost
+	JIT_ENABLED = 1
+	ifeq ($(HOSTTYPE),amd64)
+		JIT_ENABLED = 0
+	endif
 endif
 
 build: build-arch build-indep
