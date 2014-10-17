@@ -1,3 +1,12 @@
+aranym (1.0.0-1) unstable; urgency=medium
+
+  * [c3c80f6] Imported Upstream version 1.0.0
+  * [68e5ee6] Enable JIT on arm
+  * [0b31c2e] libusb-1.0-0-dev is now provided by libusb2-dev on kfreebsd, but
+    it is not available on hurd-i386
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Fri, 17 Oct 2014 10:42:58 +0200
+
 aranym (0.9.16-2) unstable; urgency=medium
 
   * [07da0ad] Do not built JIT on kfreebsd
