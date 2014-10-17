@@ -1,3 +1,10 @@
+aranym (1.0.2-1) unstable; urgency=medium
+
+  * [dd0a61d] Imported Upstream version 1.0.2
+  * [b126901] Disable JIT on kfreebsd amd64
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Fri, 17 Oct 2014 16:25:25 +0200
+
 aranym (1.0.1-1) unstable; urgency=medium
 
   * [0f902ee] Imported Upstream version 1.0.1
