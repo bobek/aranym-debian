@@ -32,10 +32,13 @@ endif
 DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
 
 ifeq (${DEB_HOST_ARCH_OS},kfreebsd)
+	JIT_ENABLED = 0
+endif
+
+CF_USB = --enable-usbhost
+ifeq (${DEB_HOST_ARCH_OS},hurd)
 	CF_USB = --disable-usbhost
 	JIT_ENABLED = 0
-else
-	CF_USB = --enable-usbhost
 endif
 
 build: build-arch build-indep
