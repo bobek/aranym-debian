@@ -1,5 +1,11 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
+
+#ifndef __ARANYM_CONFIG_H__
+#define __ARANYM_CONFIG_H__
+
+
+
 /* Define if building universal (internal helper macro) */
 #undef AC_APPLE_UNIVERSAL_BUILD
 
@@ -35,6 +41,12 @@
 
 /* Define if not using full ATC */
 #undef DISABLE_ATC
+
+/* Define if using the builtin disassembler */
+#undef DISASM_USE_BUILTIN
+
+/* Define if using the opcodes library for disassembly */
+#undef DISASM_USE_OPCODES
 
 /* Define if DSP disassembly */
 #undef DSP_DISASM
@@ -75,7 +87,7 @@
 /* Define if you want to use setjmp/longjmp instead of C++ exceptions */
 #undef EXCEPTIONS_VIA_LONGJMP
 
-/* Define if you want to use extended segafault handler */
+/* Define if you want to use extended segfault handler */
 #undef EXTENDED_SIGSEGV
 
 /* Define if you want fixed position of VideoRAM */
@@ -120,6 +132,9 @@
 /* Define to 1 if you have the `bcopy' function. */
 #undef HAVE_BCOPY
 
+/* Define to 1 if you have the <bfd.h> header file. */
+#undef HAVE_BFD_H
+
 /* define if bool is a built-in type */
 #undef HAVE_BOOL
 
@@ -142,8 +157,14 @@
    */
 #undef HAVE_DIRENT_H
 
+/* Define to 1 if you have the <dis-asm.h> header file. */
+#undef HAVE_DIS_ASM_H
+
 /* Define to 1 if you have the `expl' function. */
 #undef HAVE_EXPL
+
+/* Define to 1 if you have the <ext2fs/ext2_fs.h> header file. */
+#undef HAVE_EXT2FS_EXT2_FS_H
 
 /* Define to 1 if you have the `fabsl' function. */
 #undef HAVE_FABSL
@@ -172,6 +193,12 @@
 /* Define if framework SDL is available. */
 #undef HAVE_FRAMEWORK_SDL
 
+/* Define if framework SDL2 is available. */
+#undef HAVE_FRAMEWORK_SDL2
+
+/* Define if framework SDL2_image is available. */
+#undef HAVE_FRAMEWORK_SDL2_IMAGE
+
 /* Define if framework SDL_image is available. */
 #undef HAVE_FRAMEWORK_SDL_IMAGE
 
@@ -183,6 +210,9 @@
 
 /* Define to 1 if you have the `fsync' function. */
 #undef HAVE_FSYNC
+
+/* Define to 1 if you have the `futimens' function. */
+#undef HAVE_FUTIMENS
 
 /* Define to 1 if you have the <getopt.h> header file. */
 #undef HAVE_GETOPT_H
@@ -220,6 +250,9 @@
 /* Define to 1 if you have the `m' library (-lm). */
 #undef HAVE_LIBM
 
+/* Define to 1 if you have the `opcodes' library (-lopcodes). */
+#undef HAVE_LIBOPCODES
+
 /* Define to 1 if you have the `usb-1.0' library (-lusb-1.0). */
 #undef HAVE_LIBUSB_1_0
 
@@ -228,6 +261,9 @@
 
 /* Define if zlib enabled */
 #undef HAVE_LIBZ
+
+/* Define to 1 if you have the `link' function. */
+#undef HAVE_LINK
 
 /* Define to 1 if you have the <linux/if.h> header file. */
 #undef HAVE_LINUX_IF_H
@@ -240,6 +276,9 @@
 
 /* Define to 1 if you have the `logl' function. */
 #undef HAVE_LOGL
+
+/* Define to 1 if you have the `lstat' function. */
+#undef HAVE_LSTAT
 
 /* Define to 1 if you have the <mach/mach.h> header file. */
 #undef HAVE_MACH_MACH_H
@@ -298,14 +337,23 @@
 /* Define if you want to use FreeBSD's imitation of O_SYNC */
 #undef HAVE_O_FSYNC
 
+/* Define to 1 if you have the `pathconf' function. */
+#undef HAVE_PATHCONF
+
 /* Define if your system supports POSIX shared memory. */
 #undef HAVE_POSIX_SHM
 
 /* Define to 1 if you have the `powl' function. */
 #undef HAVE_POWL
 
+/* Define to 1 if you have the `readlink' function. */
+#undef HAVE_READLINK
+
 /* Define to 1 if you have the `realpath' function. */
 #undef HAVE_REALPATH
+
+/* Define to 1 if you have the `sbrk' function. */
+#undef HAVE_SBRK
 
 /* Define if you have SDL_image */
 #undef HAVE_SDL_IMAGE
@@ -321,6 +369,9 @@
 
 /* Define to 1 if you have the `signbit' function. */
 #undef HAVE_SIGNBIT
+
+/* Define to 1 if you have the `sigsetjmp' function. */
+#undef HAVE_SIGSETJMP
 
 /* Define to 1 if you have the `sinhl' function. */
 #undef HAVE_SINHL
@@ -351,6 +402,24 @@
 
 /* Define to 1 if you have the <string.h> header file. */
 #undef HAVE_STRING_H
+
+/* Define to 1 if `st_atimensec' is a member of `struct stat'. */
+#undef HAVE_STRUCT_STAT_ST_ATIMENSEC
+
+/* Define to 1 if `st_atimespec.tv_nsec' is a member of `struct stat'. */
+#undef HAVE_STRUCT_STAT_ST_ATIMESPEC_TV_NSEC
+
+/* Define to 1 if `st_atim.st__tim.tv_nsec' is a member of `struct stat'. */
+#undef HAVE_STRUCT_STAT_ST_ATIM_ST__TIM_TV_NSEC
+
+/* Define to 1 if `st_atim.tv_nsec' is a member of `struct stat'. */
+#undef HAVE_STRUCT_STAT_ST_ATIM_TV_NSEC
+
+/* Define to 1 if `tm_gmtoff' is a member of `struct tm'. */
+#undef HAVE_STRUCT_TM_TM_GMTOFF
+
+/* Define to 1 if you have the `symlink' function. */
+#undef HAVE_SYMLINK
 
 /* Define to 1 if you have the <sys/dir.h> header file, and it defines `DIR'.
    */
@@ -384,6 +453,9 @@
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #undef HAVE_SYS_STAT_H
 
+/* Define to 1 if you have the <sys/time.h> header file. */
+#undef HAVE_SYS_TIME_H
+
 /* Define to 1 if you have the <sys/types.h> header file. */
 #undef HAVE_SYS_TYPES_H
 
@@ -404,6 +476,9 @@
 
 /* Define to 1 if you have the <termio.h> header file. */
 #undef HAVE_TERMIO_H
+
+/* Define to 1 if you have the `truncate' function. */
+#undef HAVE_TRUNCATE
 
 /* Define to 1 if you have the <types.h> header file. */
 #undef HAVE_TYPES_H
@@ -429,6 +504,16 @@
 /* Define if wchar_t is present */
 #undef HAVE_WCHAR_T
 
+/* Define if your system has a working VirtualAlloc()-based memory allocator.
+   */
+#undef HAVE_WIN32_VM
+
+/* Define if your compiler supports __builtin_bswap16 */
+#undef HAVE___BUILTIN_BSWAP16
+
+/* Define if your compiler supports __builtin_bswap32 */
+#undef HAVE___BUILTIN_BSWAP32
+
 /* Define if you want to use direct access to host's fs */
 #undef HOSTFS_SUPPORT
 
@@ -450,16 +535,16 @@
 /* Define if you want to map the meta key to the emulated control key */
 #undef MAP_META_TO_CONTROL
 
-/* Define if using new debugger */
-#undef NEWDEBUG
-
 /* Define if you want to use Linux support as CD-ROM driver */
 #undef NFCDROM_LINUX_SUPPORT
 
 /* Define if you want to use host CD-ROM driver */
 #undef NFCDROM_SUPPORT
 
-/* Define if you want to use X11 clipboard */
+/* Define if you want to use Win32 support as CD-ROM driver */
+#undef NFCDROM_WIN32_SUPPORT
+
+/* Define if you want to use Clipboard */
 #undef NFCLIPBRD_SUPPORT
 
 /* Define if you want to use host JPEG decoder */
@@ -570,8 +655,9 @@
 /* Define to 1 if your <sys/time.h> declares `struct tm'. */
 #undef TM_IN_SYS_TIME
 
-/* Define if using UAE debugger */
-#undef UAEDEBUG
+/* Define to 1 if the type of the st_atim member of a struct stat is struct
+   timespec. */
+#undef TYPEOF_STRUCT_STAT_ST_ATIM_IS_STRUCT_TIMESPEC
 
 /* Define if you want to use host USB driver */
 #undef USBHOST_SUPPORT
@@ -581,6 +667,9 @@
 
 /* Define to use 33-bit memory addressing on 64-bit JIT capable systems. */
 #undef USE_33BIT_ADDRESSING
+
+/* Define if console framebuffer does not support changing host video mode */
+#undef USE_FIXED_CONSOLE_FBVIDEOMODE
 
 /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
    significant byte first (like Motorola and SPARC, unlike Intel). */
@@ -634,3 +723,7 @@
 #ifndef HAVE_CADDR_T
 typedef void * caddr_t;
 #endif
+
+
+#endif /* __ARANYM_CONFIG_H__ */
+
