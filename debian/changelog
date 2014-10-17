@@ -1,3 +1,11 @@
+aranym (1.0.1-1) unstable; urgency=medium
+
+  * [0f902ee] Imported Upstream version 1.0.1
+  * [268c57f] Re-enable JIT on kfreebsd
+  * [ca35c13] Disable usbhost on kfreebsd for now.
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Fri, 17 Oct 2014 12:29:50 +0200
+
 aranym (1.0.0-1) unstable; urgency=medium
 
   * [c3c80f6] Imported Upstream version 1.0.0
