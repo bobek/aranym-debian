@@ -1,3 +1,9 @@
+aranym (1.0.2-2) unstable; urgency=medium
+
+  * [1ac234e] Update autoconf configs (Closes: #727321)
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Mon, 20 Oct 2014 11:29:26 +0200
+
 aranym (1.0.2-1) unstable; urgency=medium
 
   * [dd0a61d] Imported Upstream version 1.0.2
