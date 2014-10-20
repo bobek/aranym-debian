@@ -37,6 +37,7 @@ ifeq (${DEB_HOST_ARCH_OS},hurd)
 	JIT_ENABLED = 0
 endif
 
+
 ifeq (${DEB_HOST_ARCH_OS},kfreebsd)
 	CF_USB = --disable-usbhost
 	JIT_ENABLED = 1
@@ -50,6 +51,7 @@ build-arch: build-stamp
 build-indep: build-stamp
 build-stamp:
 	dh_testdir
+	dh_autotools-dev_updateconfig
 
 	([ ! -f Makefile ] || $(MAKE) distclean)
 	(./configure --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE) --prefix=/usr ${CF_USB} && $(MAKE))
@@ -86,6 +88,7 @@ clean:
 
 	([ ! -f Makefile ] || $(MAKE) distclean)
 
+	dh_autotools-dev_restoreconfig
 	dh_clean
 
 install: build
